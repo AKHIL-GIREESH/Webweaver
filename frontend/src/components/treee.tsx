@@ -1,5 +1,7 @@
 import { useContext } from "react"
 import { WebBuilderSelectionContext } from "../providers/webBuilderSelectionProvider"
+import { Slider } from "@/components/ui/slider"
+import { cn } from "@/lib/utils"
 
 const Treee = () => {
 
@@ -11,10 +13,10 @@ const Treee = () => {
     const {item,update} = selectedElem
 
     return(
-        <div style={{width:"10vw",border:"1px solid",height:"100vh"}}>
+        <div className="w-[10vw] h-[100vh] border">
             {item?
-            <div>
-                {item.id}
+            <div className="mt-[10vh]">
+                <Slider defaultValue={[10]} max={100} step={1} />
             </div>
             :
             <p>Select an Element to edit</p>
