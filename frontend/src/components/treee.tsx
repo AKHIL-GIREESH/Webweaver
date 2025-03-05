@@ -16,7 +16,9 @@ const Treee = () => {
         <div className="w-[10vw] h-[100vh] border">
             {item?
             <div className="mt-[10vh]">
-                <Slider defaultValue={[10]} max={100} step={1} />
+                {item.id}
+                
+                <Slider defaultValue={[10]} max={100} step={1} className="bg-black mt-6"/>
             </div>
             :
             <p>Select an Element to edit</p>

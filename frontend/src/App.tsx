@@ -3,7 +3,7 @@ import Playground from './components/playground'
 import Sidebar from './components/sidebar'
 import Treee from './components/treee'
 import EditorProvider from './providers/editorProvider'
-import SideBarSelectionProvider from './providers/SideBarSelectionProvider'
+import SideBarSelectionProvider from './providers/sideBarSelectionProvider'
 import WebBuilderSelectionProvider from './providers/webBuilderSelectionProvider'
 
 function App() {

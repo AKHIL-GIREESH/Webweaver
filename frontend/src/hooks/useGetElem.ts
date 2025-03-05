@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { SideBarDrag } from "../providers/SideBarSelectionProvider"
+import { SideBarDrag } from "../providers/sideBarSelectionProvider"
 import { v4 as uuidv4 } from 'uuid';
 import { EditorContainerType, EditorElementType } from "../types/editor";
 
