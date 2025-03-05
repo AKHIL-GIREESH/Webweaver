@@ -2,11 +2,12 @@ import { EditorContext } from "@/providers/editorProvider"
 import { EditorContainerType, EditorElementType } from "@/types/editor"
 import { useContext } from "react"
 
-export const useSelectedElem = ({ parent, id }: { parent: string, id: string }) => {
+export const useSelectedElem = () => {
 
     const findElem = (container: EditorContainerType, parent: string, index: string): EditorContainerType | EditorElementType | null => {
-        if (container.id == parent) {
+        if (container.id == index) {
             if (Array.isArray(container.contents)) {
+                console.log(container)
                 return container
             }
         }
@@ -27,12 +28,13 @@ export const useSelectedElem = ({ parent, id }: { parent: string, id: string }) 
     }
 
     const { state } = editorContext
-    if (state !== null) {
-        console.log(findElem(state, parent, id))
+
+    if (!state) {
+        throw new Error("Elements empty")
     }
 
+    return { state, findElem }
 
 
 
-    return
 }
