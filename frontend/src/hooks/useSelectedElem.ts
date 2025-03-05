@@ -1,24 +1,22 @@
 import { EditorContext } from "@/providers/editorProvider"
 import { EditorContainerType, EditorElementType } from "@/types/editor"
-import { useContext } from "react"
+import React, { useContext } from "react"
 
 export const useSelectedElem = () => {
 
-    const findElem = (container: EditorContainerType, parent: string, index: string): EditorContainerType | EditorElementType | null => {
+    const findElem = (container: EditorContainerType, parent: string, index: string): EditorElementType | EditorContainerType | null => {
         if (container.id == index) {
-            if (Array.isArray(container.contents)) {
-                console.log(container)
-                return container
-            }
+            return container;
         }
 
         if (Array.isArray(container.contents)) {
             for (const item of container.contents) {
-                return findElem(item as EditorContainerType, parent, index);;
+                const found = findElem(item as EditorContainerType, parent, index);
+                if (found) return found;
             }
         }
 
-        return null
+        return null;
     }
 
     const editorContext = useContext(EditorContext)

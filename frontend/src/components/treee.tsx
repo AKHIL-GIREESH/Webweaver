@@ -36,6 +36,7 @@ const Treee = () => {
                 {item.id}
                 
                 <Slider defaultValue={[10]} max={100} step={1} className="bg-black mt-6"/>
+                {/* <button onClick="">Test</button> */}
             </div>
         </div>
     )
