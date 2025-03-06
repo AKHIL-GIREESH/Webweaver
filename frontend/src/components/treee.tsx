@@ -44,7 +44,7 @@ const Treee = () => {
                 
                 <Slider defaultValue={[10]} max={100} step={1} className="bg-black mt-6"/>
                 <button onClick={() => {
-                    treeElem && action({type:"updateStyle",parent:treeElem.parent,index:treeElem.id,style:treeElem.styles})
+                    treeElem && action({type:"updateStyle",parent:treeElem.parent,index:treeElem.id,style:{...treeElem.styles,backgroundColor:"green"}})
                 }}>Test</button>
             </div>
         </div>

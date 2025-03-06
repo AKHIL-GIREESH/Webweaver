@@ -22,6 +22,7 @@ const Component: React.FC<ComponentProps> = ({ contents, styles, kind, recFunc, 
     <>
         <div style={styles} onClick={(e) => {
             e.stopPropagation()
+            // console.log(e.target)
             update({parent:parent,id:id})
           }}>
             <TPlaceHolderArea parent={id} id={placeHolderArea} key={id+placeHolderArea} index={0}/>

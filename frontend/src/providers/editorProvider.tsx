@@ -24,7 +24,7 @@ const website:EditorContainerType = {
     }]
 }
 
-const findElemAndUpdate = (container:EditorContainerType,parent:string,index:number,newContainer:EditorContainerType | EditorElementType):boolean => {
+const findElemAndAdd = (container:EditorContainerType,parent:string,index:number,newContainer:EditorContainerType | EditorElementType):boolean => {
     if(container.id == parent){
         if (Array.isArray(container.contents)){
             container.contents.splice(index,0,newContainer)
@@ -34,7 +34,23 @@ const findElemAndUpdate = (container:EditorContainerType,parent:string,index:num
 
     if (Array.isArray(container.contents)) {
         for (const item of container.contents) {
-          const found:boolean = findElemAndUpdate(item as EditorContainerType, parent,index,newContainer);
+          const found:boolean = findElemAndAdd(item as EditorContainerType, parent,index,newContainer);
+          if (found) return found;
+        }
+      }
+
+    return false
+}
+
+const findElemAndUpdate = (container:EditorContainerType,parent:string,index:string,style:React.CSSProperties):boolean => {
+    if(container.id == index){
+        container.styles = style
+        return true
+    }
+
+    if (Array.isArray(container.contents)) {
+        for (const item of container.contents) {
+          const found:boolean = findElemAndUpdate(item as EditorContainerType, parent,index,style);
           if (found) return found;
         }
       }
@@ -44,17 +60,26 @@ const findElemAndUpdate = (container:EditorContainerType,parent:string,index:num
 
 const reducer = (state:EditorContainerType,action:Action) => {
     switch (action.type) {
-        case "addElement":
+        case "addElement": {
             const {parent,index,newContainer} = action
             if(!newContainer || typeof index !== "number"){
                 return state
             }
             const newState = JSON.parse(JSON.stringify(state));
-            findElemAndUpdate(newState,parent,index,newContainer)
+            findElemAndAdd(newState,parent,index,newContainer)
 
             return newState;
-        case "updateStyle":
-            return {...state}
+        }
+        case "updateStyle": {
+            const {parent,index,style} = action
+            if(!style || typeof index !== "string"){
+                return state
+            }
+            const newState = JSON.parse(JSON.stringify(state));
+            findElemAndUpdate(newState,parent,index,style)
+
+            return newState;
+        }
         default:
           return state;
       }
