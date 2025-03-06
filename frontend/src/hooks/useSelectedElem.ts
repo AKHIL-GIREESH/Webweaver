@@ -1,6 +1,6 @@
 import { EditorContext } from "@/providers/editorProvider"
 import { EditorContainerType, EditorElementType } from "@/types/editor"
-import React, { useContext } from "react"
+import { useContext } from "react"
 
 export const useSelectedElem = () => {
 

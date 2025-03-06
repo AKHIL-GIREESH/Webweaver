@@ -46,10 +46,15 @@ const reducer = (state:EditorContainerType,action:Action) => {
     switch (action.type) {
         case "addElement":
             const {parent,index,newContainer} = action
+            if(!newContainer || typeof index !== "number"){
+                return state
+            }
             const newState = JSON.parse(JSON.stringify(state));
             findElemAndUpdate(newState,parent,index,newContainer)
 
             return newState;
+        case "updateStyle":
+            return {...state}
         default:
           return state;
       }

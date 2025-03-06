@@ -1,5 +1,5 @@
 import { createContext, useState } from "react";
-import { elementKind, webBuilderSelection, webBuilderSelectionContext } from "../types/editor";
+import { webBuilderSelection, webBuilderSelectionContext } from "../types/editor";
 
 
 export const WebBuilderSelectionContext = createContext<webBuilderSelectionContext | null >(null)

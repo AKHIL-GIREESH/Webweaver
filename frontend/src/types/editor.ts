@@ -24,10 +24,11 @@ export type EditorContainerType = {
 }
 
 export type Action = {
-    type: "addElement"
+    type: "addElement" | "updateStyle"
     parent: string
-    index: number
-    newContainer: EditorContainerType | EditorElementType
+    index: number | string
+    newContainer?: EditorContainerType | EditorElementType
+    style?: React.CSSProperties
 }
 
 export type editorContextType = {
