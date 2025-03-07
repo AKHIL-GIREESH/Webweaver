@@ -84,6 +84,7 @@ func main() {
 	})
 
 	app.Post("/users", func(c fiber.Ctx) error {
+		fmt.Println(c)
 		user := new(User)
 		if err := c.Bind().JSON(user); err != nil {
 			return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
