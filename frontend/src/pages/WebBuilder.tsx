@@ -1,9 +1,9 @@
-import './App.css'
-import Playground from '../components/playground'
-import Sidebar from '../components/sidebar'
-import Treee from '../components/treee'
-import EditorProvider from '../providers/editorProvider'
-import SideBarSelectionProvider from '../providers/sideBarSelectionProvider'
+//import './App.css'
+import Playground from '../components/forWeb/playground'
+import Sidebar from '../components/forWeb/sidebar'
+import Treee from '../components/forWeb/treee'
+import EditorProvider from "../providers/editorProvider"
+import SideBarSelectionProvider from '../providers/webBuilderSelectionProvider'
 import WebBuilderSelectionProvider from '../providers/webBuilderSelectionProvider'
 
 function WebsiteBuilder() {
