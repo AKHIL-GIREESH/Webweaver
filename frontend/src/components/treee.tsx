@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { WebBuilderSelectionContext } from "../../providers/webBuilderSelectionProvider"
+import { WebBuilderSelectionContext } from "../providers/webBuilderSelectionProvider"
 import { Slider } from "@/components/ui/slider"
 import { useSelectedElem } from "@/hooks/useSelectedElem"
 import { EditorContext } from "@/providers/editorProvider"

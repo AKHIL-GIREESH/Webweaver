@@ -2,7 +2,7 @@
 
 //Entry Point of the Builder
 
-import Webplayground from "./webplayground"
+import Webplayground from "./forWeb/webplayground"
 
 const Playground = () => {
     return(
