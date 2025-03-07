@@ -1,10 +1,10 @@
 // import './App.css'
-import Playground from '../src/components/playground'
-import Sidebar from '../src/components/sidebar'
-import Treee from '../src/components/treee'
-import EditorProvider from '../src/providers/editorProvider'
-import SideBarSelectionProvider from '../src/providers/sideBarSelectionProvider'
-import WebBuilderSelectionProvider from '../src/providers/webBuilderSelectionProvider'
+import Playground from '../components/playground'
+import Sidebar from '../components/sidebar'
+import Treee from '../components/treee'
+import EditorProvider from '../providers/editorProvider'
+import SideBarSelectionProvider from '../providers/sideBarSelectionProvider'
+import WebBuilderSelectionProvider from '../providers/webBuilderSelectionProvider'
 
 function WebBuilder() {
 
