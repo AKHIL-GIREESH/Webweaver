@@ -12,6 +12,7 @@
   "dependencies": {
     "@radix-ui/react-slider": "^1.2.3",
     "@radix-ui/react-slot": "^1.1.2",
+    "@tailwindcss/postcss": "^0.0.0-insiders.7005ad7",
     "@tailwindcss/vite": "^4.0.9",
     "@tanstack/react-query": "^5.67.1",
     "class-variance-authority": "^0.7.1",
@@ -21,7 +22,7 @@
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.2.0",
     "tailwind-merge": "^3.0.2",
-    "tailwindcss": "^4.0.9",
+    "tailwindcss": "^0.0.0-insiders.7005ad7",
     "tailwindcss-animate": "^1.0.7",
     "uuid": "^11.1.0"
   },
