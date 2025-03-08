@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func connectDB() (*mongo.Collection, error) {
+func ConnectDB() (*mongo.Collection, error) {
 	var client *mongo.Client
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
