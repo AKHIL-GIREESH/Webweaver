@@ -5,15 +5,15 @@ import (
 	"time"
 
 	"github.com/AKHIL-GIREESH/Webweaver/database"
+	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
 	"go.mongodb.org/mongo-driver/bson"
 )
 
-type User struct {
-	Name string `json:"name" bson:"name"`
-}
+// type User struct {
+// 	Name string `json:"name" bson:"name"`
+// }
 
-// GetUsers fetches all users from MongoDB
 func GetUsers(c fiber.Ctx) error {
 	collection, err := database.ConnectDB() // Correct import for db connection
 	if err != nil {
@@ -37,14 +37,13 @@ func GetUsers(c fiber.Ctx) error {
 	return c.Status(200).JSON(users)
 }
 
-// CreateUser inserts a new user into MongoDB
 func CreateUser(c fiber.Ctx) error {
-	collection, err := database.ConnectDB() // Correct import for db connection
+	collection, err := database.ConnectDB()
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to retrieve collection"})
 	}
 
-	user := new(User)
+	user := new(model.User)
 	if err := c.Bind().JSON(user); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
