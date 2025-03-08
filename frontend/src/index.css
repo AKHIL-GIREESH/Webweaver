@@ -188,6 +188,6 @@ button:focus-visible {
   --color-gold-gradient2: linear-gradient(135deg, #ffd700, #e6b800, #b8860b, #8b6914);
   --color-light: #6b7280;
   --color-my-gold: #f0c14b;
-  --color-light: #1e1e1e;
+  /* --color-light: #1e1e1e; */
 
 }
