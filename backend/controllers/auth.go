@@ -89,7 +89,6 @@ func Login(c fiber.Ctx, collection *mongo.Collection) error {
 		})
 	}
 
-	// Generate token
 	token, err := jwtService.GenerateToken(user)
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
@@ -97,28 +96,8 @@ func Login(c fiber.Ctx, collection *mongo.Collection) error {
 		})
 	}
 
-	// Return token and user info
 	return c.JSON(fiber.Map{
 		"token": token,
 		"user":  user,
 	})
-	// insertUser, err := collection.InsertOne(context.Background(), user)
-	// if err != nil {
-	// 	return c.Status(500).JSON(fiber.Map{"error": "Failed to insert user"})
-	// }
-
-	// user.ID, _ = insertUser.InsertedID.(primitive.ObjectID)
-
-	// token, err := jwtService.GenerateToken(user)
-	// if err != nil {
-	// 	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
-	// 		"error": "Failed to generate token",
-	// 	})
-	// }
-
-	// return c.JSON(fiber.Map{
-	// 	"token": token,
-	// 	"user":  user,
-	// })
-
 }

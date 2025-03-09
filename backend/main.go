@@ -17,8 +17,9 @@ func main() {
 	// Access the collection directly when needed
 	userCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION"))
 
-	// Pass the collection to your controllers or routes
 	routes.UserRoutes(app, userCollection)
+
+	routes.AuthRoutes(app, userCollection)
 
 	log.Fatal(app.Listen(":3000"))
 }

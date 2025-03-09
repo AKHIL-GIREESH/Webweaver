@@ -1,13 +1,27 @@
 package middlewares
 
 import (
+	"fmt"
+	"os"
+	"time"
+
 	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
 )
 
-func JWTMiddleware(jwtService *model.JWTService) fiber.Handler {
+func JWTMiddleware() fiber.Handler {
+
+	jwtService := &model.JWTService{
+		Config: model.JWTConfig{
+			TokenSecret: os.Getenv("SECRET_KEY"),
+			TokenExp:    24 * time.Hour,
+		},
+	}
 	return func(c fiber.Ctx) error {
 		// Get the Authorization header
+
+		fmt.Println("Check 0")
+
 		authHeader := c.Get("Authorization")
 		if authHeader == "" {
 			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
@@ -24,6 +38,7 @@ func JWTMiddleware(jwtService *model.JWTService) fiber.Handler {
 
 		// Extract the token
 		tokenString := authHeader[7:]
+		fmt.Println(tokenString)
 
 		// Validate the token
 		claims, err := jwtService.ValidateToken(tokenString)
