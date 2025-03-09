@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var Client *mongo.Client // Global client for reuse
+var Client *mongo.Client
 
 func ConnectDB() {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)

@@ -22,6 +22,11 @@ type JWTService struct {
 	Config JWTConfig
 }
 
+type LoginSchema struct {
+	Email    string `bson:"email" json:"email" validate:"required,email"`
+	Password string `bson:"password" json:"password" validate:"required,min=3,max=30"`
+}
+
 func (s *JWTService) GenerateToken(user *User) (string, error) {
 	claims := &Claims{
 		UserID: user.ID,

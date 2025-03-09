@@ -7,6 +7,7 @@ import (
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -49,5 +50,75 @@ func SignUp(c fiber.Ctx, collection *mongo.Collection) error {
 		"token": token,
 		"user":  user,
 	})
+
+}
+
+func Login(c fiber.Ctx, collection *mongo.Collection) error {
+
+	jwtService := &model.JWTService{
+		Config: model.JWTConfig{
+			TokenSecret: os.Getenv("SECRET_KEY"),
+			TokenExp:    24 * time.Hour,
+		},
+	}
+
+	loginCreds := new(model.LoginSchema)
+	if err := c.Bind().JSON(loginCreds); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
+	}
+
+	user := new(model.User)
+
+	filter := bson.M{"email": loginCreds.Email}
+	err := collection.FindOne(context.Background(), filter).Decode(&user)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": "Invalid credentials",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Database error",
+		})
+	}
+
+	if user.Password != loginCreds.Password {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"error": "Invalid credentials",
+		})
+	}
+
+	// Generate token
+	token, err := jwtService.GenerateToken(user)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to generate token",
+		})
+	}
+
+	// Return token and user info
+	return c.JSON(fiber.Map{
+		"token": token,
+		"user":  user,
+	})
+	// insertUser, err := collection.InsertOne(context.Background(), user)
+	// if err != nil {
+	// 	return c.Status(500).JSON(fiber.Map{"error": "Failed to insert user"})
+	// }
+
+	// user.ID, _ = insertUser.InsertedID.(primitive.ObjectID)
+
+	// token, err := jwtService.GenerateToken(user)
+	// if err != nil {
+	// 	return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+	// 		"error": "Failed to generate token",
+	// 	})
+	// }
+
+	// return c.JSON(fiber.Map{
+	// 	"token": token,
+	// 	"user":  user,
+	// })
 
 }
