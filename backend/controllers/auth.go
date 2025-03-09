@@ -1,11 +1,11 @@
 package controllers
 
 import (
-	"fmt"
-	"time"
+	"context"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
-	"github.com/golang-jwt/jwt/v5"
+	"github.com/gofiber/fiber/v3"
+	"go.mongodb.org/mongo-driver/mongo"
 )
 
 func NewJWTService(config model.JWTConfig) *model.JWTService {
@@ -14,15 +14,23 @@ func NewJWTService(config model.JWTConfig) *model.JWTService {
 	}
 }
 
-func (s *model.JWTService) GenerateToken(user *model.User) (string, error) {
-	claims := &model.Claims{
-		UserID: user.ID,
-		RegisteredClaims: jwt.RegisteredClaims{
-			ExpiresAt: jwt.NewNumericDate(time.Now().Add(s.Config.TokenExp)),
-			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Subject:   fmt.Sprintf("%d", user.ID),
-		},
+func SignUp(c fiber.Ctx, collection *mongo.Collection) error {
+
+	var users []model.User
+	cursor, err := collection.Find(context.Background(), nil)
+	if err != nil {
+		return c.Status(500).JSON(fiber.Map{"error": "Failed to retrieve users"})
 	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString([]byte(s.Config.TokenSecret))
+	defer cursor.Close(context.Background())
+
+	for cursor.Next(context.Background()) {
+		var user model.User
+		if err := cursor.Decode(&user); err != nil {
+			return c.Status(500).JSON(fiber.Map{"error": "Error decoding user data"})
+		}
+		users = append(users, user)
+	}
+
+	return c.JSON(users)
+
 }

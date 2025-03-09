@@ -14,7 +14,7 @@ type JWTConfig struct {
 }
 
 type Claims struct {
-	UserID primitive.ObjectID `bson:"_id,omitempty" json:"id"`
+	UserID primitive.ObjectID `bson:"user_id,omitempty" json:"user_id"`
 	jwt.RegisteredClaims
 }
 
@@ -28,7 +28,6 @@ func (s *JWTService) GenerateToken(user *User) (string, error) {
 		RegisteredClaims: jwt.RegisteredClaims{
 			ExpiresAt: jwt.NewNumericDate(time.Now().Add(s.Config.TokenExp)),
 			IssuedAt:  jwt.NewNumericDate(time.Now()),
-			Subject:   fmt.Sprintf("%d", user.ID),
 		},
 	}
 
