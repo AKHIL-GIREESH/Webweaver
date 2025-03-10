@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useEffect, useMemo, useState } from "react";
 import { User, UserContextType } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";
 
