@@ -1,12 +1,12 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-// import { useMutation } from "react-query"
+import { useMutation } from "@tanstack/react-query"
 import { Link, useNavigate } from "react-router-dom"
-// import { Loader2 } from "lucide-react"
+import { Loader2 } from "lucide-react"
 import { useState } from "react"
 import { UserSignUpType } from "@/types/user"
-// import {signUp} from "../../api/signUp"
-// import {loginCall} from "../../api/login"
+import {signUp} from "../../api/signup"
+import {loginCall} from "../../api/login"
 
 const AuthLayout = ({login}:{login:boolean}) => {
 
@@ -32,20 +32,20 @@ const AuthLayout = ({login}:{login:boolean}) => {
         }
     }
 
-    // const {mutate:signUpMutate,isLoading} = useMutation({
-    //     mutationFn: async () => {
-    //         let newUser;
-    //         if(login){
-    //             console.log("hi")
-    //             newUser = await loginCall(loginData)
-    //         }else{
-    //             newUser = await signUp(signData)
-    //         }
-    //         console.log("newUser",newUser)
-    //         localStorage.setItem('user', JSON.stringify(newUser))
-    //         navi("/", { replace: true });
-    //     }
-    // })
+    const {mutate:signUpMutate,isPending} = useMutation({
+        mutationFn: async () => {
+            let newUser;
+            if(login){
+                console.log("hi")
+                newUser = await loginCall(loginData)
+            }else{
+                newUser = await signUp(signData)
+            }
+            console.log("newUser",newUser)
+            localStorage.setItem('user', JSON.stringify(newUser))
+            navi("/", { replace: true });
+        }
+    })
 
     // const {mutate:loginMutate,isLoading} = useMutation({
     //     mutationFn: async () => {
@@ -56,9 +56,9 @@ const AuthLayout = ({login}:{login:boolean}) => {
     //     }
     // })
 
-    // const signFunc = () => {
-    //     signUpMutate()
-    // }
+    const signFunc = () => {
+        signUpMutate()
+    }
 
     return(
         <>
@@ -67,8 +67,8 @@ const AuthLayout = ({login}:{login:boolean}) => {
                     {login?null:<><Input name="username" placeholder="username" className="border border-light  bg-lightt" value={signData.username} onChange={(e) => handleChange(e)}/><br/></>}
                     <Input name="email" placeholder="email" className="border border-light bg-lightt" value={login?loginData.email:signData.email} onChange={(e) => handleChange(e)}/><br/>
                     <Input name="password" placeholder="password" className="border border-light  bg-lightt" value={login?loginData.password:signData.password} onChange={(e) => handleChange(e)}/><br/><br/>
-                    {/* {isLoading?<Button className="bg-gold-gradient text-black font-bold" disabled>Loading
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button>:<Button className="bg-gold-gradient text-black font-bold" onClick={signFunc}>{login?"LOGIN":"SIGN UP"}</Button>} */}
+                    {isPending?<Button className="bg-gold-gradient text-black font-bold" disabled>Loading
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button>:<Button className="bg-gold-gradient text-black font-bold" onClick={signFunc}>{login?"LOGIN":"SIGN UP"}</Button>}
                 <Button variant="auth">{login?"LOGIN":"SIGN UP"}</Button>
                 </div>
                 <div className="border border-black w-[30vw] flex flex-col items-center justify-center bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b] text-black rounded-s-2xl rounded-e-md text-center">

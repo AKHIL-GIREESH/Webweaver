@@ -4,3 +4,11 @@ export type UserSignUpType = {
     username?: string
 }
 
+export type User = {
+    id: string,
+    username: string,
+    email: string,
+    followers: string[],
+    following: string[],
+    website: string[]
+}
