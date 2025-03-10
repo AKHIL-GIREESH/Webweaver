@@ -10,16 +10,14 @@ import (
 )
 
 func main() {
-	database.ConnectDB() // Initialize MongoDB connection
+	database.ConnectDB()
 
 	app := fiber.New()
 
-	// Access the collection directly when needed
 	userCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION"))
 
-	routes.UserRoutes(app, userCollection)
-
 	routes.AuthRoutes(app, userCollection)
+	routes.UserRoutes(app, userCollection)
 
 	log.Fatal(app.Listen(":3000"))
 }

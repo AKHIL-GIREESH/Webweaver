@@ -1,8 +1,6 @@
 package routes
 
 import (
-	"fmt"
-
 	"github.com/AKHIL-GIREESH/Webweaver/controllers"
 	"github.com/AKHIL-GIREESH/Webweaver/middlewares"
 	"github.com/gofiber/fiber/v3"
@@ -10,8 +8,9 @@ import (
 )
 
 func AuthRoutes(app *fiber.App, userCollection *mongo.Collection) {
-	app.Get("/me", middlewares.JWTMiddleware(), func(c fiber.Ctx) error {
-		fmt.Println("check")
+	authGroup := app.Group("/protected", middlewares.JWTCheckMiddleware())
+
+	authGroup.Get("/me", middlewares.JWTCheckMiddleware(), func(c fiber.Ctx) error {
 		return controllers.GetSelf(c)
 	})
 	app.Post("/signup", func(c fiber.Ctx) error {

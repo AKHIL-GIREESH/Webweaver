@@ -9,18 +9,17 @@ import (
 	"github.com/gofiber/fiber/v3"
 )
 
-func JWTMiddleware() fiber.Handler {
-
-	jwtService := &model.JWTService{
-		Config: model.JWTConfig{
-			TokenSecret: os.Getenv("SECRET_KEY"),
-			TokenExp:    24 * time.Hour,
-		},
-	}
+func JWTCheckMiddleware() fiber.Handler {
 	return func(c fiber.Ctx) error {
 		// Get the Authorization header
-
 		fmt.Println("Check 0")
+
+		jwtService := &model.JWTService{
+			Config: model.JWTConfig{
+				TokenSecret: os.Getenv("SECRET_KEY"),
+				TokenExp:    24 * time.Hour,
+			},
+		}
 
 		authHeader := c.Get("Authorization")
 		if authHeader == "" {
