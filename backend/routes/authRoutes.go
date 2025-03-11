@@ -11,7 +11,7 @@ func AuthRoutes(app *fiber.App, userCollection *mongo.Collection) {
 	authGroup := app.Group("/protected", middlewares.JWTCheckMiddleware())
 
 	authGroup.Get("/me", middlewares.JWTCheckMiddleware(), func(c fiber.Ctx) error {
-		return controllers.GetSelf(c)
+		return controllers.GetSelf(c, userCollection)
 	})
 	app.Post("/signup", func(c fiber.Ctx) error {
 		return controllers.SignUp(c, userCollection)

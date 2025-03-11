@@ -9,6 +9,7 @@ import (
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func GetUsers(c fiber.Ctx, collection *mongo.Collection) error {
@@ -31,11 +32,31 @@ func GetUsers(c fiber.Ctx, collection *mongo.Collection) error {
 	return c.JSON(users)
 }
 
-func GetSelf(c fiber.Ctx) error {
+func GetSelf(c fiber.Ctx, collection *mongo.Collection) error {
 	userID := c.Locals("userID")
-	return c.JSON(fiber.Map{
+
+	user := new(model.ReqUser)
+
+	filter := bson.M{"_id": userID}
+	projection := bson.M{"password": 0}
+	err := collection.FindOne(context.Background(), filter, options.FindOne().SetProjection(projection)).Decode(&user)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": "Invalid credentials",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Database error",
+		})
+	}
+
+	//reqUser = &model.ReqUser{ID:user.ID,Username:user.Username,Email:user.Email,}
+
+	return c.Status(200).JSON(fiber.Map{
 		"message": "Protected endpoint working",
-		"user_id": userID,
+		"user":    user,
 	})
 }
 

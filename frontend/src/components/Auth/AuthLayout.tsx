@@ -7,7 +7,7 @@ import { useState } from "react"
 import { UserSignUpType } from "@/types/user"
 import {signUp} from "../../api/signup"
 import {loginCall} from "../../api/login"
-import Cookies from "node_modules/@types/js-cookie"
+import Cookies from "js-cookie"
 
 const AuthLayout = ({login}:{login:boolean}) => {
 

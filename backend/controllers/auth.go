@@ -96,8 +96,10 @@ func Login(c fiber.Ctx, collection *mongo.Collection) error {
 		})
 	}
 
+	reqUser := &model.ReqUser{ID: user.ID, Username: user.Username, Email: user.Email, Description: user.Description, ProfilePic: user.ProfilePic, Banner: user.Banner, Liked: user.Liked, Following: user.Following, Followers: user.Followers, Websites: user.Websites}
+
 	return c.JSON(fiber.Map{
 		"token": token,
-		"user":  user,
+		"user":  reqUser,
 	})
 }
