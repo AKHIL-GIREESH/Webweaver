@@ -7,6 +7,7 @@ import { useState } from "react"
 import { UserSignUpType } from "@/types/user"
 import {signUp} from "../../api/signup"
 import {loginCall} from "../../api/login"
+import Cookies from "node_modules/@types/js-cookie"
 
 const AuthLayout = ({login}:{login:boolean}) => {
 
@@ -42,7 +43,8 @@ const AuthLayout = ({login}:{login:boolean}) => {
                 newUser = await signUp(signData)
             }
             console.log("newUser",newUser)
-            localStorage.setItem('user', JSON.stringify(newUser))
+            Cookies.set("token", newUser.token, { expires: 7 });
+            //localStorage.setItem('user', JSON.stringify(newUser))
             navi("/", { replace: true });
         }
     })

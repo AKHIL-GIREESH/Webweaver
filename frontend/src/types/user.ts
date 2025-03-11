@@ -19,11 +19,11 @@ export type UserWebsite = {
 export type User = {
     id: string,
     username: string,
-    pfp: string,
+    pfp?: string,
     email: string,
-    followers: string[],
-    following: string[],
-    website: string[]
+    followers?: string[],
+    following?: string[],
+    website?: string[]
 }
 
 export type UserContextType = {
