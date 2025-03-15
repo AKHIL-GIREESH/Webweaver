@@ -3,11 +3,13 @@ package controllers
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
 
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -60,6 +62,68 @@ func GetSelf(c fiber.Ctx, collection *mongo.Collection) error {
 	})
 }
 
-func FollowUser(c fiber.Ctx, collection *mongo.Collection) {
+func FollowUser(c fiber.Ctx, collection *mongo.Collection) error {
+	userID := c.Locals("userID")
+	followIDString := c.Params("id")
 
+	followID, err := primitive.ObjectIDFromHex(followIDString)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid follow ID"})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	updateUser := bson.M{"$addToSet": bson.M{"following": followID}}
+	userResult, err := collection.UpdateOne(ctx, bson.M{"_id": userID}, updateUser)
+	if err != nil {
+		log.Println("Error updating user's following list:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not follow user"})
+	}
+
+	updateFollowedUser := bson.M{"$addToSet": bson.M{"followers": userID}}
+	followResult, err := collection.UpdateOne(ctx, bson.M{"_id": followID}, updateFollowedUser)
+	if err != nil {
+		log.Println("Error updating followed user's followers list:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not update followers"})
+	}
+
+	return c.JSON(fiber.Map{
+		"message":        "User followed successfully",
+		"modifiedUser":   userResult,
+		"modifiedFollow": followResult,
+	})
+}
+
+func UnfollowUser(c fiber.Ctx, collection *mongo.Collection) error {
+	userID := c.Locals("userID")
+	followIDString := c.Params("id")
+
+	followID, err := primitive.ObjectIDFromHex(followIDString)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid follow ID"})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	updateUser := bson.M{"$pull": bson.M{"following": followID}}
+	userResult, err := collection.UpdateOne(ctx, bson.M{"_id": userID}, updateUser)
+	if err != nil {
+		log.Println("Error updating user's following list:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not follow user"})
+	}
+
+	updateFollowedUser := bson.M{"$pull": bson.M{"followers": userID}}
+	followResult, err := collection.UpdateOne(ctx, bson.M{"_id": followID}, updateFollowedUser)
+	if err != nil {
+		log.Println("Error updating followed user's followers list:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not update followers"})
+	}
+
+	return c.JSON(fiber.Map{
+		"message":        "User followed successfully",
+		"modifiedUser":   userResult,
+		"modifiedFollow": followResult,
+	})
 }
