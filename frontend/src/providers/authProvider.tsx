@@ -11,8 +11,6 @@ export const AuthContext = createContext<UserContextType | null >(null)
 const AuthProvider = ({children}:React.PropsWithChildren) => {
     const [user, setUser] = useState<null | User>(null);
 
-    console.log("State :",user,setUser)
-
     const {data,isLoading,isError} = useQuery({
         queryKey:["User"],
         queryFn: async () => {
@@ -27,6 +25,8 @@ const AuthProvider = ({children}:React.PropsWithChildren) => {
           setUser(data);
         }
     }, [data]);
+
+    console.log("State :",user)
 
     const UserContext = useMemo(() => ({
         user: user,

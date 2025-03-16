@@ -15,11 +15,10 @@ export const getUser = async (): Promise<User> => {
             }
         })
 
-        const respJSON = await response.json();
-        console.log(respJSON)
-        const { user } = respJSON
-        const data: User = { id: user.id, username: user.username, email: user.email, followers: user.followers, following: user.following, website: user.website, pfp: user.pfp }
-        return data
+        const { user } = await response.json();
+        console.log("Me : ", user)
+
+        return user
 
     } catch (e) {
         throw new Error("Unable to fetch user" + e)

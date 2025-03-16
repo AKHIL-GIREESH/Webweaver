@@ -8,6 +8,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Login from "./pages/Auth/Login.tsx"
 import SignUp from "./pages/Auth/SignUp.tsx"
 import Profile from './pages/Profile/Profile.tsx'
+import AuthProvider from './providers/authProvider.tsx'
 
 const queryClient = new QueryClient();
 
@@ -39,7 +40,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,
 )

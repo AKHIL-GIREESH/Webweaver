@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Link, useNavigate } from "react-router-dom"
 import { Loader2 } from "lucide-react"
 import { useState } from "react"
@@ -12,6 +12,7 @@ import Cookies from "js-cookie"
 const AuthLayout = ({login}:{login:boolean}) => {
 
     const navi = useNavigate()
+    const queryClient = useQueryClient();
 
     const [loginData,setLoginData] = useState({
         email:"",
@@ -42,8 +43,10 @@ const AuthLayout = ({login}:{login:boolean}) => {
             }else{
                 newUser = await signUp(signData)
             }
-            console.log("newUser",newUser)
-            Cookies.set("token", newUser.token, { expires: 7 });
+            const {token,user} = newUser
+            console.log("newUser",user)
+            Cookies.set("token",`Bearer ${token}`, { expires: 7 });
+            queryClient.invalidateQueries({queryKey:['User']})
             //localStorage.setItem('user', JSON.stringify(newUser))
             navi("/", { replace: true });
         }
@@ -69,9 +72,9 @@ const AuthLayout = ({login}:{login:boolean}) => {
                     {login?null:<><Input name="username" placeholder="username" className="border border-light  bg-lightt" value={signData.username} onChange={(e) => handleChange(e)}/><br/></>}
                     <Input name="email" placeholder="email" className="border border-light bg-lightt" value={login?loginData.email:signData.email} onChange={(e) => handleChange(e)}/><br/>
                     <Input name="password" placeholder="password" className="border border-light  bg-lightt" value={login?loginData.password:signData.password} onChange={(e) => handleChange(e)}/><br/><br/>
-                    {isPending?<Button className="bg-gold-gradient text-black font-bold" disabled>Loading
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button>:<Button className="bg-gold-gradient text-black font-bold" onClick={signFunc}>{login?"LOGIN":"SIGN UP"}</Button>}
-                <Button variant="auth">{login?"LOGIN":"SIGN UP"}</Button>
+                    {isPending?<Button variant="auth" disabled>Loading
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button>:<Button variant="auth" onClick={signFunc}>{login?"LOGIN":"SIGN UP"}</Button>}
+                {/* <Button variant="auth">{login?"LOGIN":"SIGN UP"}</Button> */}
                 </div>
                 <div className="border border-black w-[30vw] flex flex-col items-center justify-center bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b] text-black rounded-s-2xl rounded-e-md text-center">
                     <h2 className="font-bold text-3xl mb-2">{!login?"Login":"Create an Account"}</h2>
