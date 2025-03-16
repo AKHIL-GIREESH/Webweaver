@@ -1,7 +1,6 @@
 package middlewares
 
 import (
-	"fmt"
 	"os"
 	"time"
 
@@ -12,7 +11,6 @@ import (
 func JWTCheckMiddleware() fiber.Handler {
 	return func(c fiber.Ctx) error {
 		// Get the Authorization header
-		fmt.Println("Check 0")
 
 		jwtService := &model.JWTService{
 			Config: model.JWTConfig{
@@ -37,7 +35,6 @@ func JWTCheckMiddleware() fiber.Handler {
 
 		// Extract the token
 		tokenString := authHeader[7:]
-		fmt.Println(tokenString)
 
 		// Validate the token
 		claims, err := jwtService.ValidateToken(tokenString)

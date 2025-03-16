@@ -17,7 +17,7 @@ const Profile = () => {
     const { username, email, followers, following, website, pfp, banner, desc, twitter, github, personalWeb, linkedIn } = UserContext.user
 
     return (
-        <div className="flex flex-col w-[100vw] md:ml-[15vw] md:w-[85vw] min-h-[100vh] h-fit ">
+        <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
             <div className="h-[22vh] bg-lightt">
                 <img src={banner ? banner : "https://fontmeme.com/images/set-in-friz-bold.png"} className="h-full w-full cover" />
             </div>

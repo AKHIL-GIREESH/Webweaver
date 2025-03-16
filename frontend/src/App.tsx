@@ -1,8 +1,12 @@
+import { Outlet } from "react-router-dom"
+import MainSidebar from "./components/Layout/MainSidebar"
+
 const App = () => {
     return (
-        <>
-            App
-        </>
+        <div className="flex">
+            <MainSidebar />
+            <Outlet />
+        </div>
     )
 }
 
