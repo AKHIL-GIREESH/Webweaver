@@ -23,7 +23,13 @@ export type User = {
     email: string,
     followers?: string[],
     following?: string[],
-    website?: string[]
+    website?: string[],
+    likes?: string[],
+    desc?: string,
+    twitter?: string,
+    linkedIn?: string,
+    github?: string,
+    personalWeb?: string
 }
 
 export type UserContextType = {
