@@ -2,6 +2,8 @@ import { createContext, useEffect, useMemo, useState } from "react";
 import { User, UserContextType } from "@/types/user";
 import { useQuery } from "@tanstack/react-query";
 import { getUser } from "@/api/getUser";
+import Loading from "@/components/Layout/Loading";
+import Errorr from "@/components/Layout/Errorr";
 
 
 export const AuthContext = createContext<UserContextType | null >(null)
@@ -11,7 +13,7 @@ const AuthProvider = ({children}:React.PropsWithChildren) => {
 
     console.log("State :",user,setUser)
 
-    const {data,isLoading} = useQuery({
+    const {data,isLoading,isError} = useQuery({
         queryKey:["User"],
         queryFn: async () => {
             const theUser = await getUser()  
@@ -32,13 +34,12 @@ const AuthProvider = ({children}:React.PropsWithChildren) => {
     }), [user]);
     
     if(isLoading){
-        return(<h1>Loading...</h1>)
+        return <Loading/>
     }
-    
 
-    if(isLoading){
-        return(<h1>Loading...</h1>)
-      }
+    if(isError){
+        return <Errorr/>
+    }
     
     return (
         <AuthContext.Provider value={UserContext}>
