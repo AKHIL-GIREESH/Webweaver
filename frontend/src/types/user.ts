@@ -16,6 +16,13 @@ export type UserWebsite = {
     thumbnail: string
 }
 
+export type SocialIconTypes = {
+    twitter?: string,
+    linkedIn?: string,
+    github?: string,
+    personalWeb?: string,
+}
+
 export type User = {
     id: string,
     username: string,
@@ -26,11 +33,9 @@ export type User = {
     website?: string[],
     likes?: string[],
     desc?: string,
-    twitter?: string,
-    linkedIn?: string,
-    github?: string,
-    personalWeb?: string
-}
+    banner?: string,
+} & SocialIconTypes
+
 
 export type UserContextType = {
     user: User | null,
