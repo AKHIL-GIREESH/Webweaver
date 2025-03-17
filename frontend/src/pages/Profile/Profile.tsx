@@ -5,6 +5,7 @@ import SocialIcons from "@/components/Profile/SocialIcons";
 import WebCompLiked from "@/components/Profile/WebCompLiked";
 import Follow from "@/components/Profile/Follow";
 import { Link } from "react-router-dom";
+import defaultPfp from "../../assets/defaultpfp.webp"
 
 const Profile = () => {
 
@@ -19,11 +20,11 @@ const Profile = () => {
     return (
         <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
             <div className="h-[22vh] bg-lightt">
-                <img src={banner ? banner : "https://fontmeme.com/images/set-in-friz-bold.png"} className="h-full w-full cover" />
+                {banner && <img src={banner} className="h-full w-full cover" />}
             </div>
             <div className="h-fit self-center w-[92%] ">
                 <div className="flex justify-between mt-3 h-fit">
-                    <img className="h-[120px] w-[120px] rounded-full -translate-y-[60px]" src={pfp ? pfp : "https://i.pinimg.com/1200x/9f/16/72/9f1672710cba6bcb0dfd93201c6d4c00.jpg"}></img>
+                    <img className="h-[120px] w-[120px] rounded-full -translate-y-[60px]" src={pfp ? pfp : defaultPfp}></img>
                     {/* <button className="bg-white border border-none">Edit</button> */}
                     <Link to="./edit"><Button variant="edit">Edit Profile</Button></Link>
                 </div>

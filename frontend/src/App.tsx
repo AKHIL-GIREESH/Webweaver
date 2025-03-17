@@ -1,12 +1,15 @@
 import { Outlet } from "react-router-dom"
 import MainSidebar from "./components/Layout/MainSidebar"
+import AuthProvider from "./providers/authProvider"
 
 const App = () => {
     return (
-        <div className="flex">
-            <MainSidebar />
-            <Outlet />
-        </div>
+        <AuthProvider>
+            <div className="flex">
+                <MainSidebar />
+                <Outlet />
+            </div>
+        </AuthProvider>
     )
 }
 

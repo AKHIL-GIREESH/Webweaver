@@ -5,7 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-lightt: #1e1e1e
+  --color-lightt: #1e1e1e,
+
 }
 
 
@@ -114,6 +115,17 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.nav-icons {
+  @apply flex hover:bg-black p-5 justify-center gap-3 ;
+}
+
+.my-gradient {
+  background-image: linear-gradient(to bottom right, #ffd700, #f0c14b, #b8860b);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .dark {
