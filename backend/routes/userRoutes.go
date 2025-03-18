@@ -19,4 +19,8 @@ func UserRoutes(app *fiber.App, userCollection *mongo.Collection) {
 	UserGroup.Patch("/unfollow/:id", func(c fiber.Ctx) error {
 		return controllers.UnfollowUser(c, userCollection)
 	})
+
+	// app.Get("/editSelf",func(c fiber.Ctx) error{
+
+	// })
 }

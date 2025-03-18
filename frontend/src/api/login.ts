@@ -1,13 +1,13 @@
 import { UserSignUpType } from "../types/user"
 
-export const loginCall = async (signUpData: UserSignUpType) => {
+export const loginCall = async (authData: UserSignUpType) => {
     try {
-        const response = await fetch(`http://localhost:3000/api/v1/auth/login`, {
+        const response = await fetch(`http://localhost:3000/login`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(signUpData)
+            body: JSON.stringify(authData)
         })
 
         const respJSON = await response.json()
