@@ -37,10 +37,10 @@ const ProfileEdit = () => {
     const { username, email, followers, following, website, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
 
     return (
-        <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] min-h-[90vh] h-fit mt-[5vh] ">
+        <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] ">
             <p className="mb-[5vh] text-my-gold">EDIT YOUR PROFILE</p>
-            <EditImg banner={true} />
-            <EditImg banner={false} />
+            <EditImg banner={true} elem={banner} />
+            <EditImg banner={false} elem={pfp} />
             <div className="md:w-[50vw] font-semibold text-[1.2rem] mt-[5vh]">
                 USERNAME <Input className=" rounded bg-black border-light mb-[3vh]" name="username" value={username} onChange={handleChange} />
                 DESCRIPTION <Textarea className="rounded bg-black border-light resize-none mb-[3vh] min-h-[6rem]" name="desc" value={desc ? desc : ""} onChange={handleChange} />

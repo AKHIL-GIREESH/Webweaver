@@ -108,9 +108,9 @@ button:focus-visible {
     background-color: #ffffff;
   }
 
-  a:hover {
+  /* a:hover {
     color: #747bff;
-  }
+  } */
 
   /* button {
     background-color: #f9f9f9;
@@ -118,7 +118,7 @@ button:focus-visible {
 }
 
 .nav-icons {
-  @apply flex hover: bg-black p-5 justify-center gap-3;
+  @apply flex hover:bg-black p-5 justify-center gap-3;
 }
 
 .my-gradient {
