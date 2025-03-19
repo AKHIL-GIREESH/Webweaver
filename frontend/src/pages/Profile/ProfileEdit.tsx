@@ -9,11 +9,15 @@ import { FaLinkedin } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Button } from "@/components/ui/button"
+import { Link } from "react-router-dom"
+import { ArrowLeft } from "lucide-react"
 
 const ProfileEdit = () => {
 
     const UserContext = useContext(AuthContext)
     const [userState, setUserState] = useState<User | null>(null)
+    const [fileBanner, setFileBanner] = useState<File | null>(null)
+    const [filePfp, setFilePfp] = useState<File | null>(null)
 
     useEffect(() => {
         if (UserContext?.user) {
@@ -25,22 +29,37 @@ const ProfileEdit = () => {
         return <>Login to continue</>
     }
 
+    console.log(fileBanner)
+
 
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target
-        setUserState(prev => prev ? { ...prev, [name]: value } : prev)
+        setUserState((prev: User | null) => prev ? { ...prev, [name]: value } : prev)
     }
+
+    // const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     const { name, files } = e.target
+    //     const selectedFile = files ? files[0] : null
+    //     if (selectedFile) {
+    //         newFileSet(selectedFile)
+    //         //   setPreviewUrl(URL.createObjectURL(selectedFile))
+    //         setUserState(prev => prev ? { ...prev, [name]: URL.createObjectURL(selectedFile) } : prev)
+    //     }
+    // }
 
     console.log(userState)
     const { username, email, followers, following, website, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
 
     return (
         <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] ">
-            <p className="mb-[5vh] text-my-gold">EDIT YOUR PROFILE</p>
-            <EditImg banner={true} elem={banner} />
-            <EditImg banner={false} elem={pfp} />
+            <Link to="/me" className="flex justify-center items-center text-black mb-[5vh] w-[40px] min-h-[40px] rounded-full bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]">
+                <ArrowLeft />
+            </Link>
+            {/* <p className=" text-my-gold">EDIT YOUR PROFILE</p> */}
+            <EditImg banner={true} elem={banner} newFileSet={setFileBanner} setUserState={setUserState} />
+            <EditImg banner={false} elem={pfp} newFileSet={setFilePfp} setUserState={setUserState} />
             <div className="md:w-[50vw] font-semibold text-[1.2rem] mt-[5vh]">
                 USERNAME <Input className=" rounded bg-black border-light mb-[3vh]" name="username" value={username} onChange={handleChange} />
                 DESCRIPTION <Textarea className="rounded bg-black border-light resize-none mb-[3vh] min-h-[6rem]" name="desc" value={desc ? desc : ""} onChange={handleChange} />
@@ -69,9 +88,11 @@ const ProfileEdit = () => {
                 <Button variant='auth'>
                     Save
                 </Button>
-                <Button variant="inverse" style={{ backgroundColor: "white" }}>
-                    Cancel
-                </Button>
+                <Link to="/me">
+                    <Button variant="inverse" style={{ backgroundColor: "white" }}>
+                        Cancel
+                    </Button>
+                </Link>
             </div>
         </div>
     )
