@@ -22,9 +22,9 @@ const EditImg = ({ banner, elem, newFileSet, setUserState }: { banner: boolean, 
     return (
         <>
             <p className="font-semibold text-[1.2rem] mb-[3vh]">{banner ? "BANNER" : "DISPLAY PICTURE"}</p>
-            <div className={`relative overflow-hidden text-black ml-[0.2vw] outline-light outline-2 outline-dashed mb-[5vh] flex justify-center items-center ${banner ? `w-[95%] min-h-[22vh] rounded-[10px] "bg-black"}` : `min-h-[150px] w-[150px] rounded-full "bg-black"}`}`}>
-                <img className="h-[100%] w-[100%] cover border-0" src={elem ? elem : undefined} />
-                <div className="absolute flex justify-center items-center rounded-full w-[45px] h-[45px]  bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]">
+            <div className={`bg-black relative overflow-hidden text-black ml-[0.2vw] outline-light outline-2 outline-dashed mb-[5vh] flex justify-center items-center ${banner ? "w-[95%] min-h-[22vh] rounded-[10px]" : "min-h-[150px] w-[150px] rounded-full"}`}>
+                <img className={`h-[100%] w-[100%] cover bg-black ${elem ? "opacity-100" : "opacity-0"}`} src={elem} />
+                <div className=" absolute flex justify-center items-center rounded-full w-[45px] h-[45px]  bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]">
                     <input onChange={handleFileChange} name={banner ? "banner" : "pfp"} type="file" className=" hover:cursor-pointer absolute rounded-full w-[45px] h-[45px] opacity-0" />
                     {banner ? <Pencil /> : <UserPen />}
                 </div>
