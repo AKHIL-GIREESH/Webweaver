@@ -2,7 +2,7 @@ import { User } from "@/types/user"
 import { Pencil, UserPen } from "lucide-react"
 
 
-const EditImg = ({ banner, elem, newFileSet, setUserState }: { banner: boolean, elem: string | undefined, newFileSet: (elem: File) => void, setUserState: (elem: User | null) => void }) => {
+const EditImg = ({ banner, elem, newFileSet, setUserState }: { banner: boolean, elem: string | undefined, newFileSet: (elem: File) => void, setUserState: (elem: any) => void }) => {
 
     //const [file, setFile] = useState<File | null>(null)
     // console.log("ELEEEEM", elem)
@@ -14,7 +14,7 @@ const EditImg = ({ banner, elem, newFileSet, setUserState }: { banner: boolean, 
         if (selectedFile) {
             newFileSet(selectedFile)
             //   setPreviewUrl(URL.createObjectURL(selectedFile))
-            setUserState(prev => prev ? { ...prev, [name]: URL.createObjectURL(selectedFile) } : prev)
+            setUserState((prev: any) => prev ? { ...prev, [name]: URL.createObjectURL(selectedFile) } : prev)
         }
 
     }
