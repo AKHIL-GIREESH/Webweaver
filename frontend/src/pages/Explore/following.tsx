@@ -10,12 +10,12 @@ const Following = () => {
         return <>Login to continue</>
     }
 
-    const { liked } = UserContext.user
+    const { following } = UserContext.user
 
-    if (!liked || liked?.length === 0) {
+    if (!following || following?.length === 0) {
         return (
             <div>
-                You haven't liked any.<br />
+                You haven't followed any.<br />
                 <Link to="/explore"><Button variant="auth">Explore</Button></Link>
             </div>
         )
