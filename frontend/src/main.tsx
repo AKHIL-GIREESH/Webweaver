@@ -10,6 +10,11 @@ import SignUp from "./pages/Auth/SignUp.tsx"
 import Profile from './pages/Profile/Profile.tsx'
 import ProfileEdit from './pages/Profile/ProfileEdit.tsx'
 import Projects from './pages/WebsiteBuilder/Projects.tsx'
+import Explore from './pages/Explore/explore.tsx'
+import Favourite from './pages/Explore/favourites.tsx'
+import Following from './pages/Explore/following.tsx'
+import Dashboard from './pages/Host/dashboard.tsx'
+import Hosting from './pages/Host/hosting.tsx'
 
 const queryClient = new QueryClient();
 
@@ -34,6 +39,26 @@ const router = createBrowserRouter([
         path: "/websitebuilder/:id",
         element: <WebsiteBuilder />
       },
+      {
+        path: "/explore",
+        element: <Explore />
+      },
+      {
+        path: "/favourites",
+        element: <Favourite />
+      },
+      {
+        path: "/following",
+        element: <Following />
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard />
+      },
+      {
+        path: "/host",
+        element: <Hosting />
+      },
     ]
   },
   {
@@ -44,6 +69,7 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />
   },
+
 
 
 
