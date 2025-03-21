@@ -31,7 +31,7 @@ export type User = {
     followers?: string[],
     following?: string[],
     website?: string[],
-    likes?: string[],
+    liked?: string[],
     desc?: string,
     banner?: string,
 } & SocialIconTypes
