@@ -2,11 +2,14 @@ import { useContext } from "react"
 import logo from "../../assets/logo.webp"
 import defaultPfp from "../../assets/defaultpfp.webp"
 import { AuthContext } from "@/providers/authProvider"
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom"
 import { Blocks, ChartCandlestick, Compass, Globe, Heart, UserRoundCheck } from "lucide-react"
 
 
 const MainSidebar = () => {
+
+    const path = useLocation().pathname.slice(0, 15)
+    console.log(path)
 
     const UserContext = useContext(AuthContext)
 
@@ -17,7 +20,7 @@ const MainSidebar = () => {
     const { username, pfp } = UserContext.user
 
     return (
-        <div className="hidden md:flex flex-col w-[15vw] h-[100vh] border-r-1 border-light">
+        <div className={`hidden ${path === "/websitebuilder" ? "" : "md:flex"} flex-col w-[15vw] h-[100vh] border-r-1 border-light`}>
             <img src={logo} className="h-0 h-[8vh] mt-5" />
             <div className="flex flex-col h-[80vh] justify-evenly items-start">
                 <Link to="/" className="nav-icons">
