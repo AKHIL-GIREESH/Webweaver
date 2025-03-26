@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
@@ -47,4 +48,31 @@ func GetAllProjects(c fiber.Ctx, collection *mongo.Collection) error {
 	}
 
 	return c.JSON(projects)
+}
+
+func GetAProject(c fiber.Ctx, collection *mongo.Collection) error {
+
+	projectID := c.Params("id")
+	project := new(model.Website)
+
+	objectID, _ := primitive.ObjectIDFromHex(projectID)
+
+	fmt.Println(projectID)
+	filter := bson.M{"_id": objectID}
+	err := collection.FindOne(context.Background(), filter).Decode(&project)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+				"error": "No such project found",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Database error",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"Website": project,
+	})
 }

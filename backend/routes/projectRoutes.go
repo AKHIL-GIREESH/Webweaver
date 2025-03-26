@@ -22,6 +22,6 @@ func ProjectRoutes(app *fiber.App, projectCollection *mongo.Collection) {
 		return controllers.Login(c, projectCollection)
 	})
 	app.Get("/project/:id", func(c fiber.Ctx) error {
-		return controllers.Login(c, projectCollection)
+		return controllers.GetAProject(c, projectCollection)
 	})
 }
