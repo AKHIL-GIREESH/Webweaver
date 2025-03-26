@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"log"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
@@ -10,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 func CreateProject(c fiber.Ctx, collection *mongo.Collection) error {
@@ -57,7 +57,6 @@ func GetAProject(c fiber.Ctx, collection *mongo.Collection) error {
 
 	objectID, _ := primitive.ObjectIDFromHex(projectID)
 
-	fmt.Println(projectID)
 	filter := bson.M{"_id": objectID}
 	err := collection.FindOne(context.Background(), filter).Decode(&project)
 
@@ -74,5 +73,43 @@ func GetAProject(c fiber.Ctx, collection *mongo.Collection) error {
 
 	return c.JSON(fiber.Map{
 		"Website": project,
+	})
+}
+
+func EditAProject(c fiber.Ctx, collection *mongo.Collection) error {
+	projectID := c.Params("id")
+	objectID, _ := primitive.ObjectIDFromHex(projectID)
+
+	reqBody := new(model.Website)
+	if err := c.Bind().JSON(reqBody); err != nil {
+		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
+	}
+
+	filter := bson.M{"_id": objectID}
+	update := bson.M{
+		"$set": reqBody,
+	}
+
+	project := new(model.Website)
+	err := collection.FindOneAndUpdate(
+		context.TODO(),
+		filter,
+		update,
+		options.FindOneAndUpdate().SetReturnDocument(options.After),
+	).Decode(&project)
+
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+				"error": "Project not found",
+			})
+		}
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Error updating project",
+		})
+	}
+	return c.JSON(fiber.Map{
+		"message": "Project updated successfully",
+		"project": project,
 	})
 }
