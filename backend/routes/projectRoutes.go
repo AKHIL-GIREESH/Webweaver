@@ -12,7 +12,7 @@ func ProjectRoutes(app *fiber.App, projectCollection *mongo.Collection) {
 	app.Get("/project/", middlewares.JWTCheckMiddleware(), func(c fiber.Ctx) error {
 		return controllers.GetAllProjects(c, projectCollection)
 	})
-	app.Post("/project/:id", func(c fiber.Ctx) error {
+	app.Post("/project/", func(c fiber.Ctx) error {
 		return controllers.CreateProject(c, projectCollection)
 	})
 	app.Patch("/project/:id", func(c fiber.Ctx) error {
