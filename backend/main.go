@@ -24,11 +24,12 @@ func main() {
 
 	app.Use(cors.New())
 
-	userCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION"))
+	userCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION_USER"))
+	projectCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION_PROJECT"))
 
 	routes.AuthRoutes(app, userCollection)
 	routes.UserRoutes(app, userCollection)
-	routes.ProjectRoutes(app, userCollection)
+	routes.ProjectRoutes(app, projectCollection)
 
 	app.Post("/upload", func(c fiber.Ctx) error {
 		file, err := c.FormFile("upload")
