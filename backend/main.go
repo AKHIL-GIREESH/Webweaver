@@ -28,6 +28,7 @@ func main() {
 
 	routes.AuthRoutes(app, userCollection)
 	routes.UserRoutes(app, userCollection)
+	routes.ProjectRoutes(app, userCollection)
 
 	app.Post("/upload", func(c fiber.Ctx) error {
 		file, err := c.FormFile("upload")

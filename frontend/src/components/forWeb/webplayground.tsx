@@ -30,31 +30,33 @@ const Webplayground = () => {
 
   const editorContext = useContext(EditorContext)
 
-  if (!editorContext){
+  if (!editorContext) {
     throw new Error("Not initialised")
   }
 
-  const {state:website} = editorContext
+  const { state: website } = editorContext
 
-  if(!website){
+  console.log(website)
+
+  if (!website) {
     throw new Error("Website empty")
   }
 
-  const webBuilder = (prop:EditorContainerType | EditorElementType,index:number = 0) => {
-    if(prop.kind == "Elem"){
-      return (<Elem contents={prop.contents} styles={prop.styles} kind={prop.kind} parent={prop.parent} key={prop.id} id={prop.id} index={index}/>)
-    }else{
-      return(<Component contents={prop.contents} styles={prop.styles} kind={prop.kind} recFunc={webBuilder} parent={prop.parent} key={prop.id} id={prop.id} index={index}/>)
+  const webBuilder = (prop: EditorContainerType | EditorElementType, index: number = 0) => {
+    if (prop.kind == "Elem") {
+      return (<Elem contents={prop.contents} styles={prop.styles} kind={prop.kind} parent={prop.parent} key={prop.id} id={prop.id} index={index} />)
+    } else {
+      return (<Component contents={prop.contents} styles={prop.styles} kind={prop.kind} recFunc={webBuilder} parent={prop.parent} key={prop.id} id={prop.id} index={index} />)
     }
   }
 
   return (
-    <div style={{width:"80vw",height:"100vh"}}>Webplayground<br/>
-    {
-      webBuilder(website)
-    }
+    <div style={{ width: "80vw", height: "100vh" }}>Webplayground<br />
+      {
+        webBuilder(website)
+      }
     </div>
-    
+
   )
 }
 

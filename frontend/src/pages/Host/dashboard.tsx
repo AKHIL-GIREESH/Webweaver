@@ -16,7 +16,7 @@ const Dashboard = () => {
         return (
             <div>
                 You don't have any Projects<br />
-                <Link to="/explore"><Button variant="auth">Projects</Button></Link>
+                <Link to="/"><Button variant="auth">Projects</Button></Link>
             </div>
         )
     }

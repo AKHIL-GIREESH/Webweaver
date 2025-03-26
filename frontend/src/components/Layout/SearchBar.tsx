@@ -7,7 +7,7 @@ const Searchbar = ({ val, setVal, buttonAction }: { val: string, setVal: (text: 
         <div className="flex border border-light rounded-full max-w-[40vw]">
             <Input placeholder="Search" type="text" className="border-none" value={val} onChange={(e) => setVal(e.target.value)} />
             <Button onClick={() => buttonAction && buttonAction(val)}>
-                <Search className="hover:border-none" />
+                <Search className="active:none" />
             </Button>
         </div>)
 }

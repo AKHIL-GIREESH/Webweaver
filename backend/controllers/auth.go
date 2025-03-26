@@ -23,7 +23,7 @@ func SignUp(c fiber.Ctx, collection *mongo.Collection) error {
 	jwtService := &model.JWTService{
 		Config: model.JWTConfig{
 			TokenSecret: os.Getenv("SECRET_KEY"),
-			TokenExp:    24 * time.Hour,
+			TokenExp:    240 * time.Hour,
 		},
 	}
 

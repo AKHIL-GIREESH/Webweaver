@@ -10,7 +10,7 @@ type Website struct {
 	Thumbnail string             `bson:"thumbnail" json:"thumbnail"`
 	Author    FollowUser         `bson:"author,omitempty" json:"author,omitempty"`
 	Like      int                `bson:"like" json:"like"`
-	// Tags	string
+	Tags      []string           `bson:"tags" json:"tags"`
 }
 
 type WebsiteUser struct {

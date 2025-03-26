@@ -1,12 +1,12 @@
+import { useState } from "react"
+
 const WebCompLiked = () => {
+    const [selection, setSelection] = useState("WEBSITES")
     return (
         <div className="mt-[8vh] md:mt-[12vh]">
-            <div className="flex justify-evenly text-xl font-bold">
-                <p>WEBSITES</p>
-                <p>COMPONENTS</p>
-                <p>LIKED</p>
+            <div className="flex justify-center gap-10 font-medium">
+                {["WEBSITES", "COMPONENTS", "LIKED"].map(item => <p className="px-[30px] py-[10px] rounded-full bg-white text-black">{item}</p>)}
             </div>
-            <hr className="text-light" />
         </div>
     )
 }
