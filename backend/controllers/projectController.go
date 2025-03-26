@@ -113,3 +113,39 @@ func EditAProject(c fiber.Ctx, collection *mongo.Collection) error {
 		"project": project,
 	})
 }
+
+func DeleteAProject(c fiber.Ctx, collection *mongo.Collection) error {
+
+	projectID := c.Params("id")
+	if projectID == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Project ID is required",
+		})
+	}
+
+	objectID, err := primitive.ObjectIDFromHex(projectID)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid ID format",
+		})
+	}
+
+	filter := bson.M{"_id": objectID}
+
+	deleteResult, err := collection.DeleteOne(context.TODO(), filter)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Error deleting project",
+		})
+	}
+
+	if deleteResult.DeletedCount == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error": "Project not found",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "Project deleted successfully",
+	})
+}

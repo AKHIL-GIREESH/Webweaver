@@ -19,7 +19,7 @@ func ProjectRoutes(app *fiber.App, projectCollection *mongo.Collection) {
 		return controllers.EditAProject(c, projectCollection)
 	})
 	app.Delete("/project/:id", func(c fiber.Ctx) error {
-		return controllers.Login(c, projectCollection)
+		return controllers.DeleteAProject(c, projectCollection)
 	})
 	app.Get("/project/:id", func(c fiber.Ctx) error {
 		return controllers.GetAProject(c, projectCollection)
