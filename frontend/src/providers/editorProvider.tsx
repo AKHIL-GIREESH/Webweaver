@@ -1,12 +1,15 @@
 import React, { createContext, useReducer, useState } from "react";
 import { Action, EditorContainerType, editorContextType, EditorElementType, websiteContextData, websiteContextType } from "../types/editor";
 import { v4 as uuidv4 } from 'uuid'
+import { useQuery } from "@tanstack/react-query";
+import { getWebsite } from "@/api/getWebsite";
+import { useLocation } from "react-router-dom";
 
 export const EditorContext = createContext<editorContextType | null>(null)
 
 export const WebsiteContext = createContext<websiteContextType | null>(null)
 
-const website: EditorContainerType = {
+let website: EditorContainerType = {
     parent: "0",
     id: "1",
     styles: { border: "1px solid red", minHeight: "200px", width: "200px", height: "fit-content", resize: "both", overflow: "auto" },
@@ -88,13 +91,36 @@ const reducer = (state: EditorContainerType, action: Action) => {
 }
 
 const EditorProvider = ({ children }: React.PropsWithChildren) => {
+
+    const id = useLocation().pathname.split("/")[2]
+
     const [rest, setRest] = useState<websiteContextData>({
         title: "",
         tags: [],
         kind: "website"
     })
 
+    const { data, isLoading, error } = useQuery({
+        queryKey: ["getWebsite"],
+        queryFn: async () => {
+            const data = await getWebsite(id)
+            const { code, title, tags } = data.Website
+            if (data) {
+                website = code ? code : website
+                setRest({ ...rest, title: title, tags: tags ? tags : [] })
+            }
+            return data
+        },
+    });
+
+
+    //data && setRest({ ...rest, title: data.title, tags: data.tags })
+
     const [state, dispatch] = useReducer(reducer, website);
+
+    if (error) {
+        console.log(error)
+    }
 
     return (
         <WebsiteContext.Provider value={{
@@ -105,7 +131,8 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
                 state: state,
                 action: dispatch
             }}>
-                {children}
+                {isLoading && <div>Loading...</div>}
+                {data && children}
             </EditorContext.Provider>
         </WebsiteContext.Provider>
     )
