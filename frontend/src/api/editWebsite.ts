@@ -1,7 +1,9 @@
-export const createWebsite = async (webData: { title: string, author: string }) => {
+import { websiteAPIType } from "@/types/editor"
+
+export const updateWebsite = async (webData: websiteAPIType, id: string) => {
     try {
-        const response = await fetch(`http://localhost:3000/project/`, {
-            method: "POST",
+        const response = await fetch(`http://localhost:3000/project/${id}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
