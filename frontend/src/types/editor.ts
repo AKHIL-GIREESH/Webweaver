@@ -57,6 +57,8 @@ export type websiteContextType = {
     update: (val: websiteContextData) => void
 }
 
+export type websiteAPIType = websiteContextData & { website: EditorContainerType }
+
 // | 'section'
 // | 'contactForm'
 // | 'paymentForm'

@@ -1,16 +1,17 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { WebBuilderSelectionContext } from "../../providers/webBuilderSelectionProvider"
 import { Slider } from "@/components/ui/slider"
 import { useSelectedElem } from "@/hooks/useSelectedElem"
 import { EditorContext, WebsiteContext } from "@/providers/editorProvider"
 import { Input } from "../ui/input"
-import { websiteContextData } from "@/types/editor"
+import { Button } from "../ui/button"
 
 const Treee = () => {
 
     const selectedElem = useContext(WebBuilderSelectionContext)
     const editorContext = useContext(EditorContext)
     const websiteContext = useContext(WebsiteContext)
+    const [tag, setTag] = useState("");
 
     const { state, findElem } = useSelectedElem()
 
@@ -28,7 +29,7 @@ const Treee = () => {
     }
 
     const { item } = selectedElem
-    const { title } = webState
+    const { title, tags } = webState
 
     const outputHere = () => {
         if (!item) {
@@ -65,6 +66,25 @@ const Treee = () => {
                 value={title}
                 className="border"
                 onChange={(e) => update({ ...webState, title: e.target.value })} />
+            <br />
+            <br />
+            <div>
+                <Input
+                    type="text"
+                    name="tags"
+                    value={tag}
+                    onChange={(e) => setTag(e.target.value)}
+                />
+                <Button onClick={() => {
+                    update({ ...webState, tags: [...webState.tags, tag] })
+                    setTag("")
+                }}>ADD</Button>
+            </div>
+
+
+            {tags.map(item => <p className="bg-gray-500">{item}</p>)}
+            <br />
+            <br />
 
             {outputHere()}
 
