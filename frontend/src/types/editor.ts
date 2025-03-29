@@ -46,6 +46,17 @@ export type webBuilderSelectionContext = {
     update: (val: webBuilderSelection) => void
 }
 
+export type websiteContextData = {
+    title: string
+    tags: string[],
+    kind: "website" | "component"
+}
+
+export type websiteContextType = {
+    state: websiteContextData
+    update: (val: websiteContextData) => void
+}
+
 // | 'section'
 // | 'contactForm'
 // | 'paymentForm'
