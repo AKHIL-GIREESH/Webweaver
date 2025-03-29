@@ -3,6 +3,7 @@ package controllers
 import (
 	"context"
 	"log"
+	"time"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
@@ -12,20 +13,31 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func CreateProject(c fiber.Ctx, collection *mongo.Collection) error {
+func CreateProject(c fiber.Ctx, projectCollection *mongo.Collection, userCollection *mongo.Collection) error {
 	project := new(model.Website)
 	if err := c.Bind().JSON(project); err != nil {
 		return c.Status(400).JSON(fiber.Map{"error": "Invalid request"})
 	}
 
-	insertProject, err := collection.InsertOne(context.Background(), project)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	insertProject, err := projectCollection.InsertOne(ctx, project)
 	if err != nil {
 		return c.Status(500).JSON(fiber.Map{"error": "Failed to insert project"})
 	}
 
 	project.ID, _ = insertProject.InsertedID.(primitive.ObjectID)
 
-	return c.JSON(fiber.Map{
+	updateUser := bson.M{"$addToSet": bson.M{"websites": project.ID}}
+	insertProjectIntoUser, err := userCollection.UpdateOne(ctx, bson.M{"_id": project.Author}, updateUser)
+	if err != nil {
+		log.Println("Error updating user's following list:", err)
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Could not follow user"})
+	}
+
+	return c.Status(200).JSON(fiber.Map{
+		"author":  insertProjectIntoUser,
 		"website": project,
 	})
 }
