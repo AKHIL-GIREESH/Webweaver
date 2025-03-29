@@ -49,7 +49,8 @@ export type webBuilderSelectionContext = {
 export type websiteContextData = {
     title: string
     tags: string[],
-    kind: "website" | "component"
+    kind: "website" | "component",
+
 }
 
 export type websiteContextType = {
@@ -57,7 +58,7 @@ export type websiteContextType = {
     update: (val: websiteContextData) => void
 }
 
-export type websiteAPIType = websiteContextData & { website: EditorContainerType }
+export type websiteAPIType = websiteContextData & { website: EditorContainerType | null, author: string }
 
 // | 'section'
 // | 'contactForm'
