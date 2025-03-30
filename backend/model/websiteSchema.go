@@ -19,4 +19,5 @@ type WebsiteUser struct {
 	ID        primitive.ObjectID `bson:"_id" json:"_id"`
 	Title     string             `bson:"title" json:"title"`
 	Thumbnail string             `bson:"thumbnail" json:"thumbnail"`
+	Tags      []string           `bson:"tags,omitempty" json:"tags,omitempty"`
 }

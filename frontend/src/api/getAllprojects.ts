@@ -1,6 +1,6 @@
-export const getAllWebsites = async () => {
+export const getAllWebsites = async (id: string) => {
     try {
-        const response = await fetch(`http://localhost:3000/project/`, {
+        const response = await fetch(`http://localhost:3000/project/notuser/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

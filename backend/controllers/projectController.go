@@ -73,6 +73,7 @@ func GetAllProjects(c fiber.Ctx, websiteCollection *mongo.Collection, userCollec
 			ID:        website.ID,
 			Title:     website.Title,
 			Thumbnail: website.Thumbnail,
+			Tags:      website.Tags,
 		})
 	}
 
@@ -211,6 +212,7 @@ func GetWebsiteUsers(c fiber.Ctx, websiteCollection *mongo.Collection, userColle
 			ID:        website.ID,
 			Title:     website.Title,
 			Thumbnail: website.Thumbnail,
+			Tags:      website.Tags,
 		})
 	}
 

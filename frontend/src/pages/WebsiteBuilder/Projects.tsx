@@ -1,4 +1,5 @@
 import { getAllMyWebsites } from "@/api/getAllMyWebsites";
+import Errorr from "@/components/Layout/Errorr";
 import Loading from "@/components/Layout/Loading";
 import NewProjectCard from "@/components/Layout/NewProjectCard"
 import ProjectCard from "@/components/Layout/ProjectCard"
@@ -35,6 +36,10 @@ const Projects = () => {
 
     if (isLoading) {
         return <Loading />
+    }
+
+    if (error) {
+        return <Errorr />
     }
 
 
