@@ -63,8 +63,43 @@ const findElemAndUpdate = (container: EditorContainerType, parent: string, index
     return false
 }
 
+const findElemAndUpdateText = (container: EditorContainerType, parent: string, index: string, content: string): boolean => {
+    if (container.id === parent && container.contents) {
+        for (const item of container.contents) {
+            if (item.id === index) {
+                item.contents = content
+                return true
+            }
+        }
+    }
+
+    if (Array.isArray(container.contents)) {
+        for (const item of container.contents) {
+            const found: boolean = findElemAndUpdateText(item as EditorContainerType, parent, index, content);
+            if (found) return found;
+        }
+    }
+
+    return false
+}
+
+
+
 const reducer = (state: EditorContainerType, action: Action) => {
     switch (action.type) {
+        case "updateText":
+            console.log("check")
+            const { parent, index, content } = action
+            console.log(parent, index, content)
+            if (!content || typeof index !== "string" || !parent) {
+                return state
+            }
+
+            const newState = JSON.parse(JSON.stringify(state));
+            findElemAndUpdateText(newState, parent, index, content)
+
+            return newState;
+
         case "setWebsite":
             return action.website;
         case "addElement": {
