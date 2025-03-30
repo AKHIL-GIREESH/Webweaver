@@ -51,17 +51,17 @@ const Treee = () => {
         return (<div className="mt-[10vh]">
             {item.id}
 
-            <Slider defaultValue={[1]} max={1} step={0.1} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, opacity: value[0] } })} />
+            <Slider defaultValue={[Number(treeElem.styles.opacity) ?? 1]} max={1} step={0.1} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, opacity: value[0] } })} />
             <br />
-            <Input type="color" name="bg" className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: e.target.value } })} />
+            <Input type="color" name="bg" value={treeElem.styles.backgroundColor} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: e.target.value } })} />
             <br />
-            <Input type="color" name="fg" className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
+            <Input type="color" name="fg" value={treeElem.styles.color} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
             <br />
             <div className="flex justify-between">
-                <Input type="text" className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginTop: `${e.target.value}px` } })} />
-                <Input type="text" className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginBottom: `${e.target.value}px` } })} />
-                <Input type="text" className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginRight: `${e.target.value}px` } })} />
-                <Input type="text" className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginLeft: `${e.target.value}px` } })} />
+                <Input type="text" value={treeElem.styles.marginTop || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginTop: e.target.value } })} />
+                <Input type="text" value={treeElem.styles.marginBottom || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginBottom: e.target.value } })} />
+                <Input type="text" value={treeElem.styles.marginRight || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginRight: e.target.value } })} />
+                <Input type="text" value={treeElem.styles.marginLeft || 0} className="w-[25%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginLeft: e.target.value } })} />
             </div>
             <br />
             <button onClick={() =>
