@@ -32,6 +32,9 @@ const Treee = () => {
     const { title, tags } = webState
 
     const outputHere = () => {
+
+
+
         if (!item) {
             return (
                 <div>
@@ -42,13 +45,28 @@ const Treee = () => {
 
         const treeElem = findElem(state, item.parent, item.id)
         console.log(treeElem)
+        if (!treeElem) {
+            return <div>Invalid Elem</div>
+        }
         return (<div className="mt-[10vh]">
             {item.id}
 
-            <Slider defaultValue={[10]} max={100} step={1} className="bg-black mt-6" />
-            <button onClick={() => {
-                treeElem && action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
-            }}>Test</button>
+            <Slider defaultValue={[1]} max={1} step={0.1} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, opacity: value[0] } })} />
+            <br />
+            <Input type="color" name="bg" className="border border-none" />
+            <br />
+            <Input type="color" name="fg" className="border border-none" />
+            <br />
+            <div className="flex justify-between">
+                <Input type="text" className="w-[20%] h-auto" />
+                <Input type="text" className="w-[20%] h-auto" />
+                <Input type="text" className="w-[20%] h-auto" />
+                <Input type="text" className="w-[20%] h-auto" />
+            </div>
+            <br />
+            <button onClick={() =>
+                action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
+            }>Test</button>
         </div>)
 
     }
