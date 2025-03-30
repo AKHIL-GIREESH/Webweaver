@@ -6,7 +6,7 @@ import { Link } from "react-router-dom"
 // import { useContext } from "react"
 // import { useNavigate } from "react-router-dom"
 
-const ProjectCard = ({ id, title }: { id: string, title: string }) => {
+const ProjectCard = ({ _id, title }: { _id: string, title: string, thumbnail?: string }) => {
 
     // const { mutate: createProjectMutate, isPending, isError } = useMutation({
     //     mutationFn: async () => {
@@ -22,10 +22,10 @@ const ProjectCard = ({ id, title }: { id: string, title: string }) => {
     // })
 
     return (
-        <Link to={id}>
+        <Link to={`/websitebuilder/${_id}`}>
             <div className="flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px]">
                 <div className="h-[5vh] bg-gray-500">
-                    <p>Hello{title}</p>
+                    <p>{title}</p>
                 </div>
             </div>
         </Link>
