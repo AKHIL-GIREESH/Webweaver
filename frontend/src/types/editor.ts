@@ -24,11 +24,12 @@ export type EditorContainerType = {
 }
 
 export type Action = {
-    type: "addElement" | "updateStyle"
-    parent: string
-    index: number | string
+    type: "addElement" | "updateStyle" | "setWebsite"
+    parent?: string
+    index?: number | string
     newContainer?: EditorContainerType | EditorElementType
     style?: React.CSSProperties
+    website?: EditorContainerType
 }
 
 export type editorContextType = {
@@ -58,7 +59,7 @@ export type websiteContextType = {
     update: (val: websiteContextData) => void
 }
 
-export type websiteAPIType = websiteContextData & { website: EditorContainerType | null, author: string }
+export type websiteAPIType = websiteContextData & { code: EditorContainerType | null, author: string }
 
 // | 'section'
 // | 'contactForm'

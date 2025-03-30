@@ -65,9 +65,11 @@ const findElemAndUpdate = (container: EditorContainerType, parent: string, index
 
 const reducer = (state: EditorContainerType, action: Action) => {
     switch (action.type) {
+        case "setWebsite":
+            return action.website;
         case "addElement": {
             const { parent, index, newContainer } = action
-            if (!newContainer || typeof index !== "number") {
+            if (!newContainer || typeof index !== "number" || !parent) {
                 return state
             }
             const newState = JSON.parse(JSON.stringify(state));
@@ -77,7 +79,7 @@ const reducer = (state: EditorContainerType, action: Action) => {
         }
         case "updateStyle": {
             const { parent, index, style } = action
-            if (!style || typeof index !== "string") {
+            if (!style || typeof index !== "string" || !parent) {
                 return state
             }
             const newState = JSON.parse(JSON.stringify(state));
@@ -106,23 +108,30 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
             const data = await getWebsite(id)
             const { code, title, tags } = data.Website
             if (data) {
-                website = code ? code : website
+                dispatch({
+                    type: "setWebsite",
+                    website: code || website,
+                });
                 setRest({ ...rest, title: title, tags: tags ? tags : [] })
             }
             return data
         },
     });
 
-
-    //data && setRest({ ...rest, title: data.title, tags: data.tags })
-
     const [state, dispatch] = useReducer(reducer, website);
+
 
     if (error) {
         console.log(error)
     }
 
-    return (
+    if (isLoading) {
+        return <div>Loading...</div>
+    }
+
+
+
+    if (data) return (
         <WebsiteContext.Provider value={{
             state: rest,
             update: setRest
@@ -131,8 +140,7 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
                 state: state,
                 action: dispatch
             }}>
-                {isLoading && <div>Loading...</div>}
-                {data && children}
+                {children}
             </EditorContext.Provider>
         </WebsiteContext.Provider>
     )

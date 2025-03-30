@@ -23,7 +23,7 @@ const Sidebar = () => {
         mutationFn: async () => {
             let newProject
             if (UserContext.user) {
-                newProject = await updateWebsite({ ...websiteContext.state, website: editorContext.state, author: UserContext.user.id }, id)
+                newProject = await updateWebsite({ ...websiteContext.state, code: editorContext.state, author: UserContext.user.id }, id)
             }
             // const { token, user } = newUser
             console.log("newProject works : ", newProject)

@@ -1,42 +1,34 @@
-import { createWebsite } from "@/api/createWebsite"
-import { AuthContext } from "@/providers/authProvider"
-import { useMutation } from "@tanstack/react-query"
+// import { createWebsite } from "@/api/createWebsite"
+// import { AuthContext } from "@/providers/authProvider"
+// import { useMutation } from "@tanstack/react-query"
 import { Loader2, Plus, RotateCcw } from "lucide-react"
-import { useContext } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Link } from "react-router-dom"
+// import { useContext } from "react"
+// import { useNavigate } from "react-router-dom"
 
-const ProjectCard = () => {
+const ProjectCard = ({ id, title }: { id: string, title: string }) => {
 
-    const UserContext = useContext(AuthContext)
-    const navi = useNavigate()
+    // const { mutate: createProjectMutate, isPending, isError } = useMutation({
+    //     mutationFn: async () => {
+    //         let newProject
+    //         if (UserContext.user) {
+    //             newProject = await createWebsite({ title: "Untitled Project", author: UserContext.user.id })
+    //         }
+    //         // const { token, user } = newUser
+    //         console.log("newProject works : ", newProject)
+    //         navi(`/websitebuilder/${newProject.website._id}`)
 
-    if (!UserContext) {
-        throw new Error("error")
-    }
-
-    const { mutate: createProjectMutate, isPending, isError } = useMutation({
-        mutationFn: async () => {
-            let newProject
-            if (UserContext.user) {
-                newProject = await createWebsite({ title: "Untitled Project", author: UserContext.user.id })
-            }
-            // const { token, user } = newUser
-            console.log("newProject works : ", newProject)
-            navi(`/websitebuilder/${newProject.website._id}`)
-
-        }
-    })
+    //     }
+    // })
 
     return (
-        <div className="flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] outline-dashed bg-black rounded-[10px]">
-            <Link to="/websitebuilder/:id">
-                {isPending ?
-                    <div>Loading <Loader2 className="mr-2 h-4 w-4 animate-spin" /></div> :
-                    <div className="p-3 rounded-full bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]" onClick={() => createProjectMutate()}>
-                        {isError ? <RotateCcw /> : <Plus />}
-                    </div>}
-            </Link>
-        </div>
+        <Link to={id}>
+            <div className="flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px]">
+                <div className="h-[5vh] bg-gray-500">
+                    <p>Hello{title}</p>
+                </div>
+            </div>
+        </Link>
     )
 }
 
