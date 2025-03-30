@@ -101,6 +101,7 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
         tags: [],
         kind: "website"
     })
+    const [state, dispatch] = useReducer(reducer, website);
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["getWebsite"],
@@ -108,9 +109,10 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
             const data = await getWebsite(id)
             const { code, title, tags } = data.Website
             if (data) {
+                console.log(data)
                 dispatch({
                     type: "setWebsite",
-                    website: code || website,
+                    website: code ? code : website,
                 });
                 setRest({ ...rest, title: title, tags: tags ? tags : [] })
             }
@@ -118,7 +120,6 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
         },
     });
 
-    const [state, dispatch] = useReducer(reducer, website);
 
 
     if (error) {

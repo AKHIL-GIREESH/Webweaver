@@ -28,7 +28,7 @@ const NewProjectCard = () => {
     })
 
     return (
-        <div className="flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] outline-dashed bg-black rounded-[10px]">
+        <div className="ml-[6vw] flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] outline-dashed bg-black rounded-[10px]">
             {isPending ?
                 <div><Loader2 className="mr-2 h-4 w-4 animate-spin" /></div> :
                 <div className="p-3 rounded-full bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]" onClick={() => createProjectMutate()}>

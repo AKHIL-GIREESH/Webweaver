@@ -39,11 +39,13 @@ const Projects = () => {
 
 
     return (
-        <div className="m-5">
-            <p className="text-my-gold">PROJECTS</p>
+        <div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
+            <p className="m-4 ml-[6vw] text-my-gold">PROJECTS</p>
             <br />
-            <NewProjectCard />
-            {data.map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} />)}
+            <div className="flex flex-wrap justify-start ">
+                <NewProjectCard />
+                {data.map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} />)}
+            </div>
         </div>
     )
 }

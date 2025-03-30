@@ -22,9 +22,9 @@ const ProjectCard = ({ _id, title }: { _id: string, title: string, thumbnail?: s
     // })
 
     return (
-        <Link to={`/websitebuilder/${_id}`}>
-            <div className="flex items-center justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px]">
-                <div className="h-[5vh] bg-gray-500">
+        <Link to={`/websitebuilder/${_id}`} className="ml-[6vw] mb-[5vh]">
+            <div className="flex items-end justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px] overflow-hidden">
+                <div className="h-[6vh] w-[100%] bg-white text-black">
                     <p>{title}</p>
                 </div>
             </div>
