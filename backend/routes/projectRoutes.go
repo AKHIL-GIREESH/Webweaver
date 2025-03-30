@@ -23,4 +23,7 @@ func ProjectRoutes(app *fiber.App, projectCollection *mongo.Collection, userColl
 	app.Get("/project/:id", func(c fiber.Ctx) error {
 		return controllers.GetAProject(c, projectCollection)
 	})
+	app.Get("/project/user/:id", func(c fiber.Ctx) error {
+		return controllers.GetWebsiteUsers(c, projectCollection, userCollection)
+	})
 }

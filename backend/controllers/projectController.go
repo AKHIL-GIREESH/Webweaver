@@ -162,7 +162,7 @@ func DeleteAProject(c fiber.Ctx, collection *mongo.Collection) error {
 	})
 }
 
-func GetWebsiteUsers(c fiber.Ctx, userCollection *mongo.Collection, websiteCollection *mongo.Collection) error {
+func GetWebsiteUsers(c fiber.Ctx, websiteCollection *mongo.Collection, userCollection *mongo.Collection) error {
 	userID := c.Params("id")
 	objectID, _ := primitive.ObjectIDFromHex(userID)
 	user := new(model.User)
