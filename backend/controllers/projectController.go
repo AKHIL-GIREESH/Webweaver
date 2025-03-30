@@ -42,24 +42,42 @@ func CreateProject(c fiber.Ctx, projectCollection *mongo.Collection, userCollect
 	})
 }
 
-func GetAllProjects(c fiber.Ctx, collection *mongo.Collection) error {
-	var projects []model.Website
-	cursor, err := collection.Find(context.Background(), bson.M{})
+func GetAllProjects(c fiber.Ctx, websiteCollection *mongo.Collection, userCollection *mongo.Collection) error {
+	userID := c.Params("id")
+	objectID, _ := primitive.ObjectIDFromHex(userID)
+	user := new(model.User)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err := userCollection.FindOne(ctx, bson.M{"_id": objectID}).Decode(&user)
 	if err != nil {
-		log.Printf("Error retrieving projects: %v", err)
-		return c.Status(500).JSON(fiber.Map{"error": "Failed to retrieve projects"})
+		return err
 	}
-	defer cursor.Close(context.Background())
 
-	for cursor.Next(context.Background()) {
-		var project model.Website
-		if err := cursor.Decode(&project); err != nil {
-			return c.Status(500).JSON(fiber.Map{"error": "Error decoding project data"})
+	cursor, err := websiteCollection.Find(ctx, bson.M{"_id": bson.M{"$nin": user.Websites}})
+	if err != nil {
+		return err
+	}
+	defer cursor.Close(ctx)
+
+	var websiteUsers []model.WebsiteUser
+	for cursor.Next(ctx) {
+		var website model.Website
+		if err := cursor.Decode(&website); err != nil {
+			log.Println("Error decoding website:", err)
+			return err
 		}
-		projects = append(projects, project)
+
+		websiteUsers = append(websiteUsers, model.WebsiteUser{
+			ID:        website.ID,
+			Title:     website.Title,
+			Thumbnail: website.Thumbnail,
+		})
 	}
 
-	return c.JSON(projects)
+	return c.Status(200).JSON(websiteUsers)
+
 }
 
 func GetAProject(c fiber.Ctx, collection *mongo.Collection) error {

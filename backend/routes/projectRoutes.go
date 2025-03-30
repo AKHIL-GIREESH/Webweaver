@@ -9,7 +9,7 @@ import (
 func ProjectRoutes(app *fiber.App, projectCollection *mongo.Collection, userCollection *mongo.Collection) {
 
 	app.Get("/project/", func(c fiber.Ctx) error {
-		return controllers.GetAllProjects(c, projectCollection)
+		return controllers.GetAllProjects(c, projectCollection, userCollection)
 	})
 	app.Post("/project/", func(c fiber.Ctx) error {
 		return controllers.CreateProject(c, projectCollection, userCollection)
