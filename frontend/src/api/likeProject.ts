@@ -1,9 +1,18 @@
-export const likeProject = async (id: string) => {
+import Cookies from "js-cookie";
+
+export const likeProject = async (id: string, status: boolean) => {
     try {
-        const response = await fetch(`http://localhost:3000/user/like/${id}`, {
+        const url = status ? `http://localhost:3000/user/dislike/${id}` : `http://localhost:3000/user/like/${id}`
+        const token = Cookies.get("token")
+        console.log(token)
+        if (!token) {
+            throw new Error("Token not found");
+        }
+        const response = await fetch(url, {
             method: "PATCH",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": token
             },
         })
 

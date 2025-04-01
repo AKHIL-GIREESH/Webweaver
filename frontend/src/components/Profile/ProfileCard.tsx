@@ -5,7 +5,7 @@ import SocialIcons from "./SocialIcons"
 import WebCompLiked from "./WebCompLiked"
 import defaultPfp from "../../assets/defaultpfp.webp"
 
-const ProfileCard = ({ username, followers, following, website, pfp, banner, desc, twitter, github, personalWeb, linkedIn }: any) => {
+const ProfileCard = ({ username, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn }: any) => {
     return (
         <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
             <div className="h-[22vh] bg-lightt">

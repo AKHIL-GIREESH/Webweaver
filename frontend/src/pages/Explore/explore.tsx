@@ -56,7 +56,7 @@ const Explore = () => {
             <Searchbar val={val} setVal={setVal} />
             <br />
             <div className="flex flex-wrap justify-start ">
-                {data?.filter(({ title }: any) => title.toLowerCase().includes(val.toLowerCase())).map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} />)}
+                {data?.filter(({ title }: any) => title.toLowerCase().includes(val.toLowerCase())).map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} liked={UserContext?.user?.liked ? UserContext?.user?.liked?.includes(_id) : false} />)}
             </div>
         </div>
     )

@@ -12,7 +12,7 @@ export const useSetAuth = () => {
         throw new Error("Not initialised")
     }
 
-    const setAuth = (data: User) => {
+    const setAuth = (data: any) => {
         const { update } = context
         if (data === undefined) {
             throw new Error("Provide user");
