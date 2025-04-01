@@ -16,7 +16,12 @@ const Explore = () => {
         queryKey: ["getAllWebsites"],
         queryFn: async () => {
             if (UserContext && UserContext.user) {
-                const data = await getAllWebsites(UserContext.user.id)
+                let data
+                if (UserContext.user.website === undefined) {
+                    data = await getAllWebsites(UserContext.user.id, false)
+                } else {
+                    data = await getAllWebsites(UserContext.user.id, true)
+                }
                 // const { code, title, tags } = data.Website
                 // if (data) {
                 //     dispatch({

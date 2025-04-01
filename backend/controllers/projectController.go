@@ -219,3 +219,34 @@ func GetWebsiteUsers(c fiber.Ctx, websiteCollection *mongo.Collection, userColle
 	return c.Status(200).JSON(websiteUsers)
 
 }
+
+func LiterallyGetAllProjects(c fiber.Ctx, websiteCollection *mongo.Collection) error {
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cursor, err := websiteCollection.Find(ctx, bson.M{})
+	if err != nil {
+		return err
+	}
+	defer cursor.Close(ctx)
+
+	var websiteUsers []model.WebsiteUser
+	for cursor.Next(ctx) {
+		var website model.Website
+		if err := cursor.Decode(&website); err != nil {
+			log.Println("Error decoding website:", err)
+			return err
+		}
+
+		websiteUsers = append(websiteUsers, model.WebsiteUser{
+			ID:        website.ID,
+			Title:     website.Title,
+			Thumbnail: website.Thumbnail,
+			Tags:      website.Tags,
+		})
+	}
+
+	return c.Status(200).JSON(websiteUsers)
+
+}
