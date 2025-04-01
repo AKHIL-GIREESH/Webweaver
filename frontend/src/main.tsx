@@ -59,6 +59,10 @@ const router = createBrowserRouter([
         path: "/host",
         element: <Hosting />
       },
+      {
+        path: "/:id",
+
+      }
     ]
   },
   {
