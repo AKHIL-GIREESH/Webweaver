@@ -14,22 +14,13 @@ const Projects = () => {
     if (!UserContext || !UserContext.user) {
         return <>Login to continue</>
     }
-    console.log(UserContext.user.website)
-    if (UserContext.user.website === undefined) {
-        return (<div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
-            <p className="m-4 ml-[6vw] text-my-gold">PROJECTS</p>
-            <br />
-            <div className="flex justify-start ">
-                <NewProjectCard />
-            </div>
-        </div>)
-    }
 
     const { data, isLoading, error } = useQuery({
         queryKey: ["getUserWebsite"],
         queryFn: async () => {
-            if (UserContext.user) {
+            if (UserContext.user?.websites) {
                 const data = await getAllMyWebsites(UserContext.user.id)
+                console.log(data)
                 // const { code, title, tags } = data.Website
                 // if (data) {
                 //     dispatch({
@@ -39,7 +30,8 @@ const Projects = () => {
                 //     setRest({ ...rest, title: title, tags: tags ? tags : [] })
                 // }
                 return data
-
+            } else {
+                return null
             }
         },
     });
@@ -50,6 +42,17 @@ const Projects = () => {
 
     if (error) {
         return <Errorr />
+    }
+
+    console.log(data)
+    if (data === null) {
+        return (<div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
+            <p className="m-4 ml-[6vw] text-my-gold">PROJECTS</p>
+            <br />
+            <div className="flex justify-start ">
+                <NewProjectCard />
+            </div>
+        </div>)
     }
 
 

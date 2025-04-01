@@ -17,7 +17,7 @@ const Explore = () => {
         queryFn: async () => {
             if (UserContext && UserContext.user) {
                 let data
-                if (UserContext.user.website === undefined) {
+                if (UserContext.user.websites === undefined) {
                     data = await getAllWebsites(UserContext.user.id, false)
                 } else {
                     data = await getAllWebsites(UserContext.user.id, true)

@@ -30,7 +30,7 @@ export type User = {
     email: string,
     followers?: string[],
     following?: string[],
-    website?: string[],
+    websites?: string[],
     liked?: string[],
     desc?: string,
     banner?: string,
