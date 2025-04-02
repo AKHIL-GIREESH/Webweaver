@@ -5,6 +5,7 @@ import (
 	"log"
 	"time"
 
+	"github.com/AKHIL-GIREESH/Webweaver/model"
 	"github.com/gofiber/fiber/v3"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -73,4 +74,46 @@ func DislikeProject(c fiber.Ctx, collection *mongo.Collection) error {
 		"message":      "User disliked successfully",
 		"modifiedLike": userResult,
 	})
+}
+
+func GetLikedProjects(c fiber.Ctx, websiteCollection *mongo.Collection, userCollection *mongo.Collection) error {
+	userID := c.Params("id")
+	objectID, _ := primitive.ObjectIDFromHex(userID)
+	user := new(model.User)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err := userCollection.FindOne(ctx, bson.M{"_id": objectID}).Decode(&user)
+	if err != nil {
+		return err
+	}
+
+	cursor, err := websiteCollection.Find(ctx, bson.M{"_id": bson.M{"$in": user.Liked}})
+	if err != nil {
+		return err
+	}
+	defer cursor.Close(ctx)
+
+	var websiteUsers []model.WebsiteForComponent
+	for cursor.Next(ctx) {
+		var website model.Website
+		if err := cursor.Decode(&website); err != nil {
+			log.Println("Error decoding website:", err)
+			return err
+		}
+
+		websiteUsers = append(websiteUsers, model.WebsiteForComponent{
+			WebsiteUser: model.WebsiteUser{
+				ID:        website.ID,
+				Title:     website.Title,
+				Thumbnail: website.Thumbnail,
+				Tags:      website.Tags,
+			},
+			Code: website.Code,
+		})
+	}
+
+	return c.Status(200).JSON(websiteUsers)
+
 }

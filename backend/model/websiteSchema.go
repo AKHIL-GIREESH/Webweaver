@@ -22,8 +22,7 @@ type WebsiteUser struct {
 	Tags      []string           `bson:"tags,omitempty" json:"tags,omitempty"`
 }
 
-type WebsiteComponent struct {
-	ID    primitive.ObjectID     `bson:"_id" json:"_id"`
-	Title string                 `bson:"title" json:"title"`
-	Code  map[string]interface{} `bson:"code,omitempty" json:"code,omitempty"`
+type WebsiteForComponent struct {
+	WebsiteUser
+	Code map[string]interface{} `bson:"code,omitempty" json:"code,omitempty"`
 }
