@@ -62,6 +62,19 @@ export type websiteContextType = {
 
 export type websiteAPIType = websiteContextData & { code: EditorContainerType | null, author: string }
 
+export type likedProject = {
+    _id: string,
+    title: string,
+    code: EditorContainerType,
+    tags?: string[],
+    thumbnail?: string
+}
+
+export type communityComponentsContextType = {
+    state: likedProject[] | null,
+    update: (val: likedProject[]) => void
+}
+
 // | 'section'
 // | 'contactForm'
 // | 'paymentForm'
