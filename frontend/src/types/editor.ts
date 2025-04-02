@@ -1,6 +1,6 @@
 import React from "react"
 
-export type elementKind = 'Elem' | 'Container'
+export type elementKind = 'Elem' | 'Container' | string
 
 export type sideBarSelectionContext = {
     state: elementKind | null,

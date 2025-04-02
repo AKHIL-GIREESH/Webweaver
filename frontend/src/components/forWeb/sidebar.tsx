@@ -6,10 +6,12 @@ import { EditorContext, WebsiteContext } from "@/providers/editorProvider"
 import { useMutation } from "@tanstack/react-query"
 import { AuthContext } from "@/providers/authProvider"
 import { updateWebsite } from "@/api/editWebsite"
+import { CommunityComponentContext } from "@/providers/communityComponentsProvider"
 
 const Sidebar = () => {
     //const editorContext = useContext(EditorContext)
     const sideBarSelectionContext = useContext(SideBarDrag)
+    const communitysContext = useContext(CommunityComponentContext)
     const editorContext = useContext(EditorContext)
     const websiteContext = useContext(WebsiteContext)
     const UserContext = useContext(AuthContext)
@@ -32,6 +34,13 @@ const Sidebar = () => {
         }
     })
 
+    const displayCommunityComponents = () => {
+        if (!communitysContext) {
+            return <p>Like community components to add them to your project</p>
+        }
+        return communitysContext.map(({ _id, title }) => <button draggable onDrag={() => update(_id)}>{title}</button>)
+    }
+
     const { state, update } = sideBarSelectionContext
 
     // const {state,update} = editorContext
@@ -53,6 +62,7 @@ const Sidebar = () => {
                     Cancel
                 </Button>
             </Link>
+            {displayCommunityComponents()}
         </div>
     )
 }

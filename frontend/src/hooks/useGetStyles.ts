@@ -17,9 +17,7 @@ export const useGetStyles = () => {
         } else if (state == "Elem") {
             return { backgroundColor: "white", opacity: "50%", minHeight: "20px", width: "155px", color: "black" }
         } else {
-            return {
-
-            }
+            return { border: "1px solid", minHeight: "200px", width: "200px", height: "fit-content", backgroundColor: "white", opacity: "50%", color: "black" }
         }
     }
 
