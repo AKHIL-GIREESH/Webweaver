@@ -11,14 +11,10 @@ const Projects = () => {
 
     const UserContext = useContext(AuthContext)
 
-    if (!UserContext || !UserContext.user) {
-        return <>Login to continue</>
-    }
-
     const { data, isLoading, error } = useQuery({
         queryKey: ["getUserWebsite"],
         queryFn: async () => {
-            if (UserContext.user?.websites) {
+            if (UserContext && UserContext.user?.websites) {
                 const data = await getAllMyWebsites(UserContext.user.id)
                 console.log(data)
                 // const { code, title, tags } = data.Website
@@ -34,7 +30,13 @@ const Projects = () => {
                 return null
             }
         },
+        enabled: !!UserContext?.user,
     });
+
+    if (!UserContext || !UserContext.user) {
+        return <>Login to continue</>
+    }
+
 
     if (isLoading) {
         return <Loading />

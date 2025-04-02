@@ -18,9 +18,8 @@ const CommunityComponentsProvider = ({ children }: React.PropsWithChildren) => {
         queryFn: async () => {
             if (UserContext && UserContext.user) {
                 if (UserContext.user.liked === undefined || UserContext.user.liked.length === 0) {
-                    const data = await getLikedProjects(UserContext.user.id)
-                    console.log(data)
-                    return data
+
+                    return null
                 }
                 // if (UserContext.user.websites === undefined) {
                 //     data = await getAllWebsites(UserContext.user.id, false)
@@ -28,13 +27,22 @@ const CommunityComponentsProvider = ({ children }: React.PropsWithChildren) => {
                 //     data = await getAllWebsites(UserContext.user.id, true)
                 // }
                 else {
-                    return null
+                    const data = await getLikedProjects(UserContext.user.id)
+                    return data
                 }
 
             }
         },
+        enabled: !!UserContext?.user,
     });
 
+    useEffect(() => {
+        if (data) {
+            setCommunityComp(data)
+        }
+    }, [data])
+
+    console.log(data)
     if (!UserContext || !UserContext.user) {
         return <>Login to continue</>
     }
@@ -47,11 +55,7 @@ const CommunityComponentsProvider = ({ children }: React.PropsWithChildren) => {
         return <Errorr />
     }
 
-    useEffect(() => {
-        if (data) {
-            setCommunityComp(data)
-        }
-    }, [data])
+
     return (
         <CommunityComponentContext.Provider value={communityComp}>
             {children}
