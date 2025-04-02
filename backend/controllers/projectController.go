@@ -250,3 +250,41 @@ func LiterallyGetAllProjects(c fiber.Ctx, websiteCollection *mongo.Collection) e
 	return c.Status(200).JSON(websiteUsers)
 
 }
+
+func GetLikedProjects(c fiber.Ctx, websiteCollection *mongo.Collection, userCollection *mongo.Collection) error {
+	userID := c.Params("id")
+	objectID, _ := primitive.ObjectIDFromHex(userID)
+	user := new(model.User)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err := userCollection.FindOne(ctx, bson.M{"_id": objectID}).Decode(&user)
+	if err != nil {
+		return err
+	}
+
+	cursor, err := websiteCollection.Find(ctx, bson.M{"_id": bson.M{"$in": user.Liked}})
+	if err != nil {
+		return err
+	}
+	defer cursor.Close(ctx)
+
+	var websiteUsers []model.WebsiteComponent
+	for cursor.Next(ctx) {
+		var website model.Website
+		if err := cursor.Decode(&website); err != nil {
+			log.Println("Error decoding website:", err)
+			return err
+		}
+
+		websiteUsers = append(websiteUsers, model.WebsiteComponent{
+			ID:    website.ID,
+			Title: website.Title,
+			Code:  website.Code,
+		})
+	}
+
+	return c.Status(200).JSON(websiteUsers)
+
+}

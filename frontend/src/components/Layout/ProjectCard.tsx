@@ -39,7 +39,6 @@ const ProjectCard = ({ _id, title, liked }: { _id: string, title: string, thumbn
         }
     })
 
-    console.log(_id, liked)
     return (
         <Link to={`/websitebuilder/${_id}`} className="ml-[6vw] mb-[5vh]">
             <div className="relative flex items-end justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px] overflow-hidden">
