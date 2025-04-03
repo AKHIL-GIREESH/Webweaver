@@ -6,17 +6,19 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import FollowCard from "./followCard"
 
 
 export const FollowDialog = ({ following, dataList }: { following: boolean, dataList: string[] | null }) => {
     return (
         <Dialog>
             <DialogTrigger>{dataList ? dataList.length : 0} {following ? "Following" : "Followers"}</DialogTrigger>
-            <DialogContent>
+            <DialogContent className="bg-black rounded-[10px]">
                 <DialogHeader>
                     <DialogTitle>{following ? "Following" : "Followers"}</DialogTitle>
                     <DialogDescription>
-                        Nothing for now
+                        {dataList === null ? <p>{following ? "Not following Anybody" : "Get followers"}</p> :
+                            dataList.map(user => <FollowCard isfollowing={following} userData={user} />)}
                     </DialogDescription>
                 </DialogHeader>
             </DialogContent>
