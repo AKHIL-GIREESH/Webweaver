@@ -16,10 +16,10 @@ const Profile = () => {
         return <>Login to continue</>
     }
 
-    const { username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn } = UserContext.user
+    const { id, username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn } = UserContext.user
 
     return (
-        <ProfileCard username={username} followers={followers} following={following} websites={websites} pfp={pfp} banner={banner} desc={desc} twitter={twitter} github={github} personalWeb={personalWeb} linkedIn={linkedIn} />
+        <ProfileCard id={id} username={username} followers={followers} following={following} websites={websites} pfp={pfp} banner={banner} desc={desc} twitter={twitter} github={github} personalWeb={personalWeb} linkedIn={linkedIn} />
         // <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
         //     <div className="h-[22vh] bg-lightt">
         //         {banner && <img src={banner} className="h-full w-full cover" />}

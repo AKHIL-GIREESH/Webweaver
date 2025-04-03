@@ -1,12 +1,12 @@
 import Cookies from "js-cookie";
 
-const getFollowers = async (id: string) => {
+export const getFollow = async (id: string) => {
     try {
         const token = Cookies.get("token")
         if (!token) {
             throw new Error("Token not found");
         }
-        const response = await fetch(`http://localhost:3000/user/follow/${id}`, {
+        const response = await fetch(`http://localhost:3000/getfollow/${id}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -21,5 +21,3 @@ const getFollowers = async (id: string) => {
         throw new Error("Something went wrong: " + e)
     }
 }
-
-export default getFollowers

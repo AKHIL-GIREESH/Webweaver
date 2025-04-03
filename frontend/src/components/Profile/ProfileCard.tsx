@@ -5,7 +5,7 @@ import SocialIcons from "./SocialIcons"
 import WebCompLiked from "./WebCompLiked"
 import defaultPfp from "../../assets/defaultpfp.webp"
 
-const ProfileCard = ({ username, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn }: any) => {
+const ProfileCard = ({ id, username, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn }: any) => {
     return (
         <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
             <div className="h-[22vh] bg-lightt">
@@ -23,7 +23,7 @@ const ProfileCard = ({ username, followers, following, websites, pfp, banner, de
                         {desc ? <p className="md:mt-[10px]">{desc}</p> : null}
                         {/* <p className="md:mt-[10px] text-grey-400 italic">[ Tell the World about Yourself! Click 'Edit Profile' to add a description ]</p> */}
                         <br />
-                        <Follow followers={followers} following={following} />
+                        <Follow followers={followers} following={following} id={id} />
                     </div>
                     <SocialIcons personalWeb={personalWeb} linkedIn={linkedIn} github={github} twitter={twitter} />
                 </div>
