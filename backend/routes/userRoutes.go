@@ -25,6 +25,9 @@ func UserRoutes(app *fiber.App, userCollection *mongo.Collection) {
 	UserGroup.Patch("/dislike/:id", func(c fiber.Ctx) error {
 		return controllers.DislikeProject(c, userCollection)
 	})
+	app.Get("/getfollow/:id", func(c fiber.Ctx) error {
+		return controllers.GetAllFollowers(c, userCollection)
+	})
 
 	// app.Get("/editSelf",func(c fiber.Ctx) error{
 

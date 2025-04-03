@@ -127,3 +127,70 @@ func UnfollowUser(c fiber.Ctx, collection *mongo.Collection) error {
 		"modifiedFollow": followResult,
 	})
 }
+
+func GetAllFollowers(c fiber.Ctx, collection *mongo.Collection) error {
+	objectID := c.Params("id")
+	user := new(model.User)
+
+	userID, err := primitive.ObjectIDFromHex(objectID)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid follow ID"})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err = collection.FindOne(ctx, bson.M{"_id": userID}).Decode(&user)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	var followingUsers []model.FollowUser
+	if len(user.Following) > 0 {
+		cursor1, err := collection.Find(ctx, bson.M{"_id": bson.M{"$in": user.Following}})
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Error fetching following users"})
+		}
+		defer cursor1.Close(ctx)
+
+		for cursor1.Next(ctx) {
+			var user model.User
+			if err := cursor1.Decode(&user); err != nil {
+				log.Println("Error decoding user:", err)
+				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Error decoding following users"})
+			}
+			followingUsers = append(followingUsers, model.FollowUser{
+				ID:         user.ID,
+				Username:   user.Username,
+				ProfilePic: user.ProfilePic,
+			})
+		}
+	}
+
+	var followedUsers []model.FollowUser
+	if len(user.Followers) > 0 {
+		cursor2, err := collection.Find(ctx, bson.M{"_id": bson.M{"$in": user.Followers}})
+		if err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Error fetching follower users"})
+		}
+		defer cursor2.Close(ctx)
+
+		for cursor2.Next(ctx) {
+			var user model.User
+			if err := cursor2.Decode(&user); err != nil {
+				log.Println("Error decoding user:", err)
+				return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Error decoding follower users"})
+			}
+			followedUsers = append(followedUsers, model.FollowUser{
+				ID:         user.ID,
+				Username:   user.Username,
+				ProfilePic: user.ProfilePic,
+			})
+		}
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"followers": followedUsers,
+		"following": followingUsers,
+	})
+}
