@@ -15,6 +15,7 @@ import Favourite from './pages/Explore/favourites.tsx'
 import Following from './pages/Explore/following.tsx'
 import Dashboard from './pages/Host/dashboard.tsx'
 import Hosting from './pages/Host/hosting.tsx'
+import OtherProfile from './pages/Profile/OtherProfile.tsx'
 
 const queryClient = new QueryClient();
 
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />
   },
+  {
+    path: "/u/:id",
+    element: <OtherProfile />
+  }
 
 
 

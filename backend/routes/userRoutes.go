@@ -28,6 +28,9 @@ func UserRoutes(app *fiber.App, userCollection *mongo.Collection) {
 	app.Get("/getfollow/:id", func(c fiber.Ctx) error {
 		return controllers.GetAllFollowers(c, userCollection)
 	})
+	app.Get("/u/:id", func(c fiber.Ctx) error {
+		return controllers.GetAUser(c, userCollection)
+	})
 
 	// app.Get("/editSelf",func(c fiber.Ctx) error{
 

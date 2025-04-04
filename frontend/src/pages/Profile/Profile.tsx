@@ -1,11 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { AuthContext } from "@/providers/authProvider";
 import { useContext } from "react";
-import SocialIcons from "@/components/Profile/SocialIcons";
-import WebCompLiked from "@/components/Profile/WebCompLiked";
-import Follow from "@/components/Profile/Follow";
-import { Link } from "react-router-dom";
-import defaultPfp from "../../assets/defaultpfp.webp"
 import ProfileCard from "@/components/Profile/ProfileCard";
 
 const Profile = () => {

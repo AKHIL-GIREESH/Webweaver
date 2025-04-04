@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"context"
+	"fmt"
 	"log"
+	"strings"
 	"time"
 
 	"github.com/AKHIL-GIREESH/Webweaver/model"
@@ -192,5 +194,27 @@ func GetAllFollowers(c fiber.Ctx, collection *mongo.Collection) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
 		"followers": followedUsers,
 		"following": followingUsers,
+	})
+}
+
+func GetAUser(c fiber.Ctx, collection *mongo.Collection) error {
+	userName := c.Params("id")
+	user := new(model.User)
+
+	userName = strings.ReplaceAll(userName, "%20", " ")
+
+	fmt.Println(userName)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err := collection.FindOne(ctx, bson.M{"username": userName}).Decode(&user)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "User not found"})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "User followed successfully",
+		"user":    user,
 	})
 }
