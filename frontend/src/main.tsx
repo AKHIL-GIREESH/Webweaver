@@ -61,8 +61,8 @@ const router = createBrowserRouter([
         element: <Hosting />
       },
       {
-        path: "/:id",
-
+        path: "/u/:id",
+        element: <OtherProfile />
       }
     ]
   },
@@ -74,10 +74,7 @@ const router = createBrowserRouter([
     path: "/signup",
     element: <SignUp />
   },
-  {
-    path: "/u/:id",
-    element: <OtherProfile />
-  }
+
 
 
 

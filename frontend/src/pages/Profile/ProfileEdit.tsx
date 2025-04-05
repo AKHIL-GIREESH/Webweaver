@@ -50,7 +50,7 @@ const ProfileEdit = () => {
     // }
 
     console.log(userState)
-    const { username, email, followers, following, website, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
+    const { username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
 
     return (
         <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] ">

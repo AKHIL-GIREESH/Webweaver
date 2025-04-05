@@ -214,7 +214,7 @@ func GetAUser(c fiber.Ctx, collection *mongo.Collection) error {
 	}
 
 	return c.JSON(fiber.Map{
-		"message": "User followed successfully",
+		"message": "User fetched successfully",
 		"user":    user,
 	})
 }
