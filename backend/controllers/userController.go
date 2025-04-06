@@ -218,3 +218,30 @@ func GetAUser(c fiber.Ctx, collection *mongo.Collection) error {
 		"user":    user,
 	})
 }
+
+func GetUserByID(c fiber.Ctx, collection *mongo.Collection) error {
+	userID := c.Params("id")
+	user := new(model.User)
+
+	objID, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid user ID",
+		})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	err = collection.FindOne(ctx, bson.M{"_id": objID}).Decode(&user)
+	if err != nil {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error": "User not found",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message": "User fetched successfully",
+		"user":    user,
+	})
+}

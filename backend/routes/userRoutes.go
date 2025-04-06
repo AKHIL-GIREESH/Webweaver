@@ -31,6 +31,9 @@ func UserRoutes(app *fiber.App, userCollection *mongo.Collection) {
 	app.Get("/u/:id", func(c fiber.Ctx) error {
 		return controllers.GetAUser(c, userCollection)
 	})
+	app.Get("/uid/:id", func(c fiber.Ctx) error {
+		return controllers.GetUserByID(c, userCollection)
+	})
 
 	// app.Get("/editSelf",func(c fiber.Ctx) error{
 
