@@ -58,7 +58,23 @@ const Explore = () => {
             <Searchbar val={val} setVal={setVal} setTagList={setTagList} tagList={tagList} />
             <br />
             <div className="flex flex-wrap justify-start ">
-                {data?.filter(({ title }: any) => title.toLowerCase().includes(val.toLowerCase())).map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} liked={UserContext?.user?.liked ? UserContext?.user?.liked?.includes(_id) : false} />)}
+                {data?.filter(({ title, tags }: any) => {
+                    const matchesTitle = title.toLowerCase().includes(val.toLowerCase());
+
+                    const matchesTags = tagList.every(tag =>
+                        tags?.map((t: string) => t.toLowerCase()).includes(tag.toLowerCase())
+                    );
+
+                    return matchesTitle && matchesTags;
+                }).map(({ _id, title, thumbnail }: any) => (
+                    <ProjectCard
+                        key={_id}
+                        _id={_id}
+                        title={title}
+                        thumbnail={thumbnail}
+                        liked={UserContext?.user?.liked?.includes(_id) || false}
+                    />
+                ))}
             </div>
         </div>
     )
