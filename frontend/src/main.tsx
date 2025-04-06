@@ -12,10 +12,10 @@ import ProfileEdit from './pages/Profile/ProfileEdit.tsx'
 import Projects from './pages/WebsiteBuilder/Projects.tsx'
 import Explore from './pages/Explore/explore.tsx'
 import Favourite from './pages/Explore/favourites.tsx'
-import Following from './pages/Explore/following.tsx'
 import Dashboard from './pages/Host/dashboard.tsx'
 import Hosting from './pages/Host/hosting.tsx'
 import OtherProfile from './pages/Profile/OtherProfile.tsx'
+import Assets from './pages/Explore/assets.tsx'
 
 const queryClient = new QueryClient();
 
@@ -49,8 +49,8 @@ const router = createBrowserRouter([
         element: <Favourite />
       },
       {
-        path: "/following",
-        element: <Following />
+        path: "/assets",
+        element: <Assets />
       },
       {
         path: "/dashboard",

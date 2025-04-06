@@ -3,7 +3,7 @@ import { AuthContext } from "@/providers/authProvider"
 import { useContext } from "react"
 import { Link } from "react-router-dom"
 
-const Following = () => {
+const Assets = () => {
     const UserContext = useContext(AuthContext)
 
     if (!UserContext || !UserContext.user) {
@@ -22,4 +22,4 @@ const Following = () => {
     }
 }
 
-export default Following
+export default Assets

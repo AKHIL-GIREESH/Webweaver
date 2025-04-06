@@ -3,7 +3,7 @@ import logo from "../../assets/logo.webp"
 import defaultPfp from "../../assets/defaultpfp.webp"
 import { AuthContext } from "@/providers/authProvider"
 import { Link, useLocation } from "react-router-dom"
-import { Blocks, ChartCandlestick, Compass, Globe, Heart, UserRoundCheck } from "lucide-react"
+import { Blocks, ChartCandlestick, Compass, Database, Globe, Heart, UserRoundCheck } from "lucide-react"
 
 
 const MainSidebar = () => {
@@ -33,7 +33,7 @@ const MainSidebar = () => {
                     <Heart /> Favourites
                 </Link>
                 <Link to="/following" className="nav-icons">
-                    <UserRoundCheck className="text-gold" /> Following
+                    <Database className="text-gold" /> Assets
                 </Link>
                 <Link to="/dashboard" className="nav-icons">
                     <ChartCandlestick /> Dashboard

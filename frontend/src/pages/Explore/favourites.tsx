@@ -16,6 +16,7 @@ const Favourite = () => {
     if (!liked || liked?.length === 0) {
         return (
             <div>
+                <p>Handpicked By You</p>
                 You haven't liked any.<br />
                 <Link to="/explore"><Button variant="auth">Explore</Button></Link>
             </div>
