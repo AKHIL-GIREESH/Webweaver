@@ -5,6 +5,7 @@ import NewProjectCard from "@/components/Layout/NewProjectCard"
 import ProjectCard from "@/components/Layout/ProjectCard"
 import { AuthContext } from "@/providers/authProvider";
 import { useQuery } from "@tanstack/react-query";
+import { Blocks } from "lucide-react";
 import { useContext } from "react";
 
 const Projects = () => {
@@ -60,7 +61,9 @@ const Projects = () => {
 
     return (
         <div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
-            <p className="m-4 ml-[6vw] text-my-gold">PROJECTS</p>
+            <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-3 mt-5">
+                Your Creative Universe <Blocks />
+            </p>
             <br />
             <div className="flex flex-wrap justify-start ">
                 <NewProjectCard />

@@ -50,8 +50,8 @@ const Explore = () => {
 
 
     return (
-        <div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
-            <p className="text-my-gold m-5">EXPLORE</p>
+        <div className="max-h-[100vh] w-[85vw] overflow-y-scroll">
+            <p className="text-my-gold text-center">EXPLORE</p>
             <br />
             <Searchbar val={val} setVal={setVal} />
             <br />
