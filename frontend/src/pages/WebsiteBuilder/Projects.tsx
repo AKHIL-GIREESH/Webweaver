@@ -62,7 +62,7 @@ const Projects = () => {
     return (
         <div className=" max-h-[100vh] w-[85vw] overflow-y-scroll">
             <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-3 mt-5">
-                Your Creative Universe <Blocks />
+                Your Creative Universe
             </p>
             <br />
             <div className="flex flex-wrap justify-start ">

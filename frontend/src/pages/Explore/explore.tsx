@@ -9,6 +9,7 @@ import { useContext, useState } from "react"
 
 const Explore = () => {
     const [val, setVal] = useState("")
+    const [tagList, setTagList] = useState<string[]>([])
 
     const UserContext = useContext(AuthContext)
 
@@ -51,9 +52,10 @@ const Explore = () => {
 
     return (
         <div className="max-h-[100vh] w-[85vw] overflow-y-scroll">
-            <p className="text-my-gold text-center">EXPLORE</p>
+            <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-5 mt-5">Discover What Others Are Building</p>
+
             <br />
-            <Searchbar val={val} setVal={setVal} />
+            <Searchbar val={val} setVal={setVal} setTagList={setTagList} tagList={tagList} />
             <br />
             <div className="flex flex-wrap justify-start ">
                 {data?.filter(({ title }: any) => title.toLowerCase().includes(val.toLowerCase())).map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} liked={UserContext?.user?.liked ? UserContext?.user?.liked?.includes(_id) : false} />)}
