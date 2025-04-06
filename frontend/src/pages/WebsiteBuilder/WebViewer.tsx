@@ -1,52 +1,51 @@
-import { getAUser } from "@/api/getAUser"
+import { getUserById } from "@/api/getUserById"
 import { getWebsite } from "@/api/getWebsite"
 import TopDetailsBar from "@/components/forWeb/TopDetailsBar"
 import Errorr from "@/components/Layout/Errorr"
 import Loading from "@/components/Layout/Loading"
 import { useQuery } from "@tanstack/react-query"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 
 const WebViewer = () => {
-    const [allData, setAllData] = useState<any>(null)
-
     const { id } = useParams()
+    const [like, setLike] = useState<boolean>(false)
 
     const { data, isLoading, error } = useQuery({
-        queryKey: ["otherweb"],
+        queryKey: ["otherweb", id],
         queryFn: async () => {
-            if (id) {
-                const web = await getWebsite(id)
-                console.log(web)
-                const { author } = web.Website
-                console.log(author)
-                const user = await getAUser(author)
-                setAllData({
-                    web: web,
-                    author: user
-                })
+            if (!id) throw new Error("No ID found")
+            const web = await getWebsite(id)
+            const { author } = web.Website
+            const user = await getUserById(author)
+            return {
+                web,
+                author: user.user
             }
-        }
+        },
+        enabled: !!id, // only fetch when id exists
     })
 
-    if (isLoading && !allData) {
-        return <Loading />
-    }
+    useEffect(() => {
+        if (data?.author?.liked && data.web?.Website?._id) {
+            // console.log(data.author.liked.includes(data.web.Website._id))
+            setLike(data.author.liked.includes(data.web.Website._id))
+        }
+    }, [data])
 
-    if (error) {
-        console.log(error)
-        return <Errorr />
-    }
-
-    if (data && allData) {
+    if (isLoading) return <Loading />
+    if (error || !data) return <Errorr />
+    if (data) {
         return (
             <div>
                 <TopDetailsBar />
-                {allData.author.username}
-                {allData.web.title}
+                <p>{data.author.username}</p>
+                <p>{data.web.Website.title}</p>
+                <p>{like ? "True" : "False"}</p>
                 WebViewer
             </div>
         )
+
     }
 }
 
