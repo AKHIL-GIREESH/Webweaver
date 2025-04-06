@@ -73,6 +73,7 @@ const Explore = () => {
                         title={title}
                         thumbnail={thumbnail}
                         liked={UserContext?.user?.liked?.includes(_id) || false}
+                        self={false}
                     />
                 ))}
             </div>

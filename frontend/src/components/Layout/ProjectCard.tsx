@@ -11,7 +11,7 @@ import { Link, useNavigate } from "react-router-dom"
 // import { useContext } from "react"
 // import { useNavigate } from "react-router-dom"
 
-const ProjectCard = ({ _id, title, liked }: { _id: string, title: string, thumbnail?: string, liked: boolean }) => {
+const ProjectCard = ({ _id, title, liked, self }: { _id: string, title: string, thumbnail?: string, liked: boolean, self: boolean }) => {
 
     // const { mutate: createProjectMutate, isPending, isError } = useMutation({
     //     mutationFn: async () => {
@@ -40,7 +40,7 @@ const ProjectCard = ({ _id, title, liked }: { _id: string, title: string, thumbn
     })
 
     return (
-        <Link to={`/websitebuilder/${_id}`} className="ml-[6vw] mb-[5vh]">
+        <Link to={self ? `/websitebuilder/${_id}` : `/view/${_id}`} className="ml-[6vw] mb-[5vh]">
             <div className="flex items-end outline-light outline-2 h-[35vh] w-[30vw] bg-[#121212] rounded-[10px] overflow-hidden">
 
                 <div className="flex items-center justify-between h-[6vh] w-[100%] bg-[#f0f0f0] text-black">

@@ -67,7 +67,7 @@ const Projects = () => {
             <br />
             <div className="flex flex-wrap justify-start ">
                 <NewProjectCard />
-                {data.map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} liked={UserContext?.user?.liked ? UserContext?.user?.liked?.includes(_id) : false} />)}
+                {data.map(({ _id, title, thumbnail }: any) => <ProjectCard _id={_id} title={title} thumbnail={thumbnail} liked={UserContext?.user?.liked ? UserContext?.user?.liked?.includes(_id) : false} self={true} />)}
             </div>
         </div>
     )

@@ -32,7 +32,7 @@ const MainSidebar = () => {
                 <Link to="/favourites" className="nav-icons">
                     <Heart /> Favourites
                 </Link>
-                <Link to="/following" className="nav-icons">
+                <Link to="/assets" className="nav-icons">
                     <Database className="text-gold" /> Assets
                 </Link>
                 <Link to="/dashboard" className="nav-icons">
