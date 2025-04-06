@@ -41,15 +41,16 @@ const ProjectCard = ({ _id, title, liked }: { _id: string, title: string, thumbn
 
     return (
         <Link to={`/websitebuilder/${_id}`} className="ml-[6vw] mb-[5vh]">
-            <div className="relative flex items-end justify-center outline-light outline-2 h-[35vh] w-[30vw] bg-black rounded-[10px] overflow-hidden">
-                <div className="absolute top-0 right-0" onClick={(e) => {
-                    e.preventDefault()
-                    likeProjectMutate()
-                }}>
-                    {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : isError ? <RotateCcw /> : <Heart className={`${liked ? "text-my-gold" : null}`} />}
-                </div>
-                <div className="h-[6vh] w-[100%] bg-white text-black">
-                    <p>{title}</p>
+            <div className="flex items-end outline-light outline-2 h-[35vh] w-[30vw] bg-[#121212] rounded-[10px] overflow-hidden">
+
+                <div className="flex items-center justify-between h-[6vh] w-[100%] bg-[#f0f0f0] text-black">
+                    <p className="ml-5 font-semibold">{title}</p>
+                    <div className="mr-5" onClick={(e) => {
+                        e.preventDefault()
+                        likeProjectMutate()
+                    }}>
+                        {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : isError ? <RotateCcw /> : <Heart className={`${liked ? "text-my-gold" : null}`} />}
+                    </div>
                 </div>
             </div>
         </Link>

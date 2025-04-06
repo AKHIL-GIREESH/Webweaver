@@ -53,7 +53,7 @@ const ProfileEdit = () => {
     const { username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
 
     return (
-        <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] ">
+        <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] text-[#f0f0f0]">
             <Link to="/me" className="flex justify-center items-center text-black mb-[5vh] w-[40px] min-h-[40px] rounded-full bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]">
                 <ArrowLeft />
             </Link>
@@ -61,26 +61,26 @@ const ProfileEdit = () => {
             <EditImg banner={true} elem={banner} newFileSet={setFileBanner} setUserState={setUserState} />
             <EditImg banner={false} elem={pfp} newFileSet={setFilePfp} setUserState={setUserState} />
             <div className="md:w-[50vw] font-semibold text-[1.2rem] mt-[5vh]">
-                USERNAME <Input className=" rounded bg-black border-light mb-[3vh]" name="username" value={username} onChange={handleChange} />
-                DESCRIPTION <Textarea className="rounded bg-black border-light resize-none mb-[3vh] min-h-[6rem]" name="desc" value={desc ? desc : ""} onChange={handleChange} />
-                EMAIL <Input className="rounded bg-black border-light mb-[5vh]" name="email" value={email} onChange={handleChange} />
+                USERNAME <Input className=" rounded bg-[#121212] border-light mb-[3vh]" name="username" value={username} onChange={handleChange} />
+                DESCRIPTION <Textarea className="rounded bg-[#121212] border-light resize-none mb-[3vh] min-h-[6rem]" name="desc" value={desc ? desc : ""} onChange={handleChange} />
+                EMAIL <Input className="rounded bg-[#121212] border-light mb-[5vh]" name="email" value={email} onChange={handleChange} />
                 <div>
                     <p>SOCIAL ACCOUNTS</p>
                     <div className="flex items-center gap-3 mb-[2vh] mt-[1vh]">
                         <FaLink className="text-[20px]" />
-                        <Input className="rounded bg-black border-light " name="personalWeb" value={personalWeb ? personalWeb : ""} onChange={handleChange} />
+                        <Input className="rounded bg-[#121212] border-light " name="personalWeb" value={personalWeb ? personalWeb : ""} onChange={handleChange} />
                     </div>
                     <div className="flex items-center gap-3 mb-[2vh]">
                         <FaGithub className="text-[20px]" />
-                        <Input className="rounded bg-black border-light" name="github" value={github ? github : ""} onChange={handleChange} />
+                        <Input className="rounded bg-[#121212] border-light" name="github" value={github ? github : ""} onChange={handleChange} />
                     </div>
                     <div className="flex items-center gap-3 mb-[2vh]">
                         <FaXTwitter className="text-[20px]" />
-                        <Input className="rounded bg-black border-light" name="twitter" value={twitter ? twitter : ""} onChange={handleChange} />
+                        <Input className="rounded bg-[#121212] border-light" name="twitter" value={twitter ? twitter : ""} onChange={handleChange} />
                     </div>
                     <div className="flex items-center gap-3 mb-[5vh]">
                         <FaLinkedin className="text-[20px]" />
-                        <Input className="rounded bg-black border-light" name="linkedIn" value={linkedIn ? linkedIn : ""} onChange={handleChange} />
+                        <Input className="rounded bg-[#121212] border-light" name="linkedIn" value={linkedIn ? linkedIn : ""} onChange={handleChange} />
                     </div>
                 </div>
             </div>

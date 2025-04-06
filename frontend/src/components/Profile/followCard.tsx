@@ -19,11 +19,12 @@ const FollowCard = ({ isfollowing, userData }: { isfollowing: boolean, userData:
     }
 
     const check = userList?.includes(userData.id)
+    const self = UserContext.user.id === userData.id
 
     return (
         <div className="flex mt-[10px] items-center justify-around">
-            <Link to={`/u/${userData.username}`}><p>{userData.username}</p></Link>
-            <Button variant="auth">{check ? isfollowing ? "following" : "follows You" : "follow"}</Button>
+            <Link to={self ? "/me" : `/u/${userData.username}`}><p>{userData.username}</p></Link>
+            <Button variant="auth">{self ? "Profile" : check ? isfollowing ? "following" : "follows You" : "follow"}</Button>
         </div>
     )
 }
