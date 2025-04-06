@@ -1,6 +1,7 @@
 import { AuthContext } from "@/providers/authProvider"
 import { useContext } from "react"
 import { Button } from "../ui/button"
+import { Link } from "react-router-dom"
 
 const FollowCard = ({ isfollowing, userData }: { isfollowing: boolean, userData: any }) => {
 
@@ -21,7 +22,7 @@ const FollowCard = ({ isfollowing, userData }: { isfollowing: boolean, userData:
 
     return (
         <div className="flex mt-[10px] items-center justify-around">
-            <p>{userData.username}</p>
+            <Link to={`/u/${userData.username}`}><p>{userData.username}</p></Link>
             <Button variant="auth">{check ? isfollowing ? "following" : "follows You" : "follow"}</Button>
         </div>
     )
