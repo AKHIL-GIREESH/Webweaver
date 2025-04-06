@@ -19,7 +19,7 @@ const WebViewer = () => {
             const { author } = web.Website
             const user = await getUserById(author)
             return {
-                web,
+                web: web.Website,
                 author: user.user
             }
         },
@@ -27,21 +27,21 @@ const WebViewer = () => {
     })
 
     useEffect(() => {
-        if (data?.author?.liked && data.web?.Website?._id) {
+        if (data?.author?.liked && data.web?._id) {
             // console.log(data.author.liked.includes(data.web.Website._id))
-            setLike(data.author.liked.includes(data.web.Website._id))
+            setLike(data.author.liked.includes(data.web._id))
         }
     }, [data])
 
     if (isLoading) return <Loading />
     if (error || !data) return <Errorr />
     if (data) {
+        const { title } = data.web
+        const { pfp, username } = data.author
         return (
-            <div>
-                <TopDetailsBar />
-                <p>{data.author.username}</p>
-                <p>{data.web.Website.title}</p>
-                <p>{like ? "True" : "False"}</p>
+            <div className="h-[100vh] w-[100vw]">
+                <TopDetailsBar title={title} author={username} pfp={pfp} like={like} setLike={setLike} />
+
                 WebViewer
             </div>
         )
