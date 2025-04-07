@@ -26,10 +26,12 @@ func main() {
 
 	userCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION_USER"))
 	projectCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION_PROJECT"))
+	assetsCollection := database.Client.Database(os.Getenv("DB_NAME")).Collection(os.Getenv("DB_COLLECTION_ASSET"))
 
 	routes.AuthRoutes(app, userCollection)
 	routes.UserRoutes(app, userCollection)
 	routes.ProjectRoutes(app, projectCollection, userCollection)
+	routes.AssetsRoutes(app, assetsCollection)
 
 	app.Post("/upload", func(c fiber.Ctx) error {
 		file, err := c.FormFile("upload")
