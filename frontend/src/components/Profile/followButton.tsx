@@ -41,6 +41,7 @@ const FollowButton = ({ user }: { user: string }) => {
             variant="auth"
             onClick={() => mutate()}
             disabled={isPending}
+            className="rounded-full"
         >
             {isFollowing ? "Unfollow" : "Follow"}
         </Button>
