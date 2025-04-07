@@ -3,11 +3,9 @@ import AssetCard from "@/components/assets/AssetCard"
 import NewAssetCard from "@/components/assets/NewAssetCard"
 import Errorr from "@/components/Layout/Errorr"
 import Loading from "@/components/Layout/Loading"
-import { Button } from "@/components/ui/button"
 import { AuthContext } from "@/providers/authProvider"
 import { useQuery } from "@tanstack/react-query"
 import { useContext } from "react"
-import { Link } from "react-router-dom"
 
 const Assets = () => {
     const UserContext = useContext(AuthContext)
