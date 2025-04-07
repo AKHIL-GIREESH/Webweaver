@@ -34,13 +34,13 @@ const Favourite = () => {
 
 
     return (
-        <div>
-            <p>Handpicked By You</p>
+        <div className="flex flex-col items-center">
+            <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-5 mt-5">Handpicked By You</p>
             {(!liked || liked?.length === 0) && <p>You haven't liked any<br /></p>}
             {(liked && liked?.length > 0) &&
-                data.map(({ _id, title }: { _id: string, title: string }) => <ProjectCard _id={_id as string} title={title} liked={true} self={websites?.includes(_id) ? true : false} />)
+                <div className="flex flex-wrap justify-start ">{data.map(({ _id, title }: { _id: string, title: string }) => <ProjectCard _id={_id as string} title={title} liked={true} self={websites?.includes(_id) ? true : false} />)}</div>
             }
-            <Link to="/explore"><Button variant="auth">Explore</Button></Link>
+            <Link to="/explore"><Button variant="auth">Explore More</Button></Link>
         </div>
     )
 }
