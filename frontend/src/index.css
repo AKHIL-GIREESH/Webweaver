@@ -118,7 +118,7 @@ button:focus-visible {
 }
 
 .nav-icons {
-  @apply flex hover: bg-black p-5 justify-center gap-3;
+  @apply flex hover:bg-black p-5 justify-center gap-3;
 }
 
 .my-gradient {
@@ -205,7 +205,7 @@ button:focus-visible {
   --color-light: #6b7280;
   --color-my-gold: #f0c14b;
   /* --color-light: #1e1e1e; */
-
+  
 }
 
 .text-gold-gradient {
