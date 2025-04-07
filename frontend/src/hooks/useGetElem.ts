@@ -19,7 +19,7 @@ const useGetElem = (parent: string): EditorContainerType | EditorElementType => 
             id: uuidv4(),
             styles: { height: "50px", width: "50px" },
             kind: "Container",
-            contents: null
+            contents: []
         }
     }
 
@@ -27,7 +27,7 @@ const useGetElem = (parent: string): EditorContainerType | EditorElementType => 
         return {
             parent: parent,
             id: uuidv4(),
-            styles: { border: "1px solid", minHeight: "30vh", width: "60vw", height: "fit-content", resize: "both", overflow: "auto" },
+            styles: { border: "1px solid", minHeight: "30vh", width: "60vw", height: "fit-content" },
             kind: state,
             contents: []
         }
@@ -48,7 +48,7 @@ const useGetElem = (parent: string): EditorContainerType | EditorElementType => 
         return {
             parent: parent,
             id: uuidv4(),
-            styles: { border: "1px solid", minHeight: "30vh", width: "60vw", height: "fit-content", resize: "both", overflow: "auto" },
+            styles: { border: "1px solid", minHeight: "30vh", width: "60vw", height: "fit-content" },
             kind: "Container",
             contents: []
         }

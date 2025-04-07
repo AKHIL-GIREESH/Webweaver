@@ -64,6 +64,8 @@ const Treee = () => {
                 <Input type="text" value={treeElem.styles.marginLeft || 0} className="w-[25%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginLeft: e.target.value } })} />
             </div>
             <br />
+            <Slider defaultValue={[Number(treeElem.styles.borderRadius) ?? 0]} max={100} step={5} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, borderRadius: `${value[0]}px` } })} />
+            <br />
             <button onClick={() =>
                 action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
             }>Test</button>
