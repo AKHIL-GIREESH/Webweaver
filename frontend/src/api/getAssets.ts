@@ -1,4 +1,4 @@
-export const createAssets = async (id: string) => {
+export const getAssets = async (id: string) => {
     try {
         const response = await fetch(`http://localhost:3000/assets/${id}`, {
             method: "GET",
