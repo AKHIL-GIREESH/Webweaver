@@ -10,7 +10,7 @@ import { useContext } from "react"
 const Assets = () => {
     const UserContext = useContext(AuthContext)
 
-    const { data, isLoading, error } = useQuery({
+    const { data, refetch, isLoading, error } = useQuery({
         queryKey: ["getUserWebsite"],
         queryFn: async () => {
             if (UserContext && UserContext.user?.id) {
@@ -45,7 +45,7 @@ const Assets = () => {
             </p>
             <br />
             <div className="flex justify-start ">
-                <NewAssetCard />
+                <NewAssetCard refetch={refetch} />
             </div>
         </div>)
     }

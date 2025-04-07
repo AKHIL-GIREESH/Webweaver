@@ -11,7 +11,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog"
 
-const NewAssetCard = () => {
+const NewAssetCard = ({ refetch }: any) => {
     const UserContext = useContext(AuthContext)
     const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -34,6 +34,7 @@ const NewAssetCard = () => {
         },
         onSuccess: (data) => {
             console.log("Asset uploaded:", data)
+            refetch()
             // maybe trigger refetch of assets
         },
         onError: (err) => {

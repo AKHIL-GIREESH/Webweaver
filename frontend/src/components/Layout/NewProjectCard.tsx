@@ -32,7 +32,7 @@ const NewProjectCard = () => {
             {isPending ?
                 <div><Loader2 className="mr-2 h-4 w-4 animate-spin" /></div> :
                 <div className="p-3 rounded-full bg-gradient-to-br from-[#ffd700] via-[#f0c14b] to-[#b8860b]" onClick={() => createProjectMutate()}>
-                    {isError ? <RotateCcw /> : <Plus />}
+                    {isError ? <RotateCcw /> : <Plus className="text-black" />}
                 </div>}
         </div>
     )
