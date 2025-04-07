@@ -58,13 +58,180 @@ const Treee = () => {
             <Input type="color" name="fg" value={treeElem.styles.color} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
             <br />
             <div className="flex justify-between">
-                <Input type="text" value={treeElem.styles.marginTop || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginTop: e.target.value } })} />
-                <Input type="text" value={treeElem.styles.marginBottom || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginBottom: e.target.value } })} />
-                <Input type="text" value={treeElem.styles.marginRight || 0} className="w-[20%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginRight: e.target.value } })} />
-                <Input type="text" value={treeElem.styles.marginLeft || 0} className="w-[25%] h-auto" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, marginLeft: e.target.value } })} />
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.marginTop === "string"
+                            ? treeElem.styles.marginTop.slice(0, -2)
+                            : treeElem.styles.marginTop ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                marginTop: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.marginBottom === "string"
+                            ? treeElem.styles.marginBottom.slice(0, -2)
+                            : treeElem.styles.marginBottom ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                marginBottom: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.marginRight === "string"
+                            ? treeElem.styles.marginRight.slice(0, -2)
+                            : treeElem.styles.marginRight ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                marginRight: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.marginLeft === "string"
+                            ? treeElem.styles.marginLeft.slice(0, -2)
+                            : treeElem.styles.marginLeft ?? "0"
+                    }
+                    className="w-[25%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                marginLeft: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
             </div>
+
             <br />
             <Slider defaultValue={[Number(treeElem.styles.borderRadius) ?? 0]} max={100} step={5} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, borderRadius: `${value[0]}px` } })} />
+            <br />
+            <div className="flex justify-between mt-4">
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.paddingTop === "string"
+                            ? treeElem.styles.paddingTop.slice(0, -2)
+                            : treeElem.styles.paddingTop ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                paddingTop: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.paddingBottom === "string"
+                            ? treeElem.styles.paddingBottom.slice(0, -2)
+                            : treeElem.styles.paddingBottom ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                paddingBottom: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.paddingRight === "string"
+                            ? treeElem.styles.paddingRight.slice(0, -2)
+                            : treeElem.styles.paddingRight ?? "0"
+                    }
+                    className="w-[20%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                paddingRight: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+
+                <Input
+                    type="text"
+                    value={
+                        typeof treeElem.styles.paddingLeft === "string"
+                            ? treeElem.styles.paddingLeft.slice(0, -2)
+                            : treeElem.styles.paddingLeft ?? "0"
+                    }
+                    className="w-[25%] h-auto"
+                    onChange={(e) =>
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                paddingLeft: `${e.target.value}vh`,
+                            },
+                        })
+                    }
+                />
+            </div>
+
             <br />
             <button onClick={() =>
                 action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
