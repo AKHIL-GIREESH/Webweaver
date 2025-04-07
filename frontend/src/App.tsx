@@ -5,7 +5,7 @@ import AuthProvider from "./providers/authProvider"
 const App = () => {
     return (
         <AuthProvider>
-            <div className="flex">
+            <div className="flex bg-[#121212]">
                 <MainSidebar />
                 <Outlet />
             </div>

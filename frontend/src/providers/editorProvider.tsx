@@ -12,21 +12,9 @@ export const WebsiteContext = createContext<websiteContextType | null>(null)
 let website: EditorContainerType = {
     parent: "0",
     id: "1",
-    styles: { border: "1px solid red", minHeight: "200px", width: "200px", height: "fit-content", resize: "both", overflow: "auto" },
+    styles: { border: "1px solid", minHeight: "70vh", width: "70vw", height: "fit-content" },
     kind: "Container",
-    contents: [{
-        parent: "1",
-        id: uuidv4(),
-        styles: { border: "1px solid" },
-        kind: "Elem",
-        contents: "works"
-    }, {
-        parent: "1",
-        id: uuidv4(),
-        styles: { border: "1px solid", minHeight: "200px", width: "200px", height: "fit-content" },
-        kind: "Container",
-        contents: []
-    }]
+    contents: []
 }
 
 const findElemAndAdd = (container: EditorContainerType, parent: string, index: number, newContainer: EditorContainerType | EditorElementType): boolean => {
@@ -152,6 +140,7 @@ const EditorProvider = ({ children }: React.PropsWithChildren) => {
                 setRest({ ...rest, title: title, tags: tags ? tags : [] })
             }
             return data
+
         },
     });
 

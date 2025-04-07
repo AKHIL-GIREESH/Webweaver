@@ -51,7 +51,7 @@ const Webplayground = () => {
   }
 
   return (
-    <div style={{ width: "80vw", height: "100vh" }}>Webplayground<br />
+    <div style={{ width: "70vw", height: "100vh" }}>Webplayground<br />
       {
         webBuilder(website)
       }

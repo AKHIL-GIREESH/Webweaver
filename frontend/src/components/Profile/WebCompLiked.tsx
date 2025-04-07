@@ -5,7 +5,7 @@ const WebCompLiked = () => {
     return (
         <div className="mt-[8vh] md:mt-[12vh]">
             <div className="flex justify-center gap-10 font-medium">
-                {["WEBSITES", "COMPONENTS", "LIKED"].map(item => <p className="px-[30px] py-[10px] rounded-full bg-white text-black">{item}</p>)}
+                {["COMPONENTS", "LIKED"].map(item => <p className={`py-[10px] w-[12vw] text-center rounded-full bg-white text-black`}>{item}</p>)}
             </div>
         </div>
     )

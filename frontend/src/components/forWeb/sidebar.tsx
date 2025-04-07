@@ -47,7 +47,7 @@ const Sidebar = () => {
     console.log(state)
 
     return (
-        <div style={{ width: "10vw", border: "1px solid", height: "100vh" }}>
+        <div style={{ width: "15vw", border: "1px solid", height: "100vh" }}>
             <button draggable onDrag={() => update("Container")}>
                 Component
             </button>

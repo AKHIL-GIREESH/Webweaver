@@ -75,7 +75,7 @@ const Treee = () => {
 
 
     return (
-        <div className="w-[10vw] h-[100vh] border">
+        <div className="w-[15vw] h-[100vh] border">
             <br />
             <br />
 
