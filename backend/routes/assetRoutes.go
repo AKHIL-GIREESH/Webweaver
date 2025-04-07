@@ -11,6 +11,9 @@ func AssetsRoutes(app *fiber.App, assetsCollection *mongo.Collection) {
 	app.Post("/assets/upload/:id", func(c fiber.Ctx) error {
 		return controllers.UploadAsset(c, assetsCollection)
 	})
+	app.Get("/assets/:id", func(c fiber.Ctx) error {
+		return controllers.GetAssets(c, assetsCollection)
+	})
 }
 
 // func GetAllAssets()

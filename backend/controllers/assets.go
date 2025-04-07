@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go-v2/feature/s3/manager"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/gofiber/fiber/v3"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 )
@@ -89,4 +90,41 @@ func UploadAsset(c fiber.Ctx, assetCollection *mongo.Collection) error {
 	// }
 
 	return c.Status(200).JSON(asset)
+}
+
+func GetAssets(c fiber.Ctx, assetCollection *mongo.Collection) error {
+	userID := c.Params("id")
+
+	// Convert string ID to ObjectID
+	userObjID, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid user ID",
+		})
+	}
+
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	// Query the assets by uploadedBy
+	cursor, err := assetCollection.Find(ctx, bson.M{"uploadedBy": userObjID})
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to fetch assets",
+		})
+	}
+	defer cursor.Close(ctx)
+
+	var assets []*model.Asset
+	for cursor.Next(ctx) {
+		var asset model.Asset
+		if err := cursor.Decode(&asset); err != nil {
+			return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+				"error": "Error decoding asset",
+			})
+		}
+		assets = append(assets, &asset)
+	}
+
+	return c.Status(fiber.StatusOK).JSON(assets)
 }
