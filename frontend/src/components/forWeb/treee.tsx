@@ -57,6 +57,7 @@ const Treee = () => {
             <br />
             <Input type="color" name="fg" value={treeElem.styles.color} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
             <br />
+            <p>Margin</p>
             <div className="flex justify-between">
                 <Input
                     type="text"
@@ -144,8 +145,10 @@ const Treee = () => {
             </div>
 
             <br />
+            <p>Border Radius</p>
             <Slider defaultValue={[Number(treeElem.styles.borderRadius) ?? 0]} max={100} step={5} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, borderRadius: `${value[0]}px` } })} />
             <br />
+            <p>Padding</p>
             <div className="flex justify-between mt-4">
                 <Input
                     type="text"
@@ -231,8 +234,150 @@ const Treee = () => {
                     }
                 />
             </div>
+            <br />
+            <p>Border Width</p>
+            <Slider
+                defaultValue={[
+                    typeof treeElem.styles.borderWidth === "string"
+                        ? parseInt(treeElem.styles.borderWidth)
+                        : Number(treeElem.styles.borderWidth) || 0,
+                ]}
+                max={20}
+                step={1}
+                className="bg-black mt-6"
+                onValueChange={(value) =>
+                    action({
+                        type: "updateStyle",
+                        parent: treeElem.parent,
+                        index: treeElem.id,
+                        style: {
+                            ...treeElem.styles,
+                            borderWidth: `${value[0]}px`,
+                        },
+                    })
+                }
+            />
+            <br />
+            <Input
+                type="color"
+                value={treeElem.styles.borderColor || "#000000"}
+                className="w-[20%] h-auto mt-2"
+                onChange={(e) =>
+                    action({
+                        type: "updateStyle",
+                        parent: treeElem.parent,
+                        index: treeElem.id,
+                        style: {
+                            ...treeElem.styles,
+                            borderColor: e.target.value,
+                        },
+                    })
+                }
+            />
 
             <br />
+            <div className="flex flex-col gap-2 mt-6">
+                <label className="text-white text-sm">Box Shadow</label>
+
+                <div className="flex gap-2">
+                    <Input
+                        type="number"
+                        className="w-[30%] h-auto"
+                        placeholder="X"
+                        value={
+                            typeof treeElem.styles.boxShadow === "string"
+                                ? parseInt(treeElem.styles.boxShadow.split(" ")[0])
+                                : 0
+                        }
+                        onChange={(e) => {
+                            const [_, y, blur, color] = treeElem.styles.boxShadow?.split(" ") || ["0px", "0px", "5px", "rgba(0,0,0,0.5)"];
+                            const newShadow = `${e.target.value}px ${y} ${blur} ${color}`;
+                            action({
+                                type: "updateStyle",
+                                parent: treeElem.parent,
+                                index: treeElem.id,
+                                style: {
+                                    ...treeElem.styles,
+                                    boxShadow: newShadow,
+                                },
+                            });
+                        }}
+                    />
+
+                    <Input
+                        type="number"
+                        className="w-[30%] h-auto"
+                        placeholder="Y"
+                        value={
+                            typeof treeElem.styles.boxShadow === "string"
+                                ? parseInt(treeElem.styles.boxShadow.split(" ")[1])
+                                : 0
+                        }
+                        onChange={(e) => {
+                            const [x, _, blur, color] = treeElem.styles.boxShadow?.split(" ") || ["0px", "0px", "5px", "rgba(0,0,0,0.5)"];
+                            const newShadow = `${x} ${e.target.value}px ${blur} ${color}`;
+                            action({
+                                type: "updateStyle",
+                                parent: treeElem.parent,
+                                index: treeElem.id,
+                                style: {
+                                    ...treeElem.styles,
+                                    boxShadow: newShadow,
+                                },
+                            });
+                        }}
+                    />
+                </div>
+
+                <Slider
+                    defaultValue={[
+                        typeof treeElem.styles.boxShadow === "string"
+                            ? parseInt(treeElem.styles.boxShadow.split(" ")[2])
+                            : 5,
+                    ]}
+                    max={50}
+                    step={1}
+                    className="bg-black"
+                    onValueChange={(value) => {
+                        const [x, y, _, color] = treeElem.styles.boxShadow?.split(" ") || ["0px", "0px", "5px", "rgba(0,0,0,0.5)"];
+                        const newShadow = `${x} ${y} ${value[0]}px ${color}`;
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                boxShadow: newShadow,
+                            },
+                        });
+                    }}
+                />
+                <Input
+                    type="color"
+                    value={
+                        typeof treeElem.styles.boxShadow === "string"
+                            ? treeElem.styles.boxShadow.split(" ")[3] || "#ffffff"
+                            : "#ffffff"
+                    }
+                    className="border border-none"
+                    onChange={(e) => {
+                        const [x = "0px", y = "0px", blur = "5px"] = treeElem.styles.boxShadow?.split(" ") || [];
+                        const newShadow = `${x} ${y} ${blur} ${e.target.value}`;
+                        action({
+                            type: "updateStyle",
+                            parent: treeElem.parent,
+                            index: treeElem.id,
+                            style: {
+                                ...treeElem.styles,
+                                boxShadow: newShadow,
+                            },
+                        });
+                    }}
+                />
+
+            </div>
+
+
             <button onClick={() =>
                 action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
             }>Test</button>
@@ -244,7 +389,7 @@ const Treee = () => {
 
 
     return (
-        <div className="w-[15vw] h-[100vh] border">
+        <div className="w-[15vw] h-[100vh] border overflow-y-scroll">
             <br />
             <br />
 
