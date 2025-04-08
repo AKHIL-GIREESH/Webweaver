@@ -54,6 +54,9 @@ const Sidebar = () => {
             <button draggable onDrag={() => update("Elem")}>
                 Element
             </button>
+            <button draggable onDrag={() => update("Button")}>
+                Button
+            </button>
             <Button variant='auth' onClick={() => createProjectMutate()}>
                 {isError ? "Retry" : isPending ? "Loading..." : "Save"}
             </Button>
@@ -62,6 +65,7 @@ const Sidebar = () => {
                     Cancel
                 </Button>
             </Link>
+
             {displayCommunityComponents()}
         </div>
     )

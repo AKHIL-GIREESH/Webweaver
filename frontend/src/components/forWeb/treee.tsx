@@ -48,16 +48,24 @@ const Treee = () => {
         if (!treeElem) {
             return <div>Invalid Elem</div>
         }
-        return (<div className="mt-[10vh]">
+        return (<div className="mt-[5vh] w-[90%] flex flex-col items-center">
             {item.id}
+            <br />
+            <br />
 
+            <p className="font-medium">OPACITY</p>
             <Slider defaultValue={[Number(treeElem.styles.opacity) ?? 1]} max={1} step={0.1} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, opacity: value[0] } })} />
             <br />
+            <br />
+            <p className="font-medium">BACKGROUND COLOUR</p>
             <Input type="color" name="bg" value={treeElem.styles.backgroundColor} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: e.target.value } })} />
             <br />
+            <br />
+            <p className="font-medium">TEXT COLOUR</p>
             <Input type="color" name="fg" value={treeElem.styles.color} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
             <br />
-            <p>Margin</p>
+            <br />
+            <p className="font-medium">MARGIN</p>
             <div className="flex justify-between">
                 <Input
                     type="text"
@@ -143,12 +151,12 @@ const Treee = () => {
                     }
                 />
             </div>
-
             <br />
-            <p>Border Radius</p>
+            <br />
+            <p className="font-medium">BORDER RADIUS</p>
             <Slider defaultValue={[Number(treeElem.styles.borderRadius) ?? 0]} max={100} step={5} className="bg-black mt-6" onValueChange={(value) => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, borderRadius: `${value[0]}px` } })} />
             <br />
-            <p>Padding</p>
+            <p className="font-medium">PADDING</p>
             <div className="flex justify-between mt-4">
                 <Input
                     type="text"
@@ -235,7 +243,7 @@ const Treee = () => {
                 />
             </div>
             <br />
-            <p>Border Width</p>
+            <p className="font-medium uppercase">Border Width</p>
             <Slider
                 defaultValue={[
                     typeof treeElem.styles.borderWidth === "string"
@@ -261,7 +269,7 @@ const Treee = () => {
             <Input
                 type="color"
                 value={treeElem.styles.borderColor || "#000000"}
-                className="w-[20%] h-auto mt-2"
+                className="border border-none"
                 onChange={(e) =>
                     action({
                         type: "updateStyle",
@@ -276,10 +284,10 @@ const Treee = () => {
             />
 
             <br />
-            <div className="flex flex-col gap-2 mt-6">
-                <label className="text-white text-sm">Box Shadow</label>
+            <div className="flex flex-col items-center gap-2 mt-6">
+                <p className="font-medium uppercase">Box Shadow</p>
 
-                <div className="flex gap-2">
+                <div className="flex justify-center gap-2">
                     <Input
                         type="number"
                         className="w-[30%] h-auto"
@@ -328,7 +336,8 @@ const Treee = () => {
                         }}
                     />
                 </div>
-
+                <br />
+                <p className="font-medium uppercase">shadow blur</p>
                 <Slider
                     defaultValue={[
                         typeof treeElem.styles.boxShadow === "string"
@@ -352,6 +361,8 @@ const Treee = () => {
                         });
                     }}
                 />
+                <br />
+                <p className="font-medium uppercase">shadow COLOUR</p>
                 <Input
                     type="color"
                     value={
@@ -378,9 +389,9 @@ const Treee = () => {
             </div>
 
 
-            <button onClick={() =>
+            {/* <button onClick={() =>
                 action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
-            }>Test</button>
+            }>Test</button> */}
         </div>)
 
     }
@@ -389,34 +400,34 @@ const Treee = () => {
 
 
     return (
-        <div className="w-[15vw] h-[100vh] border overflow-y-scroll">
+        <div className="flex flex-col items-center w-[15vw] h-[100vh] border-r border-light overflow-y-scroll">
             <br />
             <br />
-
+            <p className="font-medium">PROJECT NAME</p>
             <Input
                 type="text"
                 value={title}
-                className="border"
+                className="border-light w-[90%] rounded"
                 onChange={(e) => update({ ...webState, title: e.target.value })} />
             <br />
             <br />
-            <div>
+            <div className="flex flex-col items-center">
+                <p className="font-medium ">TAGS</p>
                 <Input
+                    className="border-light w-[90%] rounded"
                     type="text"
                     name="tags"
                     value={tag}
                     onChange={(e) => setTag(e.target.value)}
                 />
-                <Button onClick={() => {
+                <Button className="w-[90%] bg-white text-black" onClick={() => {
                     update({ ...webState, tags: [...webState.tags, tag] })
                     setTag("")
                 }}>ADD</Button>
             </div>
 
-
-            {tags.map(item => <p className="bg-gray-500">{item}</p>)}
             <br />
-            <br />
+            {tags.map(item => <p className="bg-white w-[80%] p-2 rounded text-black mb-[1px]">{item}</p>)}
 
             {outputHere()}
 
