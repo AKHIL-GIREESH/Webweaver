@@ -11,7 +11,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog"
 
-const NewAssetCard = ({ refetch }: any) => {
+const NewAssetCard = ({ refetch }: { refetch: () => void }) => {
     const UserContext = useContext(AuthContext)
     const fileInputRef = useRef<HTMLInputElement>(null)
 

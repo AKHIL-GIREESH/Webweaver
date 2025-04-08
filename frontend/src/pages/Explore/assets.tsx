@@ -59,7 +59,7 @@ const Assets = () => {
             </p>
             <br />
             <div className="flex flex-wrap justify-start ">
-                <NewAssetCard />
+                <NewAssetCard refetch={refetch} />
                 {data.map(({ url, filename }: any) => <AssetCard url={url} filename={filename} />)}
             </div>
         </div>
