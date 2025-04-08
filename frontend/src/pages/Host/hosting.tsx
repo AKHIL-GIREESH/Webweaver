@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input"
 const Hosting = () => {
     return (
         <div>
-            <Input />
+            Implementing Soon!
         </div>
     )
 }
