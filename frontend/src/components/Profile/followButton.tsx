@@ -3,6 +3,7 @@ import { useUser } from "@/hooks/useUser";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { followUnfollow } from "@/api/followUnfollow";
 import { useSetAuth } from "@/hooks/useSetUser";
+import { Loader2 } from "lucide-react";
 
 const FollowButton = ({ user, refetch }: { user: string, refetch: () => void }) => {
     const me = useUser();
@@ -38,14 +39,24 @@ const FollowButton = ({ user, refetch }: { user: string, refetch: () => void }) 
     if (!me) return null;
 
     return (
-        <Button
-            variant="auth"
-            onClick={() => mutate()}
-            disabled={isPending}
-            className="rounded-full"
-        >
-            {isFollowing ? "Unfollow" : "Follow"}
-        </Button>
+        <>
+            {isPending ? <Button
+                variant="auth"
+                className="rounded-full"
+                disabled
+            >
+                Loading
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+            </Button> :
+                <Button
+                    variant="auth"
+                    onClick={() => mutate()}
+                    className="rounded-full"
+                >
+                    {isFollowing ? "Unfollow" : "Follow"}
+                </Button>}
+        </>
+
     );
 };
 
