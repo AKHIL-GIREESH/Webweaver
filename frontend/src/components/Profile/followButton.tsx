@@ -4,10 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { followUnfollow } from "@/api/followUnfollow";
 import { useSetAuth } from "@/hooks/useSetUser";
 
-const FollowButton = ({ user }: { user: string }) => {
+const FollowButton = ({ user, refetch }: { user: string, refetch: () => void }) => {
     const me = useUser();
     const setAuth = useSetAuth();
     const queryClient = useQueryClient()
+    //console.log(user)
 
 
     const isFollowing = me?.following?.includes(user) ?? false;
@@ -25,7 +26,7 @@ const FollowButton = ({ user }: { user: string }) => {
                 : [...currentFollowing, user];
 
             setAuth({ ...me, following: updatedFollowing });
-            queryClient.invalidateQueries({ queryKey: ["getfollow", user] })
+            refetch()
 
             return result;
         },

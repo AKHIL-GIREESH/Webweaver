@@ -10,7 +10,7 @@ const OtherProfile = () => {
     const { id } = useParams();
 
     const [currUser, setCurrUser] = useState<any>(null);
-    const { data, isError, isLoading } = useQuery({
+    const { data, isError, isLoading, refetch } = useQuery({
         queryKey: ["someuser", id],
         queryFn: () => getAUser(id as string),
         enabled: !!id,
@@ -55,6 +55,7 @@ const OtherProfile = () => {
             github={github}
             personalWeb={personalWeb}
             linkedIn={linkedIn}
+            refetch={refetch}
         />
     );
 };

@@ -6,48 +6,52 @@ import Loading from "@/components/Layout/Loading";
 import Errorr from "@/components/Layout/Errorr";
 
 
-export const AuthContext = createContext<UserContextType | null >(null)
+export const AuthContext = createContext<UserContextType | null>(null)
 
-const AuthProvider = ({children}:React.PropsWithChildren) => {
+const AuthProvider = ({ children }: React.PropsWithChildren) => {
     const [user, setUser] = useState<null | User>(null);
 
-    const {data,isLoading,isError} = useQuery({
-        queryKey:["User"],
+    const { data, isLoading, isError } = useQuery({
+        queryKey: ["User"],
         queryFn: async () => {
-            const theUser = await getUser()  
-            console.log(theUser)             
-            return theUser                   
-        }                                       
+            const theUser = await getUser()
+            console.log(theUser)
+            return theUser
+        }
     })
 
     useEffect(() => {
         if (data) {
-          setUser(data);
+            setUser(data);
         }
     }, [data]);
 
-    console.log("State :",user)
+    //console.log("State :", user)
+
+    console.log("checkkkk here too")
 
     const UserContext = useMemo(() => ({
         user: user,
         update: setUser,
     }), [user]);
-    
-    if(isLoading){
-        return <Loading/>
+
+    console.log("Called", UserContext)
+
+    if (isLoading) {
+        return <Loading />
     }
 
-    if(isError){
-        return <Errorr/>
+    if (isError) {
+        return <Errorr />
     }
-    
+
     return (
         <AuthContext.Provider value={UserContext}>
             {children}
         </AuthContext.Provider>
     );
 };
-  
+
 
 
 export default AuthProvider

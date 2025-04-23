@@ -17,6 +17,7 @@ export const useSetAuth = () => {
         if (data === undefined) {
             throw new Error("Provide user");
         }
+        console.log(data)
         update(data);
     };
 

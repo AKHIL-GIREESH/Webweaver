@@ -12,7 +12,6 @@ const Profile = () => {
     }
 
     const { id, username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn } = UserContext.user
-
     return (
         <ProfileCard id={id} username={username} followers={followers} following={following} websites={websites} pfp={pfp} banner={banner} desc={desc} twitter={twitter} github={github} personalWeb={personalWeb} linkedIn={linkedIn} />
         // <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">

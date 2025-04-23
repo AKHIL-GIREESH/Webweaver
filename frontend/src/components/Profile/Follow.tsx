@@ -17,7 +17,9 @@ import {
 import FollowCard from "./followCard"
 import { useState } from "react";
 
-const Follow = ({ following, followers, id }: { following?: string[], followers?: string[], id: string }) => {
+const Follow = ({ following, followers, id, refetch: reloading }: { following?: string[], followers?: string[], id: string, refetch: () => void }) => {
+
+    console.log("Hlo")
 
     const [section, setSection] = useState<"following" | "followers" | null>(null);
 
@@ -25,7 +27,7 @@ const Follow = ({ following, followers, id }: { following?: string[], followers?
         queryKey: ["getfollow", id],
         queryFn: async () => {
             const data = await getFollow(id);
-            return data; // make sure it returns { following: [], followers: [] }
+            return data;
         },
         enabled: false,
     });
