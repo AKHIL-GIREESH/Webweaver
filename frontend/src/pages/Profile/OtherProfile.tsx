@@ -38,6 +38,7 @@ const OtherProfile = () => {
         github,
         personalWeb,
         linkedIn,
+        liked
     } = currUser;
 
     return (
@@ -55,6 +56,7 @@ const OtherProfile = () => {
             github={github}
             personalWeb={personalWeb}
             linkedIn={linkedIn}
+            liked={liked}
             refetch={refetch}
         />
     );

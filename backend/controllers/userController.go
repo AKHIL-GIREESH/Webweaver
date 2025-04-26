@@ -2,7 +2,6 @@ package controllers
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"strings"
 	"time"
@@ -203,7 +202,7 @@ func GetAUser(c fiber.Ctx, collection *mongo.Collection) error {
 
 	userName = strings.ReplaceAll(userName, "%20", " ")
 
-	fmt.Println(userName)
+	// fmt.Println(userName)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

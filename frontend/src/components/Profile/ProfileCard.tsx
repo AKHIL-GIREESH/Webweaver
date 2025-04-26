@@ -6,12 +6,12 @@ import WebCompLiked from "./WebCompLiked"
 import defaultPfp from "../../assets/defaultpfp.webp"
 import FollowButton from "./followButton"
 
-const ProfileCard = ({ id, username, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn, refetch }: any) => {
+const ProfileCard = ({ id, username, followers, following, liked, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn, refetch }: any) => {
 
     const location = useLocation().pathname
     return (
-        <div className="flex flex-col w-[100vw] md:w-[85vw] min-h-[100vh] h-fit ">
-            <div className="h-[22vh] bg-lightt">
+        <div className="flex flex-col w-[100vw] md:w-[85vw] h-[100vh] overflow-y-scroll">
+            <div className="min-h-[22vh] bg-lightt">
                 {banner && <img src={banner} className="h-full w-full cover" />}
             </div>
             <div className="h-fit self-center w-[92%] ">
@@ -31,7 +31,7 @@ const ProfileCard = ({ id, username, followers, following, websites, pfp, banner
                     <SocialIcons personalWeb={personalWeb} linkedIn={linkedIn} github={github} twitter={twitter} />
                 </div>
             </div>
-            <WebCompLiked />
+            <WebCompLiked liked={liked} websites={websites} id={id} />
         </div>
     )
 }
