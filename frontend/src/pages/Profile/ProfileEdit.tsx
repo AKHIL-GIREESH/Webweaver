@@ -10,9 +10,10 @@ import { FaGithub } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
-import { ArrowLeft } from "lucide-react"
+import { ArrowLeft, Loader2 } from "lucide-react"
 import { useMutation } from "@tanstack/react-query"
 import { createAssets } from "@/api/createAssets"
+import { updateProfile } from "@/api/updateProfile"
 
 const ProfileEdit = () => {
     const UserContext = useContext(AuthContext)
@@ -40,7 +41,7 @@ const ProfileEdit = () => {
         }
     })
 
-    const { mutate: editProfile, isPending: isEditing, data: editData } = useMutation({
+    const { mutate: editProfile, isPending: isEditing } = useMutation({
         mutationFn: async () => {
             if (!UserContext?.user?.id) throw new Error("User not found")
             const resp = await uploadProfileAsset()
@@ -52,6 +53,7 @@ const ProfileEdit = () => {
                 setUserState((prev: any) => prev ? { ...prev, banner: resp.bannerData } : prev)
             }
 
+            updateProfile(UserContext.user.id, userState)
 
             // if( resp.pfpData){
             //     setUserState((prev: User | null) => prev ? { ...prev, pfp: data.pfpData } : prev)
@@ -114,9 +116,8 @@ const ProfileEdit = () => {
                 </div>
             </div>
             <div className="flex gap-[2vw]">
-                {isPending ? <Button variant='auth'>
-                    Saving...
-                </Button> : <Button variant='auth' onClick={() => editProfile()}>
+                {isPending || isEditing ? <Button variant="auth" disabled>Saving...
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" /></Button> : <Button variant='auth' onClick={() => editProfile()}>
                     Save
                 </Button>}
                 <Link to="/me">
