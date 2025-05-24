@@ -244,3 +244,54 @@ func GetUserByID(c fiber.Ctx, collection *mongo.Collection) error {
 		"user":    user,
 	})
 }
+
+func UpdateProfile(c fiber.Ctx, collection *mongo.Collection) error {
+	userID := c.Params("id")
+	updateData := new(model.ReqUser)
+
+	// Parse the request body
+	if err := c.Bind().JSON(updateData); err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid request body",
+		})
+	}
+
+	objID, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{
+			"error": "Invalid user ID",
+		})
+	}
+
+	// Update the user with the entire request body
+	result, err := collection.UpdateOne(
+		context.Background(),
+		bson.M{"_id": objID},
+		bson.M{"$set": updateData},
+	)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to update profile",
+		})
+	}
+
+	if result.MatchedCount == 0 {
+		return c.Status(fiber.StatusNotFound).JSON(fiber.Map{
+			"error": "User not found",
+		})
+	}
+
+	// Fetch and return the updated user
+	var updatedUser model.ReqUser
+	err = collection.FindOne(context.Background(), bson.M{"_id": objID}).Decode(&updatedUser)
+	if err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{
+			"error": "Failed to fetch updated profile",
+		})
+	}
+
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"message": "Profile updated successfully",
+		"user":    updatedUser,
+	})
+}

@@ -25,9 +25,9 @@ type User struct {
 }
 
 type ReqUser struct {
-	ID          primitive.ObjectID   `bson:"_id,omitempty" json:"id"`
-	Username    string               `bson:"username" json:"username" validate:"required,min=3,max=30"`
-	Email       string               `bson:"email" json:"email" validate:"required,email"`
+	ID          primitive.ObjectID   `bson:"_id,omitempty" json:"id,omitempty"`
+	Username    string               `bson:"username,omitempty" json:"username,omitempty" validate:"required,min=3,max=30"`
+	Email       string               `bson:"email,omitempty" json:"email,omitempty" validate:"required,email"`
 	Description string               `bson:"description,omitempty" json:"description,omitempty"`
 	ProfilePic  string               `bson:"pfp,omitempty" json:"pfp,omitempty"`
 	Banner      string               `bson:"banner,omitempty" json:"banner,omitempty"`
