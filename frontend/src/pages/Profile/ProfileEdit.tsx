@@ -46,14 +46,21 @@ const ProfileEdit = () => {
             if (!UserContext?.user?.id) throw new Error("User not found")
             const resp = await uploadProfileAsset()
 
-            if (resp.pfpData) {
-                setUserState((prev: any) => prev ? { ...prev, pfp: resp.pfpData } : prev)
-            }
-            if (resp.bannerData) {
-                setUserState((prev: any) => prev ? { ...prev, banner: resp.bannerData } : prev)
+            const upDateData = userState
+
+            if (upDateData) {
+                if (resp.pfpData) {
+                    upDateData.pfp = resp.pfpData
+                }
+                if (resp.bannerData) {
+                    upDateData.banner = resp.bannerData
+                }
             }
 
-            updateProfile(UserContext.user.id, userState)
+            console.log(resp)
+            console.log(userState)
+
+            updateProfile(UserContext.user.id, upDateData)
 
             // if( resp.pfpData){
             //     setUserState((prev: User | null) => prev ? { ...prev, pfp: data.pfpData } : prev)
