@@ -21,7 +21,7 @@ const MainSidebar = () => {
 
     return (
         <div className={`hidden ${path === "/websitebuilder" || path.startsWith("/view") ? "" : "md:flex"} flex-col w-[15vw] h-[100vh] border-r-1 border-light`}>
-            <img src={logo} className="h-0 h-[8vh] mt-5" />
+            <img src={logo} className="h-[8vh] mt-5" />
             <div className="flex flex-col h-[80vh] justify-evenly items-center">
                 <Link to="/" className="nav-icons">
                     <Blocks /> Projects

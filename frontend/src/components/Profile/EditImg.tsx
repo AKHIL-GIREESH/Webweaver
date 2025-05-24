@@ -19,6 +19,8 @@ const EditImg = ({ banner, elem, newFileSet, setUserState }: { banner: boolean, 
 
     }
 
+    console.log(elem)
+
     return (
         <>
             <p className="font-semibold text-[1.2rem] mb-[3vh]">{banner ? "BANNER" : "DISPLAY PICTURE"}</p>
