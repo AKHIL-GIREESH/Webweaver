@@ -49,7 +49,7 @@ const ProjectCard = ({ _id, title, liked, self }: { _id: string, title: string, 
                         e.preventDefault()
                         likeProjectMutate()
                     }}>
-                        {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : isError ? <RotateCcw /> : <Heart className={`${liked ? "text-my-gold" : null}`} />}
+                        {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : isError ? <RotateCcw /> : <Heart className={`${liked ? "text-red-500" : null}`} />}
                     </div>
                 </div>
             </div>

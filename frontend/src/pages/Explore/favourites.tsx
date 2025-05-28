@@ -34,7 +34,7 @@ const Favourite = () => {
 
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="max-w-[85vw] flex flex-col items-center">
             <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-5 mt-5">Handpicked By You</p>
             {(!liked || liked?.length === 0) && <p>You haven't liked any<br /></p>}
             {(liked && liked?.length > 0) &&

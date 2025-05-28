@@ -44,7 +44,7 @@ const MainSidebar = () => {
             </div>
             <Link to="/me">
                 <div className="flex items-center justify-center gap-3">
-                    <img src={pfp ? pfp : defaultPfp} className="rounded-full h-0 md:h-[5vh]" />
+                    <img src={pfp ? pfp : defaultPfp} className="rounded-full h-0 md:h-[5vh] md:w-[5vh]" />
                     <div>
                         <p className="font-bold text-lg uppercase">{username}</p>
                         <p className="text-gray-200 text-sm ">View Profile</p>
