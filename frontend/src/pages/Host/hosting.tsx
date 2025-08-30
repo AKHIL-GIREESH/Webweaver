@@ -1,12 +1,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
-import { TbBrandVite } from "react-icons/tb";
+import { FaReact } from "react-icons/fa";
 
 const Hosting = () => {
     const [hosting, setHosting] = useState({
         repository: "",
         entrypoint: "",
+        instanceip: "",
+
         framework: "react",
         env: {} as Record<string, string>,
     });
@@ -52,7 +54,7 @@ const Hosting = () => {
     };
 
     return (
-        <div className="max-h-[100vh] w-[85vw] overflow-y-scroll">
+        <div className="max-h-[100vh] w-[82vw] ml-[3vw] overflow-y-scroll">
             <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-3 mt-5">
                 Make your project alive
             </p>
@@ -62,28 +64,47 @@ const Hosting = () => {
                 placeholder="Repository URL"
                 value={hosting.repository}
                 onChange={handleChange}
+                className="rounded w-[60vw]"
             />
             <Input
                 name="entrypoint"
                 placeholder="Entrypoint"
                 value={hosting.entrypoint}
                 onChange={handleChange}
+                className="rounded w-[60vw] mt-3"
             />
+            <Input
+                name="instanceip"
+                placeholder="Instance IP"
+                value={hosting.instanceip}
+                onChange={handleChange}
+                className="rounded w-[60vw] mt-3"
+            />
+            <br />
             <div className="my-4">
-                <TbBrandVite />
+                <p className="font-semibold text-3xl uppercase">Framework</p>
+                <FaReact className="text-6xl " />
             </div>
+            <br />
             <div className="space-y-2">
-                <p className="font-semibold">Env Variables</p>
+                <div className="flex items-center gap-10">
+                    <p className="font-semibold text-3xl uppercase">Env Variables</p>
+                    <Button variant="auth" onClick={addEnvField}>
+                        Add +
+                    </Button>
+                </div>
                 {envFields.map((field, idx) => (
                     <div key={idx} className="flex gap-2 items-center">
                         <Input
                             placeholder="KEY"
                             value={field.key}
+                            className="rounded w-[30vw]"
                             onChange={(e) => handleEnvChange(idx, "key", e.target.value)}
                         />
                         <Input
                             placeholder="VALUE"
                             value={field.value}
+                            className="rounded w-[30vw]"
                             onChange={(e) => handleEnvChange(idx, "value", e.target.value)}
                         />
                         <Button
@@ -95,17 +116,16 @@ const Hosting = () => {
                         </Button>
                     </div>
                 ))}
-                <Button variant="auth" onClick={addEnvField}>
-                    Add +
-                </Button>
             </div>
+            <br />
+            <br />
             <div className="mt-5">
                 <Button variant="auth">Host</Button>
             </div>
 
-            <pre className="mt-5 p-2 rounded">
+            {/* <pre className="mt-5 p-2 rounded">
                 {JSON.stringify(hosting, null, 2)}
-            </pre>
+            </pre> */}
         </div>
     );
 };
