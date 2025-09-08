@@ -107,12 +107,26 @@ const Hosting = () => {
                 placeholder="Repository URL"
                 value={hosting.repository}
                 onChange={handleChange}
-                className="rounded w-[60vw]"
+                className="rounded w-[60vw] mt-3"
             />
             <Input
                 name="entrypoint"
                 placeholder="Entrypoint"
                 value={hosting.entrypoint}
+                onChange={handleChange}
+                className="rounded w-[60vw] mt-3"
+            />
+            <Input
+                name="docker"
+                placeholder="Docker Username"
+                value={""}
+                onChange={handleChange}
+                className="rounded w-[60vw] mt-3"
+            />
+            <Input
+                name="dockerpat"
+                placeholder="Docker PAT"
+                value={""}
                 onChange={handleChange}
                 className="rounded w-[60vw] mt-3"
             />
