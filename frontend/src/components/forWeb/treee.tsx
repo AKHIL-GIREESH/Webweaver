@@ -62,6 +62,18 @@ const Treee = () => {
             <Input type="color" name="bg" value={treeElem.styles.backgroundColor} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: e.target.value } })} />
             <br />
             <br />
+            <p className="font-medium">BACKGROUND IMAGE URL</p>
+            <Input
+                type="text"
+                name="bg-image"
+                placeholder="Enter image URL"
+                value={treeElem.styles.backgroundImage?.slice(5, -2) || ""}
+                className="border border-none"
+                onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundImage: `url('${e.target.value}')`, backgroundSize: 'cover' } })}
+
+            />
+            <br />
+            <br />
             <p className="font-medium">TEXT COLOUR</p>
             <Input type="color" name="fg" value={treeElem.styles.color} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, color: e.target.value } })} />
             <br />
@@ -191,7 +203,6 @@ const Treee = () => {
                     onChange={(e) =>
                         action({
                             type: "updateStyle",
-                            parent: treeElem.parent,
                             index: treeElem.id,
                             style: {
                                 ...treeElem.styles,
@@ -410,8 +421,8 @@ const Treee = () => {
 
 
             {/* <button onClick={() =>
-                action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
-            }>Test</button> */}
+                action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })
+            }>Test</button> */}
         </div>)
 
     }
