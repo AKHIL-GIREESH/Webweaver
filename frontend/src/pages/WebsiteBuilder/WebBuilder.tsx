@@ -11,6 +11,7 @@ function WebBuilder() {
 
   return (
     <CommunityComponentsProvider>
+
       <EditorProvider>
         <WebBuilderSelectionProvider>
           <SideBarSelectionProvider>
@@ -22,6 +23,7 @@ function WebBuilder() {
           </SideBarSelectionProvider>
         </WebBuilderSelectionProvider>
       </EditorProvider>
+
     </CommunityComponentsProvider>
   )
 }

@@ -75,6 +75,11 @@ export type communityComponentsContextType = {
     update: (val: likedProject[]) => void
 }
 
+export type ImageCardProps = {
+    url: string;
+    filename?: string;
+  };
+
 // | 'section'
 // | 'contactForm'
 // | 'paymentForm'

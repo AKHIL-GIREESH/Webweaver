@@ -6,7 +6,6 @@ import { Switch } from "@/components/ui/switch"
 import { EditorContext, WebsiteContext } from "@/providers/editorProvider"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
-import { Checkbox } from "@radix-ui/react-checkbox"
 
 const Treee = () => {
 
