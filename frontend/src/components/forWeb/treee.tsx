@@ -296,6 +296,45 @@ const Treee = () => {
             />
 
             <br />
+            <p className="font-medium">FONT SIZE (in px)</p>
+            <Input
+                type="number"
+                value={parseInt(treeElem.styles.fontSize?.toString() || '16')}
+                className="border border-none w-[90%] text-center"
+                onChange={(e) =>
+                    action({
+                        type: "updateStyle",
+                        parent: treeElem.parent,
+                        index: treeElem.id,
+                        style: {
+                            ...treeElem.styles,
+                            fontSize: `${e.target.value}px`,
+                        },
+                    })
+                }
+            />
+
+            <br />
+            <p className="font-medium">FONT WEIGHT</p>
+            <Input
+                type="text"
+                placeholder="e.g., bold, 700"
+                value={treeElem.styles.fontWeight || 'normal'}
+                className="border border-none w-[90%] text-center"
+                onChange={(e) =>
+                    action({
+                        type: "updateStyle",
+                        parent: treeElem.parent,
+                        index: treeElem.id,
+                        style: {
+                            ...treeElem.styles,
+                            fontWeight: e.target.value,
+                        },
+                    })
+                }
+            />
+
+            <br />
             <div className="flex flex-col items-center gap-2 mt-6">
                 <p className="font-medium uppercase">Box Shadow</p>
 
@@ -417,7 +456,10 @@ const Treee = () => {
                     <span className="font-medium">Enable Flex</span>
                 </div>
 
+
+
             </div>
+
             <br />
             <Button
                 onClick={() => {
