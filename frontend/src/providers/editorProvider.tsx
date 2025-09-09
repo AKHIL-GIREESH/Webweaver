@@ -65,6 +65,22 @@ const findElemAndUpdateText = (container: EditorContainerType, parent: string, i
     return false;
 };
 
+const findElemAndDelete = (container: EditorContainerType, parentId: string, elemId: string): boolean => {
+    if (container.id === parentId) {
+        if (Array.isArray(container.contents)) {
+            container.contents = container.contents.filter(item => item.id !== elemId);
+            return true;
+        }
+    }
+    if (Array.isArray(container.contents)) {
+        for (const item of container.contents) {
+            const found = findElemAndDelete(item as EditorContainerType, parentId, elemId);
+            if (found) return found;
+        }
+    }
+    return false;
+};
+
 const reducer = (state: EditorContainerType, action: Action) => {
     switch (action.type) {
         case "updateText": {
@@ -95,6 +111,15 @@ const reducer = (state: EditorContainerType, action: Action) => {
             const newState = JSON.parse(JSON.stringify(state));
             // Call the updated function
             findElemAndUpdate(newState, index, style);
+            return newState;
+        }
+        case "deleteElement": {
+            const { parent, index } = action;
+            if (typeof index !== "string" || !parent) {
+                return state;
+            }
+            const newState = JSON.parse(JSON.stringify(state));
+            findElemAndDelete(newState, parent, index);
             return newState;
         }
         default:

@@ -24,7 +24,7 @@ export type EditorContainerType = {
 }
 
 export type Action = {
-    type: "addElement" | "updateStyle" | "setWebsite" | "updateText"
+    type: "addElement" | "updateStyle" | "setWebsite" | "updateText" | "deleteElement"
     parent?: string
     index?: number | string
     newContainer?: EditorContainerType | EditorElementType

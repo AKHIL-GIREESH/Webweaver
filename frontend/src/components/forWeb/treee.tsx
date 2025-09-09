@@ -69,7 +69,7 @@ const Treee = () => {
                 placeholder="Enter image URL"
                 value={treeElem.styles.backgroundImage?.slice(5, -2) || ""}
                 className="border border-none"
-                onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundImage: `url('${e.target.value}')`, backgroundSize: 'cover' } })}
+                onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundImage: `url('${e.target.value}')`, backgroundSize: 'contain', backgroundRepeat: 'no-repeat' } })}
 
             />
             <br />
@@ -418,7 +418,21 @@ const Treee = () => {
                 </div>
 
             </div>
-
+            <br />
+            <Button
+                onClick={() => {
+                    if (item) {
+                        action({
+                            type: "deleteElement",
+                            parent: item.parent,
+                            index: item.id
+                        });
+                    }
+                }}
+                className="w-[90%] bg-red-500 text-white hover:bg-red-600"
+            >
+                Delete Element
+            </Button>
 
             {/* <button onClick={() =>
                 action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: "green" } })

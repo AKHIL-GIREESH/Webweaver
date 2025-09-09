@@ -16,6 +16,8 @@ const Hosting = () => {
         entrypoint: "",
         instanceip: "",
         framework: "react",
+        dockerUsername: "",
+        dockerPAT: "",
         env: {} as Record<string, string>,
     });
 
@@ -119,14 +121,14 @@ const Hosting = () => {
             <Input
                 name="docker"
                 placeholder="Docker Username"
-                value={""}
+                value={hosting.dockerUsername}
                 onChange={handleChange}
                 className="rounded w-[60vw] mt-3"
             />
             <Input
                 name="dockerpat"
                 placeholder="Docker PAT"
-                value={""}
+                value={hosting.dockerPAT}
                 onChange={handleChange}
                 className="rounded w-[60vw] mt-3"
             />
@@ -199,9 +201,9 @@ const Hosting = () => {
                 </div>
             )}
 
-            {/* <pre className="mt-5 p-2 rounded">
+            <pre className="mt-5 p-2 rounded">
                 {JSON.stringify(hosting, null, 2)}
-            </pre> */}
+            </pre>
         </div>
     );
 };
