@@ -2,9 +2,11 @@ import { useContext, useState } from "react"
 import { WebBuilderSelectionContext } from "../../providers/webBuilderSelectionProvider"
 import { Slider } from "@/components/ui/slider"
 import { useSelectedElem } from "@/hooks/useSelectedElem"
+import { Switch } from "@/components/ui/switch"
 import { EditorContext, WebsiteContext } from "@/providers/editorProvider"
 import { Input } from "../ui/input"
 import { Button } from "../ui/button"
+import { Checkbox } from "@radix-ui/react-checkbox"
 
 const Treee = () => {
 
@@ -385,6 +387,25 @@ const Treee = () => {
                         });
                     }}
                 />
+                <br />
+                <div className="flex items-center gap-2 mt-4">
+                    <Switch
+                        checked={treeElem.styles.display === "flex"}
+                        onCheckedChange={(checked) => {
+                            action({
+                                type: "updateStyle",
+                                parent: treeElem.parent,
+                                index: treeElem.id,
+                                style: {
+                                    ...treeElem.styles,
+                                    display: checked ? "flex" : "block",
+                                },
+                            });
+                        }}
+                        className="border border-amber-400 data-[state=checked]:bg-blue-500"
+                    />
+                    <span className="font-medium">Enable Flex</span>
+                </div>
 
             </div>
 
