@@ -10,7 +10,7 @@ export const WebsiteContext = createContext<websiteContextType | null>(null);
 let website: EditorContainerType = {
     parent: "0",
     id: "1",
-    styles: { border: "1px solid", minHeight: "70vh", width: "70vw", height: "fit-content" },
+    styles: { border: "1px solid", minHeight: "70vh", maxHeight: "70vh", minWidth: "70vw", maxWidth: "70vw", overflowY: "scroll" },
     kind: "Container",
     contents: [],
 };

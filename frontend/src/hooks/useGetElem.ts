@@ -32,9 +32,6 @@ const useGetElem = (parent: string): EditorContainerType | EditorElementType | E
                 minHeight: "30vh", 
                 width: "60vw", 
                 height: "fit-content",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
             },
             kind: state,
             contents: []
@@ -79,11 +76,15 @@ const useGetElem = (parent: string): EditorContainerType | EditorElementType | E
             url: "https://example.com"
         }
     } else {
-        let newContainer = communitysContext?.filter(item => item._id !== state)[0].code
-        if (newContainer) {
-            newContainer.parent = parent
-            return newContainer
+        // Handle community components
+        if (communitysContext && communitysContext.length > 0) {
+            let newContainer = communitysContext.find(item => item._id === state)?.code
+            if (newContainer) {
+                newContainer.parent = parent
+                return newContainer
+            }
         }
+        // Fallback for unknown state
         return {
             parent: parent,
             id: uuidv4(),

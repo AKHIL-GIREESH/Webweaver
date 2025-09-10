@@ -3,16 +3,16 @@ import { SideBarDrag } from "../providers/sideBarSelectionProvider";
 import { elementKind } from "../types/editor";
 
 export const useGetStyles = () => {
-    const sideBarSelectionContext = useContext(SideBarDrag)
+    const sideBarSelectionContext = useContext(SideBarDrag);
 
-    if (sideBarSelectionContext == null) {
-        throw new Error("Error")
+    if (!sideBarSelectionContext) {
+        throw new Error("Error: SideBarDrag context not found");
     }
 
-    const { state } = sideBarSelectionContext
+    const { state } = sideBarSelectionContext;
 
     const selectStyle = (state: elementKind | null) => {
-        if (state == "Container") {
+        if (state === "Container") {
             return { 
                 border: "1px solid", 
                 minHeight: "30vh", 
@@ -20,56 +20,45 @@ export const useGetStyles = () => {
                 height: "fit-content", 
                 backgroundColor: "white", 
                 opacity: "50%", 
-                color: "black",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-            }
-        } else if (state == "Elem") {
+            };
+        } else if (state === "Elem") {
             return { 
                 backgroundColor: "white", 
                 opacity: "50%", 
-                minHeight: "20px", 
-                width: "155px", 
+                minHeight: "2.5vh",          
+                width: "15vw",               
                 color: "black",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: "8px"
-            }
-        } else if (state == "Button") {
+                padding: "1vh 1vw"           
+            };
+        } else if (state === "Button") {
             return { 
                 backgroundColor: "#007bff", 
                 opacity: "50%", 
                 color: "white", 
-                padding: "8px 16px", 
-                borderRadius: "4px",
+                padding: "1vh 2vw",          
+                borderRadius: "0.4vh",       
                 cursor: "pointer",
-                width: "120px",
-                height: "40px",
+                width: "12vw",               
+                height: "4vh",               
                 border: "none",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                fontSize: "14px",
+                fontSize: "1.2vh",           
                 fontWeight: "500",
-                borderWidth:"0px !important"
-            }
+            };
         } else {
             return { 
                 border: "1px solid", 
-                minHeight: "200px", 
-                width: "200px", 
+                minHeight: "20vh", 
+                width: "20vw", 
                 height: "fit-content", 
                 backgroundColor: "white", 
                 opacity: "50%", 
                 color: "black",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
-            }
+            };
         }
     }
 
-    return selectStyle(state)
+    return selectStyle(state);
 }
