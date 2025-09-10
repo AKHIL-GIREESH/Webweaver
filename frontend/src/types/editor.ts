@@ -23,6 +23,15 @@ export type EditorContainerType = {
     contents: (EditorContainerType | EditorElementType)[] | null
 }
 
+export type EditorButtonType = {
+    parent: string
+    id: string
+    styles: React.CSSProperties
+    kind: "Elem"
+    contents: string
+    url?:string
+}
+
 export type Action = {
     type: "addElement" | "updateStyle" | "setWebsite" | "updateText" | "deleteElement"
     parent?: string

@@ -8,6 +8,7 @@ import { AuthContext } from "@/providers/authProvider"
 import { updateWebsite } from "@/api/editWebsite"
 import { CommunityComponentContext } from "@/providers/communityComponentsProvider"
 import { deployWebsite } from "@/api/createHosting"
+import GeneratenDownload from "./GeneratenDowload"
 
 
 
@@ -96,6 +97,9 @@ const Sidebar = () => {
                     Cancel
                 </Button>
             </Link>
+            <br />
+            <br />
+            <GeneratenDownload />
         </div>
     )
 }
