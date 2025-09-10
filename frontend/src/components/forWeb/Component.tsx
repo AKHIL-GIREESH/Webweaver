@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { EditorContainerType, EditorElementType } from '../../types/editor';
+import { EditorButtonType, EditorContainerType, EditorElementType } from '../../types/editor';
 import TPlaceHolderArea from './TPlaceHolderArea';
 import { WebBuilderSelectionContext } from '../../providers/webBuilderSelectionProvider';
 import ResizableBox from './resizeable';
 import { EditorContext } from '../../providers/editorProvider'; // Import EditorContext
 
 type ComponentProps = { index: number } & EditorContainerType & {
-  recFunc: (prop: EditorContainerType | EditorElementType, index: number) => JSX.Element;
+  recFunc: (prop: EditorContainerType | EditorElementType | EditorButtonType, index: number) => JSX.Element;
 };
 
 const Component: React.FC<ComponentProps> = ({ contents, styles, kind, recFunc, parent, id, index }) => {

@@ -75,9 +75,9 @@ const Sidebar = () => {
             <button style={{ marginTop: "5px", border: "1px solid", borderRadius: "10px", width: "90%" }} draggable onDrag={() => update("Elem")}>
                 ELEMENT
             </button>
-            {/* <button draggable onDrag={() => update("Button")}>
-                Button
-            </button> */}
+            <button style={{ marginTop: "5px", border: "1px solid", borderRadius: "10px", width: "90%" }} draggable onDrag={() => update("Button")}>
+                BUTTON
+            </button>
             <br />
             <br />
             <p className="font-semibold">COMMUNITY</p>

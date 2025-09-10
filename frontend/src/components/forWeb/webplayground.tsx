@@ -1,7 +1,8 @@
 //type Props = {}
-import { EditorContainerType, EditorElementType } from "../../types/editor"
+import { EditorContainerType, EditorElementType, EditorButtonType } from "../../types/editor"
 import Component from "./Component"
 import Elem from "./Elem"
+import Button from "./Button"
 import { EditorContext } from '../../providers/editorProvider';
 import { useContext } from 'react';
 
@@ -42,9 +43,11 @@ const Webplayground = () => {
     throw new Error("Website empty")
   }
 
-  const webBuilder = (prop: EditorContainerType | EditorElementType, index: number = 0) => {
+  const webBuilder = (prop: EditorContainerType | EditorElementType | EditorButtonType, index: number = 0) => {
     if (prop.kind == "Elem") {
       return (<Elem contents={prop.contents} styles={prop.styles} kind={prop.kind} parent={prop.parent} key={prop.id} id={prop.id} index={index} />)
+    } else if (prop.kind == "Button") {
+      return (<Button contents={prop.contents} styles={prop.styles} kind={prop.kind} parent={prop.parent} key={prop.id} id={prop.id} index={index} url={prop.url} recFunc={webBuilder} />)
     } else {
       return (<Component contents={prop.contents} styles={prop.styles} kind={prop.kind} recFunc={webBuilder} parent={prop.parent} key={prop.id} id={prop.id} index={index} />)
     }

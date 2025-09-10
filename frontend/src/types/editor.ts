@@ -1,6 +1,6 @@
 import React from "react"
 
-export type elementKind = 'Elem' | 'Container' | string
+export type elementKind = 'Elem' | 'Container' | string | 'Button'
 
 export type sideBarSelectionContext = {
     state: elementKind | null,
@@ -15,31 +15,33 @@ export type EditorElementType = {
     contents: string
 }
 
+export type EditorButtonType = {
+    parent: string
+    id: string
+    styles: React.CSSProperties
+    kind: "Button"
+    contents: string
+    url?:string
+}
+
 export type EditorContainerType = {
     parent: string
     id: string
     styles: React.CSSProperties
     kind: "Container"
-    contents: (EditorContainerType | EditorElementType)[] | null
+    contents: (EditorContainerType | EditorElementType | EditorButtonType)[] | null
 }
 
-export type EditorButtonType = {
-    parent: string
-    id: string
-    styles: React.CSSProperties
-    kind: "Elem"
-    contents: string
-    url?:string
-}
 
 export type Action = {
-    type: "addElement" | "updateStyle" | "setWebsite" | "updateText" | "deleteElement"
+    type: "addElement" | "updateStyle" | "setWebsite" | "updateText" | "deleteElement" | "updateUrl"
     parent?: string
     index?: number | string
-    newContainer?: EditorContainerType | EditorElementType
+    newContainer?: EditorContainerType | EditorElementType | EditorButtonType
     style?: React.CSSProperties
     website?: EditorContainerType
     content?: string
+    url?: string
 }
 
 export type editorContextType = {

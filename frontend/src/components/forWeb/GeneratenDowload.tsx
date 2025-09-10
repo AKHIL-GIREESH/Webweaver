@@ -10,9 +10,10 @@ type EditorContent = string | EditorElement[] | null;
 interface EditorElement {
     parent: string;
     id: string;
-    kind: "Elem" | "Container";
+    kind: "Elem" | "Container" | "Button";
     styles: Styles;
     contents: EditorContent;
+    url?: string;
 }
 
 
@@ -36,8 +37,21 @@ const generateHtmlAndCss = (element: EditorElement, styleMap: Record<string, str
         styleMap[className] = styleString;
     }
 
-    const tagName = element.kind.toLowerCase() === 'elem' ? 'div' : 'div';
+    let tagName = 'div';
     let innerContent = '';
+    let additionalAttributes = '';
+
+    // Determine the HTML tag based on element kind
+    if (element.kind === 'Button') {
+        tagName = 'button';
+        if (element.url) {
+            additionalAttributes = ` onclick="window.open('${element.url}', '_blank')"`;
+        }
+    } else if (element.kind === 'Elem') {
+        tagName = 'div';
+    } else {
+        tagName = 'div';
+    }
 
     if (element.contents && Array.isArray(element.contents)) {
         let childHtml = '';
@@ -50,13 +64,33 @@ const generateHtmlAndCss = (element: EditorElement, styleMap: Record<string, str
         innerContent = typeof element.contents === 'string' ? element.contents : '';
     }
 
-    const htmlTag = `<${tagName} class="${className}">${innerContent}</${tagName}>`;
+    const htmlTag = `<${tagName} class="${className}"${additionalAttributes}>${innerContent}</${tagName}>`;
     return { html: htmlTag, styleMap };
 };
 
 // Function to create the content of the CSS file
 const createCssFile = (styleMap: Record<string, string>): string => {
     let cssString = '';
+
+    // Add base button styles
+    cssString += `/* Base button styles */\n`;
+    cssString += `button {\n`;
+    cssString += `  cursor: pointer;\n`;
+    cssString += `  border: none;\n`;
+    cssString += `  outline: none;\n`;
+    cssString += `  transition: all 0.2s ease;\n`;
+    cssString += `}\n\n`;
+
+    cssString += `button:hover {\n`;
+    cssString += `  opacity: 0.8;\n`;
+    cssString += `  transform: translateY(-1px);\n`;
+    cssString += `}\n\n`;
+
+    cssString += `button:active {\n`;
+    cssString += `  transform: translateY(0);\n`;
+    cssString += `}\n\n`;
+
+    // Add element-specific styles
     for (const [className, styles] of Object.entries(styleMap)) {
         cssString += `.${className} { ${styles} }\n`;
     }

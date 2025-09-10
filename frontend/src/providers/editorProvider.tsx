@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useState } from "react";
-import { Action, EditorContainerType, editorContextType, EditorElementType, websiteContextData, websiteContextType } from "../types/editor";
+import { Action, EditorContainerType, editorContextType, EditorElementType, EditorButtonType, websiteContextData, websiteContextType } from "../types/editor";
 import { useQuery } from "@tanstack/react-query";
 import { getWebsite } from "@/api/getWebsite";
 import { useLocation } from "react-router-dom";
@@ -15,7 +15,7 @@ let website: EditorContainerType = {
     contents: [],
 };
 
-const findElemAndAdd = (container: EditorContainerType, parent: string, index: number, newContainer: EditorContainerType | EditorElementType): boolean => {
+const findElemAndAdd = (container: EditorContainerType, parent: string, index: number, newContainer: EditorContainerType | EditorElementType | EditorButtonType): boolean => {
     if (container.id === parent) {
         if (Array.isArray(container.contents)) {
             container.contents.splice(index, 0, newContainer);
@@ -59,6 +59,24 @@ const findElemAndUpdateText = (container: EditorContainerType, parent: string, i
     if (Array.isArray(container.contents)) {
         for (const item of container.contents) {
             const found: boolean = findElemAndUpdateText(item as EditorContainerType, parent, index, content);
+            if (found) return found;
+        }
+    }
+    return false;
+};
+
+const findElemAndUpdateUrl = (container: EditorContainerType, parent: string, index: string, url: string): boolean => {
+    if (container.id === parent && container.contents) {
+        for (const item of container.contents) {
+            if (item.id === index) {
+                (item as any).url = url;
+                return true;
+            }
+        }
+    }
+    if (Array.isArray(container.contents)) {
+        for (const item of container.contents) {
+            const found: boolean = findElemAndUpdateUrl(item as EditorContainerType, parent, index, url);
             if (found) return found;
         }
     }
@@ -120,6 +138,15 @@ const reducer = (state: EditorContainerType, action: Action) => {
             }
             const newState = JSON.parse(JSON.stringify(state));
             findElemAndDelete(newState, parent, index);
+            return newState;
+        }
+        case "updateUrl": {
+            const { parent, index, url } = action;
+            if (typeof index !== "string" || !parent || typeof url !== "string") {
+                return state;
+            }
+            const newState = JSON.parse(JSON.stringify(state));
+            findElemAndUpdateUrl(newState, parent, index, url);
             return newState;
         }
         default:
