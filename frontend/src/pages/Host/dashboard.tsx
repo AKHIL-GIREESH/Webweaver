@@ -52,7 +52,7 @@ const Dashboard = () => {
                     <p className="flex justify-center align-center text-3xl uppercase font-bold bg-gradient-to-br from-[#ffff00] via-[#f0c14b] to-[#b8860b] text-transparent bg-clip-text mb-3 mt-5">
                         Hosting Dashboard
                     </p>
-                    <div>{deployments.map(({ id, title, ip }: any) => (<div className="p-5 border rounded-2xl w-[40vw]" key={id}><p className="text-2xl">{title}</p><br /><a href={`http://${ip}:3000`} className="underline hover:text-my-gold">{ip}→</a></div>))}</div>
+                    <div>{deployments.map(({ id, title, subdomain }: any) => (<div className="p-5 border rounded-2xl w-[40vw]" key={id}><p className="text-2xl">{title}</p><br /><a href={`http://${subdomain}`} className="underline hover:text-my-gold">{subdomain}→</a></div>))}</div>
                 </div>
             </>
         )
