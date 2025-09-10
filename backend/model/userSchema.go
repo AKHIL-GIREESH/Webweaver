@@ -18,6 +18,10 @@ type User struct {
 	Description string               `bson:"desc,omitempty" json:"desc,omitempty"`
 	ProfilePic  string               `bson:"pfp,omitempty" json:"pfp,omitempty"`
 	Banner      string               `bson:"banner,omitempty" json:"banner,omitempty"`
+	Twitter     string               `bson:"twitter,omitempty" json:"twitter,omitempty"`
+	Github      string               `bson:"github,omitempty" json:"github,omitempty"`
+	PersonalWeb string               `bson:"personalWeb,omitempty" json:"personalWeb,omitempty"`
+	LinkedIn    string               `bson:"linkedIn,omitempty" json:"linkedIn,omitempty"`
 	Liked       []primitive.ObjectID `bson:"liked,omitempty" json:"liked,omitempty"`
 	Following   []primitive.ObjectID `bson:"following,omitempty" json:"following,omitempty"`
 	Followers   []primitive.ObjectID `bson:"followers,omitempty" json:"followers,omitempty"`
@@ -31,6 +35,10 @@ type ReqUser struct {
 	Description string               `bson:"desc,omitempty" json:"desc,omitempty"`
 	ProfilePic  string               `bson:"pfp,omitempty" json:"pfp,omitempty"`
 	Banner      string               `bson:"banner,omitempty" json:"banner,omitempty"`
+	Twitter     string               `bson:"twitter,omitempty" json:"twitter,omitempty"`
+	Github      string               `bson:"github,omitempty" json:"github,omitempty"`
+	PersonalWeb string               `bson:"personalWeb,omitempty" json:"personalWeb,omitempty"`
+	LinkedIn    string               `bson:"linkedIn,omitempty" json:"linkedIn,omitempty"`
 	Liked       []primitive.ObjectID `bson:"liked,omitempty" json:"liked,omitempty"`
 	Following   []primitive.ObjectID `bson:"following,omitempty" json:"following,omitempty"`
 	Followers   []primitive.ObjectID `bson:"followers,omitempty" json:"followers,omitempty"`

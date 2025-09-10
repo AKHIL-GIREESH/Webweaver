@@ -11,12 +11,13 @@ import { FaXTwitter } from "react-icons/fa6";
 import { Button } from "@/components/ui/button"
 import { Link } from "react-router-dom"
 import { ArrowLeft, Loader2 } from "lucide-react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { createAssets } from "@/api/createAssets"
 import { updateProfile } from "@/api/updateProfile"
 
 const ProfileEdit = () => {
     const UserContext = useContext(AuthContext)
+    const queryClient = useQueryClient()
     const [userState, setUserState] = useState<User | null>(null)
     const [fileBanner, setFileBanner] = useState<File | null>(null)
     const [filePfp, setFilePfp] = useState<File | null>(null)
@@ -60,7 +61,10 @@ const ProfileEdit = () => {
             console.log(resp)
             console.log(userState)
 
-            updateProfile(UserContext.user.id, upDateData)
+            await updateProfile(UserContext.user.id, upDateData)
+
+            // Invalidate and refetch user data to update the UI
+            queryClient.invalidateQueries({ queryKey: ["User"] })
 
             // if( resp.pfpData){
             //     setUserState((prev: User | null) => prev ? { ...prev, pfp: data.pfpData } : prev)
@@ -89,7 +93,7 @@ const ProfileEdit = () => {
 
     console.log(data)
 
-    const { username, email, followers, following, websites, pfp, banner, desc, twitter, github, personalWeb, linkedIn, id } = userState
+    const { username, email, pfp, banner, desc, twitter, github, personalWeb, linkedIn } = userState
 
     return (
         <div className="flex flex-col w-[90vw] md:w-[80vw] ml-[5vw] md:ml-[2.5vw] h-[90vh] overflow-y-scroll mt-[5vh] text-[#f0f0f0]">
