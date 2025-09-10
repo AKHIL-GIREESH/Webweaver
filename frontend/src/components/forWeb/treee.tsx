@@ -62,7 +62,7 @@ const Treee = () => {
             <Input type="color" name="bg" value={treeElem.styles.backgroundColor} className="border border-none" onChange={e => action({ type: "updateStyle", parent: treeElem.parent, index: treeElem.id, style: { ...treeElem.styles, backgroundColor: e.target.value } })} />
             <br />
             <br />
-            {treeElem.kind === 'Button' && (
+            {((treeElem as any).kind === 'Button') && (
                 <>
                     <p className="font-medium">BUTTON URL</p>
                     <Input
@@ -73,8 +73,8 @@ const Treee = () => {
                         onChange={(e) =>
                             action({
                                 type: "updateUrl",
-                                parent: treeElem.parent,
-                                index: treeElem.id,
+                                parent: (treeElem as any).parent,
+                                index: (treeElem as any).id,
                                 url: e.target.value,
                             })
                         }
